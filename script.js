@@ -470,6 +470,16 @@ document.querySelectorAll('.job-card, .hot-job-card').forEach(card => {
     });
 });
 
+// Clicking "Ứng tuyển" / "Ứng tuyển ngay" buttons opens apply form directly
+document.querySelectorAll('.job-card .btn-apply, .hot-job-card .btn-apply').forEach(btn => {
+    btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const card = btn.closest('.job-card, .hot-job-card');
+        const title = card.querySelector('h3')?.textContent?.trim() || '';
+        openApplyModal(title);
+    });
+});
+
 // ============================================================
 // Translations
 // ============================================================
