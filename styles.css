@@ -45,7 +45,7 @@ body {
 
 .nav-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -238,10 +238,30 @@ body {
 .hero-subtitle {
     font-size: 22px;
     line-height: 1.6;
-    margin-bottom: 0;
+    margin-bottom: 30px;
     opacity: 0.95;
     font-weight: 400;
     animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.btn-visit-us {
+    padding: 14px 45px;
+    background-color: var(--white);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.btn-visit-us:hover {
+    background-color: var(--primary-dark);
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes fadeInUp {
@@ -980,9 +1000,22 @@ body {
     padding-top: 30px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    gap: 10px;
     opacity: 0.8;
+    text-align: center;
+}
+
+.footer-address {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.footer-address i {
+    color: var(--primary-color);
 }
 
 .footer-links {
@@ -1085,9 +1118,7 @@ body {
     }
 
     .footer-bottom {
-        flex-direction: column;
         gap: 15px;
-        text-align: center;
     }
 
     .section-header h2 {
