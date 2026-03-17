@@ -497,6 +497,47 @@
         </div>
     </footer>
 
+    <!-- Job Detail Modal -->
+    <div class="job-modal-overlay" id="jobModal">
+        <div class="job-modal">
+            <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <div class="modal-company-logo" id="modalIcon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="modal-header-info">
+                    <div class="modal-badges">
+                        <span class="job-badge hot" id="modalBadge"></span>
+                    </div>
+                    <h2 id="modalTitle"></h2>
+                    <p class="modal-company" id="modalCompany"><i class="fas fa-building"></i> <span></span></p>
+                    <p class="modal-location" id="modalLocation"><i class="fas fa-map-marker-alt"></i> <span></span></p>
+                    <p class="modal-salary" id="modalSalary"><i class="fas fa-dollar-sign"></i> <span></span></p>
+                    <p class="modal-type" id="modalType"><i class="fas fa-clock"></i> <span></span></p>
+                </div>
+            </div>
+            <div class="modal-tags" id="modalTags"></div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 data-i18n="modalDescTitle">Mô tả công việc</h3>
+                    <p id="modalDesc"></p>
+                </div>
+                <div class="modal-section">
+                    <h3 data-i18n="modalReqTitle">Yêu cầu ứng viên</h3>
+                    <ul id="modalRequirements"></ul>
+                </div>
+                <div class="modal-section">
+                    <h3 data-i18n="modalBenTitle">Quyền lợi</h3>
+                    <ul id="modalBenefits"></ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-apply-modal" data-i18n="btnApplyNow">Ứng tuyển ngay</button>
+                <button class="btn-modal-close" id="btnModalClose" data-i18n="btnClose">Đóng</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
