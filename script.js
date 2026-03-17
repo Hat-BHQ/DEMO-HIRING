@@ -329,12 +329,143 @@ function closeJobModal() {
 modalClose.addEventListener('click', closeJobModal);
 btnModalClose.addEventListener('click', closeJobModal);
 overlay.addEventListener('click', e => { if (e.target === overlay) closeJobModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeJobModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeJobModal(); closeApplyModal(); } });
+
+// ============================================================
+// Apply Form Modal
+// ============================================================
+const applyModalOverlay = document.getElementById('applyModal');
+const applyModalCloseBtn = document.getElementById('applyModalClose');
+const applyForm = document.getElementById('applyForm');
+const applyJobTitle = document.getElementById('applyJobTitle');
+const cvUploadArea = document.getElementById('cvUploadArea');
+const applyCVInput = document.getElementById('applyCV');
+const cvFileChosen = document.getElementById('cvFileChosen');
+const cvFileName = document.getElementById('cvFileName');
+const cvRemoveBtn = document.getElementById('cvRemoveBtn');
+const successToast = document.getElementById('successToast');
+
+function openApplyModal(jobTitle) {
+    applyJobTitle.textContent = jobTitle || '';
+    applyForm.reset();
+    cvFileChosen.style.display = 'none';
+    cvUploadArea.querySelector('.cv-upload-placeholder').style.display = 'flex';
+    clearFormErrors();
+    applyModalOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeApplyModal() {
+    applyModalOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+applyModalCloseBtn.addEventListener('click', closeApplyModal);
+applyModalOverlay.addEventListener('click', e => { if (e.target === applyModalOverlay) closeApplyModal(); });
+
+// Wire "Ứng tuyển ngay" button inside job detail modal
+document.querySelector('.btn-apply-modal').addEventListener('click', () => {
+    const title = document.getElementById('modalTitle').textContent;
+    closeJobModal();
+    openApplyModal(title);
+});
+
+// CV Upload — show file name when selected
+applyCVInput.addEventListener('change', () => {
+    if (applyCVInput.files && applyCVInput.files[0]) {
+        cvFileName.textContent = applyCVInput.files[0].name;
+        cvFileChosen.style.display = 'flex';
+        cvUploadArea.querySelector('.cv-upload-placeholder').style.display = 'none';
+        document.getElementById('applyCVError').textContent = '';
+    }
+});
+
+// Drag & Drop styling
+cvUploadArea.addEventListener('dragover', e => { e.preventDefault(); cvUploadArea.classList.add('drag-over'); });
+cvUploadArea.addEventListener('dragleave', () => cvUploadArea.classList.remove('drag-over'));
+cvUploadArea.addEventListener('drop', e => {
+    e.preventDefault();
+    cvUploadArea.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) {
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        applyCVInput.files = dt.files;
+        cvFileName.textContent = file.name;
+        cvFileChosen.style.display = 'flex';
+        cvUploadArea.querySelector('.cv-upload-placeholder').style.display = 'none';
+        document.getElementById('applyCVError').textContent = '';
+    }
+});
+
+// Remove CV
+cvRemoveBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    applyCVInput.value = '';
+    cvFileChosen.style.display = 'none';
+    cvUploadArea.querySelector('.cv-upload-placeholder').style.display = 'flex';
+});
+
+function clearFormErrors() {
+    ['applyNameError','applyEmailError','applyPhoneError','applyCVError'].forEach(id => {
+        document.getElementById(id).textContent = '';
+    });
+    ['applyName','applyEmail','applyPhone'].forEach(id => {
+        document.getElementById(id).classList.remove('error');
+    });
+}
+
+function validateApplyForm() {
+    let valid = true;
+    const lang = currentLang;
+    const t = translations[lang];
+
+    const name = document.getElementById('applyName').value.trim();
+    if (!name) {
+        document.getElementById('applyNameError').textContent = t.applyErrName;
+        document.getElementById('applyName').classList.add('error');
+        valid = false;
+    }
+
+    const email = document.getElementById('applyEmail').value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById('applyEmailError').textContent = t.applyErrEmail;
+        document.getElementById('applyEmail').classList.add('error');
+        valid = false;
+    }
+
+    const phone = document.getElementById('applyPhone').value.trim();
+    if (!phone || !/^[0-9\s\+\-]{8,15}$/.test(phone)) {
+        document.getElementById('applyPhoneError').textContent = t.applyErrPhone;
+        document.getElementById('applyPhone').classList.add('error');
+        valid = false;
+    }
+
+    if (!applyCVInput.files || !applyCVInput.files[0]) {
+        document.getElementById('applyCVError').textContent = t.applyErrCV;
+        valid = false;
+    }
+
+    return valid;
+}
+
+applyForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    clearFormErrors();
+    if (!validateApplyForm()) return;
+
+    closeApplyModal();
+    showSuccessToast();
+});
+
+function showSuccessToast() {
+    successToast.classList.add('show');
+    setTimeout(() => successToast.classList.remove('show'), 4000);
+}
 
 // Attach click to all job cards
 document.querySelectorAll('.job-card, .hot-job-card').forEach(card => {
     card.addEventListener('click', e => {
-        if (e.target.closest('.btn-apply')) return; // let apply button handle separately
         openJobModal(card);
     });
 });
@@ -409,6 +540,23 @@ const translations = {
     modalReqTitle: 'Yêu cầu ứng viên',
     modalBenTitle: 'Quyền lợi',
     btnClose: 'Đóng',
+    applyFormTitle: 'Ứng tuyển vị trí',
+    applyLabelName: 'Họ và tên',
+    applyPlaceholderName: 'Nhập họ và tên của bạn',
+    applyLabelEmail: 'Email',
+    applyPlaceholderEmail: 'Nhập địa chỉ email',
+    applyLabelPhone: 'Số điện thoại',
+    applyPlaceholderPhone: 'Nhập số điện thoại',
+    applyLabelCV: 'Upload CV',
+    applyUploadHint: 'Kéo thả hoặc bấm để chọn file CV',
+    applyUploadFormats: 'Hỗ trợ: PDF, DOC, DOCX',
+    applyBtnSubmit: 'Gửi hồ sơ',
+    applySuccessTitle: 'Nộp hồ sơ thành công!',
+    applySuccessDesc: 'Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.',
+    applyErrName: 'Vui lòng nhập họ và tên',
+    applyErrEmail: 'Vui lòng nhập email hợp lệ',
+    applyErrPhone: 'Vui lòng nhập số điện thoại hợp lệ',
+    applyErrCV: 'Vui lòng upload CV của bạn',
   },
   en: {
     heroTitle: 'Find Your Career<br><span class="highlight">Perfect Opportunity</span> Now',
@@ -476,6 +624,23 @@ const translations = {
     modalReqTitle: 'Requirements',
     modalBenTitle: 'Benefits',
     btnClose: 'Close',
+    applyFormTitle: 'Apply for Position',
+    applyLabelName: 'Full Name',
+    applyPlaceholderName: 'Enter your full name',
+    applyLabelEmail: 'Email',
+    applyPlaceholderEmail: 'Enter your email address',
+    applyLabelPhone: 'Phone Number',
+    applyPlaceholderPhone: 'Enter your phone number',
+    applyLabelCV: 'Upload CV',
+    applyUploadHint: 'Drag & drop or click to select your CV',
+    applyUploadFormats: 'Supported: PDF, DOC, DOCX',
+    applyBtnSubmit: 'Submit Application',
+    applySuccessTitle: 'Application Submitted!',
+    applySuccessDesc: 'We will contact you as soon as possible.',
+    applyErrName: 'Please enter your full name',
+    applyErrEmail: 'Please enter a valid email',
+    applyErrPhone: 'Please enter a valid phone number',
+    applyErrCV: 'Please upload your CV',
   }
 };
 

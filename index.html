@@ -538,6 +538,67 @@
         </div>
     </div>
 
+    <!-- Apply Form Modal -->
+    <div class="apply-modal-overlay" id="applyModal">
+        <div class="apply-modal">
+            <button class="modal-close" id="applyModalClose"><i class="fas fa-times"></i></button>
+            <div class="apply-modal-header">
+                <div class="apply-modal-icon"><i class="fas fa-paper-plane"></i></div>
+                <h2 data-i18n="applyFormTitle">Ứng tuyển vị trí</h2>
+                <p class="apply-modal-job-title" id="applyJobTitle"></p>
+            </div>
+            <form class="apply-form" id="applyForm" novalidate>
+                <div class="form-group">
+                    <label for="applyName"><span data-i18n="applyLabelName">Họ và tên</span> <span class="required">*</span></label>
+                    <input type="text" id="applyName" data-i18n-placeholder="applyPlaceholderName" placeholder="Nhập họ và tên của bạn" required />
+                    <span class="form-error" id="applyNameError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="applyEmail"><span data-i18n="applyLabelEmail">Email</span> <span class="required">*</span></label>
+                    <input type="email" id="applyEmail" data-i18n-placeholder="applyPlaceholderEmail" placeholder="Nhập địa chỉ email" required />
+                    <span class="form-error" id="applyEmailError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="applyPhone"><span data-i18n="applyLabelPhone">Số điện thoại</span> <span class="required">*</span></label>
+                    <input type="tel" id="applyPhone" data-i18n-placeholder="applyPlaceholderPhone" placeholder="Nhập số điện thoại" required />
+                    <span class="form-error" id="applyPhoneError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="applyCV"><span data-i18n="applyLabelCV">Upload CV</span> <span class="required">*</span></label>
+                    <div class="cv-upload-area" id="cvUploadArea">
+                        <input type="file" id="applyCV" accept=".pdf,.doc,.docx" required />
+                        <div class="cv-upload-placeholder">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p data-i18n="applyUploadHint">Kéo thả hoặc bấm để chọn file CV</p>
+                            <span data-i18n="applyUploadFormats">Hỗ trợ: PDF, DOC, DOCX</span>
+                        </div>
+                        <div class="cv-file-chosen" id="cvFileChosen" style="display:none;">
+                            <i class="fas fa-file-alt"></i>
+                            <span id="cvFileName"></span>
+                            <button type="button" class="cv-remove-btn" id="cvRemoveBtn"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <span class="form-error" id="applyCVError"></span>
+                </div>
+                <button type="submit" class="btn-submit-apply" id="btnSubmitApply">
+                    <span data-i18n="applyBtnSubmit">Gửi hồ sơ</span>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div class="success-toast" id="successToast">
+        <div class="success-toast-content">
+            <div class="success-toast-icon"><i class="fas fa-check-circle"></i></div>
+            <div class="success-toast-text">
+                <strong data-i18n="applySuccessTitle">Nộp hồ sơ thành công!</strong>
+                <span data-i18n="applySuccessDesc">Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.</span>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
