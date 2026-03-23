@@ -10,8 +10,7 @@ export default function Header() {
       <div className="container">
         <div className="nav-wrapper">
           <div className="logo">
-            <i className="fas fa-bullhorn"></i>
-            <span>TOM</span> ORGANIZATION
+            <img src="/image/logon.png" alt="TOM Organization" className="logo-img" />
           </div>
           <div className="nav-controls">
             <button className="btn-lang-toggle" onClick={toggleLang}>

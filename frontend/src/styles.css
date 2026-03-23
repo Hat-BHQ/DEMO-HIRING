@@ -58,7 +58,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-    padding: 20px 0;
+    padding: 10px 0;
 }
 
 .nav-wrapper {
@@ -68,12 +68,14 @@ body {
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--text-dark);
     display: flex;
     align-items: center;
-    gap: 10px;
+}
+
+.logo-img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
 }
 
 .logo i {
@@ -185,16 +187,16 @@ body {
 
 /* Hero Section */
 .hero {
-    min-height: 320px;
+    min-height: 630px;
     position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
-    padding: 45px 0;
+    padding: 60px 0;
     width: calc(100% - 40px);
-    max-width: 1200px;
+    max-width: 1155px;
     margin: 0 auto;
-    border-radius: 16px;
+    border-radius: 16px; 
 }
 
 .hero-slides {
