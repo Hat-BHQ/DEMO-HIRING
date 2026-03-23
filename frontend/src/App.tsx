@@ -10,7 +10,6 @@ import HotJobCard from './components/HotJobCard';
 import JobCard from './components/JobCard';
 import JobDetailModal from './components/JobDetailModal';
 import ApplyModal from './components/ApplyModal';
-import CTA from './components/CTA';
 import Footer from './components/Footer';
 import SuccessToast from './components/SuccessToast';
 
