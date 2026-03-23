@@ -121,7 +121,7 @@ copy .env.example .env
 alembic upgrade head
 
 # Start server (auto-seeds data on first run)
-uvicorn app.main:app --reload --port 8000
+uvicorn app.main:app --reload --port 8090
 ```
 
 ### 3. Frontend Setup
@@ -137,7 +137,7 @@ npm run dev
 ```
 
 The app will be available at **http://localhost:5173**  
-API docs at **http://localhost:8000/docs** (Swagger UI)
+API docs at **http://localhost:8090/docs** (Swagger UI)
 
 ---
 
