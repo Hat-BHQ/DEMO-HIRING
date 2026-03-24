@@ -1,4 +1,3 @@
-import uuid
 import hmac
 
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -75,7 +74,7 @@ async def list_jobs(
 
 @router.get("/jobs/{job_id}", response_model=JobResponse)
 async def get_job(
-    job_id: uuid.UUID,
+    job_id: str,
     admin: str = Depends(get_current_admin),
     db: AsyncSession = Depends(get_db),
 ):
@@ -98,7 +97,7 @@ async def create_job(
 
 @router.put("/jobs/{job_id}", response_model=JobResponse)
 async def update_job(
-    job_id: uuid.UUID,
+    job_id: str,
     data: JobUpdate,
     admin: str = Depends(get_current_admin),
     db: AsyncSession = Depends(get_db),
@@ -112,7 +111,7 @@ async def update_job(
 
 @router.delete("/jobs/{job_id}", status_code=204)
 async def delete_job(
-    job_id: uuid.UUID,
+    job_id: str,
     admin: str = Depends(get_current_admin),
     db: AsyncSession = Depends(get_db),
 ):
@@ -144,7 +143,7 @@ async def create_company(
 
 @router.put("/companies/{company_id}", response_model=CompanyResponse)
 async def update_company(
-    company_id: uuid.UUID,
+    company_id: str,
     data: CompanyCreate,
     admin: str = Depends(get_current_admin),
     db: AsyncSession = Depends(get_db),
@@ -158,7 +157,7 @@ async def update_company(
 
 @router.delete("/companies/{company_id}", status_code=204)
 async def delete_company(
-    company_id: uuid.UUID,
+    company_id: str,
     admin: str = Depends(get_current_admin),
     db: AsyncSession = Depends(get_db),
 ):
@@ -195,7 +194,7 @@ async def list_applications(
 
 @router.patch("/applications/{app_id}/status")
 async def update_application_status(
-    app_id: uuid.UUID,
+    app_id: str,
     body: dict,
     admin: str = Depends(get_current_admin),
     db: AsyncSession = Depends(get_db),
@@ -213,7 +212,7 @@ async def update_application_status(
 
 @router.delete("/applications/{app_id}", status_code=204)
 async def delete_application(
-    app_id: uuid.UUID,
+    app_id: str,
     admin: str = Depends(get_current_admin),
     db: AsyncSession = Depends(get_db),
 ):

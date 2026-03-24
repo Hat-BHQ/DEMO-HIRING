@@ -1,5 +1,3 @@
-import uuid
-
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.models import Job
@@ -11,7 +9,7 @@ class JobService:
     def __init__(self, db: AsyncSession):
         self.repo = JobRepository(db)
 
-    async def get_job(self, job_id: uuid.UUID) -> Job | None:
+    async def get_job(self, job_id: str) -> Job | None:
         return await self.repo.get_by_id(job_id)
 
     async def get_jobs(self, filters: JobFilter) -> JobListResponse:
@@ -49,10 +47,10 @@ class JobService:
             page_size=page_size,
         )
 
-    async def get_job_admin(self, job_id: uuid.UUID) -> Job | None:
+    async def get_job_admin(self, job_id: str) -> Job | None:
         return await self.repo.get_by_id_admin(job_id)
 
-    async def update_job(self, job_id: uuid.UUID, data: JobUpdate) -> JobResponse | None:
+    async def update_job(self, job_id: str, data: JobUpdate) -> JobResponse | None:
         job = await self.repo.get_by_id_admin(job_id)
         if not job:
             return None
@@ -60,7 +58,7 @@ class JobService:
         updated = await self.repo.update(job, update_data)
         return JobResponse.model_validate(updated)
 
-    async def delete_job(self, job_id: uuid.UUID) -> bool:
+    async def delete_job(self, job_id: str) -> bool:
         job = await self.repo.get_by_id_admin(job_id)
         if not job:
             return False

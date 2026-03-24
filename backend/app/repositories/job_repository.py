@@ -1,5 +1,3 @@
-import uuid
-
 from sqlalchemy import select, func, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -12,7 +10,7 @@ class JobRepository:
     def __init__(self, db: AsyncSession):
         self.db = db
 
-    async def get_by_id(self, job_id: uuid.UUID) -> Job | None:
+    async def get_by_id(self, job_id: str) -> Job | None:
         result = await self.db.execute(
             select(Job).options(selectinload(Job.company)).where(Job.id == job_id, Job.is_active.is_(True))
         )
@@ -24,7 +22,7 @@ class JobRepository:
 
         if filters.search:
             search_term = f"%{filters.search}%"
-            search_cond = or_(Job.title.ilike(search_term), Job.tags.any(filters.search))
+            search_cond = or_(Job.title.ilike(search_term), Job.tags.like(search_term))
             query = query.where(search_cond)
             count_query = count_query.where(search_cond)
 
@@ -89,7 +87,7 @@ class JobRepository:
         return [row[0] for row in result.all()]
 
     # ---------- Admin methods ----------
-    async def get_by_id_admin(self, job_id: uuid.UUID) -> Job | None:
+    async def get_by_id_admin(self, job_id: str) -> Job | None:
         result = await self.db.execute(
             select(Job).options(selectinload(Job.company)).where(Job.id == job_id)
         )

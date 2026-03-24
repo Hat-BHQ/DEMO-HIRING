@@ -1,5 +1,3 @@
-import uuid
-
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -17,11 +15,11 @@ class ApplicationRepository:
         await self.db.refresh(application)
         return application
 
-    async def get_by_id(self, app_id: uuid.UUID) -> Application | None:
+    async def get_by_id(self, app_id: str) -> Application | None:
         result = await self.db.execute(select(Application).where(Application.id == app_id))
         return result.scalar_one_or_none()
 
-    async def get_by_job_id(self, job_id: uuid.UUID) -> list[Application]:
+    async def get_by_job_id(self, job_id: str) -> list[Application]:
         result = await self.db.execute(
             select(Application).where(Application.job_id == job_id).order_by(Application.created_at.desc())
         )

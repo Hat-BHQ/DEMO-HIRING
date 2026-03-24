@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    DATABASE_URL: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/tom_hiring"
+    DATABASE_URL: str = "mysql+aiomysql://root:@localhost:3306/tom_hiring"
     CORS_ORIGINS: list[str] = ["http://localhost:5173"]
     UPLOAD_DIR: str = "./uploads"
     ADMIN_USERNAME: str = "admin"

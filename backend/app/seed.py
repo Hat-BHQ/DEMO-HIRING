@@ -1,5 +1,4 @@
 """Seed database with initial job data migrated from the original static HTML/JS site."""
-import uuid
 from sqlalchemy import select
 from app.core.database import async_session
 from app.models.models import Company, Job

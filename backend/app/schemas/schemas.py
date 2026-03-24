@@ -1,4 +1,3 @@
-import uuid
 from datetime import datetime
 from pydantic import BaseModel, EmailStr, Field
 
@@ -14,7 +13,7 @@ class CompanyCreate(CompanyBase):
 
 
 class CompanyResponse(CompanyBase):
-    id: uuid.UUID
+    id: str
     created_at: datetime
 
     model_config = {"from_attributes": True}
@@ -44,7 +43,7 @@ class JobBase(BaseModel):
 
 
 class JobCreate(JobBase):
-    company_id: uuid.UUID
+    company_id: str
 
 
 class JobUpdate(BaseModel):
@@ -67,8 +66,8 @@ class JobUpdate(BaseModel):
 
 
 class JobResponse(JobBase):
-    id: uuid.UUID
-    company_id: uuid.UUID
+    id: str
+    company_id: str
     company: CompanyResponse
     created_at: datetime
     updated_at: datetime
@@ -88,17 +87,17 @@ class ApplicationCreate(BaseModel):
     full_name: str = Field(..., min_length=1, max_length=255)
     email: str = Field(..., pattern=r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
     phone: str = Field(..., pattern=r"^[0-9\s\+\-]{8,15}$")
-    job_id: uuid.UUID
+    job_id: str
 
 
 class ApplicationResponse(BaseModel):
-    id: uuid.UUID
+    id: str
     full_name: str
     email: str
     phone: str
     cv_filename: str
     status: str
-    job_id: uuid.UUID
+    job_id: str
     created_at: datetime
 
     model_config = {"from_attributes": True}
@@ -131,13 +130,13 @@ class TokenResponse(BaseModel):
 
 # ---------- Application (admin) ----------
 class ApplicationAdminResponse(BaseModel):
-    id: uuid.UUID
+    id: str
     full_name: str
     email: str
     phone: str
     cv_filename: str
     status: str
-    job_id: uuid.UUID
+    job_id: str
     job_title: str | None = None
     created_at: datetime
 

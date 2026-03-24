@@ -1,5 +1,3 @@
-import uuid
-
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -14,7 +12,7 @@ class CompanyRepository:
         result = await self.db.execute(select(Company).order_by(Company.name))
         return list(result.scalars().all())
 
-    async def get_by_id(self, company_id: uuid.UUID) -> Company | None:
+    async def get_by_id(self, company_id: str) -> Company | None:
         result = await self.db.execute(select(Company).where(Company.id == company_id))
         return result.scalar_one_or_none()
 

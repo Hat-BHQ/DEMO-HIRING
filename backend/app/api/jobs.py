@@ -1,5 +1,3 @@
-import uuid
-
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -61,7 +59,7 @@ async def get_locations(db: AsyncSession = Depends(get_db)):
 
 
 @router.get("/{job_id}", response_model=JobResponse)
-async def get_job(job_id: uuid.UUID, db: AsyncSession = Depends(get_db)):
+async def get_job(job_id: str, db: AsyncSession = Depends(get_db)):
     service = JobService(db)
     job = await service.get_job(job_id)
     if not job:

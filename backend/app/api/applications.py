@@ -1,5 +1,3 @@
-import uuid
-
 from fastapi import APIRouter, Depends, Form, UploadFile, File, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -15,7 +13,7 @@ async def submit_application(
     full_name: str = Form(...),
     email: str = Form(...),
     phone: str = Form(...),
-    job_id: uuid.UUID = Form(...),
+    job_id: str = Form(...),
     cv: UploadFile = File(...),
     db: AsyncSession = Depends(get_db),
 ):
