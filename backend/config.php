@@ -12,9 +12,10 @@ define('DB_PASS', getenv('DB_PASS') ?: 'Hq101sing');
 define('DB_CHARSET', 'utf8mb4');
 
 // Admin credentials
-define('ADMIN_USERNAME', getenv('ADMIN_USERNAME') ?: 'admin');
-define('ADMIN_PASSWORD', getenv('ADMIN_PASSWORD') ?: 'admin123');
-
+// define('ADMIN_USERNAME', getenv('ADMIN_USERNAME') ?: 'admin');
+// define('ADMIN_PASSWORD', getenv('ADMIN_PASSWORD') ?: 'admin123');
+define('ADMIN_USERNAME', 'admin');
+define('ADMIN_PASSWORD', 'admin123');
 // JWT
 define('SECRET_KEY', getenv('SECRET_KEY') ?: 'tom-hiring-secret-key-change-in-production');
 define('TOKEN_EXPIRE_MINUTES', 480);
