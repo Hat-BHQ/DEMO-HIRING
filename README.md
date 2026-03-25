@@ -1,173 +1,78 @@
 # TOM Organization - Hiring Platform
 
-## Architecture Overview
+## Tech Stack
 
-Full-stack recruitment platform migrated from static HTML/CSS/JS to:
 - **Frontend**: React 19 + TypeScript + Vite
-- **Backend**: Python FastAPI (async)
-- **Database**: PostgreSQL + SQLAlchemy + Alembic
-
----
+- **Backend**: PHP 8+ (PDO MySQL)
+- **Database**: MySQL / MariaDB
 
 ## Project Structure
 
 ```
 DEMO-HIRING/
-├── backend/
-│   ├── app/
-│   │   ├── api/                  # API routers (FastAPI)
-│   │   │   ├── jobs.py           # GET /api/jobs, /api/jobs/hot, /api/jobs/featured, /api/jobs/{id}
-│   │   │   └── applications.py   # POST /api/applications
-│   │   ├── core/
-│   │   │   ├── config.py         # Pydantic Settings (.env)
-│   │   │   └── database.py       # Async SQLAlchemy engine & session
-│   │   ├── models/
-│   │   │   └── models.py         # SQLAlchemy ORM: Company, Job, Application
-│   │   ├── repositories/
-│   │   │   ├── job_repository.py
-│   │   │   └── application_repository.py
-│   │   ├── schemas/
-│   │   │   └── schemas.py        # Pydantic request/response schemas
-│   │   ├── services/
-│   │   │   ├── job_service.py
-│   │   │   └── application_service.py
-│   │   ├── seed.py               # Initial data seeding (migrated from JS)
-│   │   └── main.py               # FastAPI app entry point
-│   ├── alembic/
-│   │   ├── versions/
-│   │   │   └── 001_initial_migration.py
-│   │   ├── env.py
-│   │   └── script.py.mako
-│   ├── alembic.ini
-│   ├── requirements.txt
-│   └── .env.example
+├── backend/                # PHP API
+│   ├── config.php          # DB & app config
+│   ├── database.php        # PDO connection
+│   ├── auth.php            # JWT token
+│   ├── helpers.php         # Response helpers
+│   ├── index.php           # Router
+│   ├── .htaccess           # Apache URL rewrite
+│   └── routes/
+│       ├── jobs.php        # Public jobs API
+│       ├── applications.php # Submit CV
+│       └── admin.php       # Admin CRUD
 │
-├── frontend/
-│   ├── public/
-│   │   └── image/                # Hero images (hcm01.jpg, hcm02.jpg)
+├── frontend/               # React SPA
 │   ├── src/
-│   │   ├── components/
-│   │   │   ├── Header.tsx        # Nav + lang/theme toggles
-│   │   │   ├── Hero.tsx          # Hero slideshow
-│   │   │   ├── Stats.tsx         # Statistics section
-│   │   │   ├── FilterSection.tsx # Search + advanced filters
-│   │   │   ├── HotJobCard.tsx    # Hot job list item
-│   │   │   ├── JobCard.tsx       # Featured job grid card
-│   │   │   ├── JobDetailModal.tsx
-│   │   │   ├── ApplyModal.tsx    # Application form modal
-│   │   │   ├── CTA.tsx
-│   │   │   ├── Footer.tsx
-│   │   │   └── SuccessToast.tsx
-│   │   ├── contexts/
-│   │   │   ├── LangContext.tsx   # i18n (vi/en)
-│   │   │   └── ThemeContext.tsx  # light/dark theme
-│   │   ├── hooks/
-│   │   │   └── useJobs.ts       # Data fetching hook
-│   │   ├── i18n/
-│   │   │   └── translations.ts  # All translation strings
-│   │   ├── services/
-│   │   │   └── api.ts           # API client functions
-│   │   ├── types/
-│   │   │   └── index.ts         # TypeScript interfaces
-│   │   ├── App.tsx
-│   │   ├── main.tsx
-│   │   ├── styles.css            # Migrated from original
-│   │   └── vite-env.d.ts
-│   ├── index.html
-│   ├── package.json
-│   ├── tsconfig.json
+│   │   ├── components/     # UI components
+│   │   ├── pages/          # Pages
+│   │   ├── services/       # API calls
+│   │   └── hooks/          # Custom hooks
 │   └── vite.config.ts
-│
-├── index.html                    # [ORIGINAL] - kept for reference
-├── script.js                     # [ORIGINAL]
-├── styles.css                    # [ORIGINAL]
-└── image/                        # [ORIGINAL]
+└── seed_data.sql               # SQL seed data cho phpMyAdmin
 ```
 
----
-
-## Setup & Run
-
-### Prerequisites
-- Python 3.11+
-- Node.js 18+
-- PostgreSQL 15+
-
-### 1. Database Setup
+## Local Development
 
 ```bash
-# Create PostgreSQL database
-psql -U postgres -c "CREATE DATABASE tom_hiring;"
-```
-
-### 2. Backend Setup
-
-```bash
-cd backend
-
-# Create virtual environment
-python -m venv venv
-venv\Scripts\activate        # Windows
-# source venv/bin/activate   # Linux/Mac
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Configure environment
-copy .env.example .env
-# Edit .env with your PostgreSQL credentials
-
-# Run database migrations
-alembic upgrade head
-
-# Start server (auto-seeds data on first run)
-uvicorn app.main:app --reload --port 8090
-```
-
-### 3. Frontend Setup
-
-```bash
+# Frontend
 cd frontend
-
-# Install dependencies
 npm install
+npm run dev          # http://localhost:5173
 
-# Start development server
-npm run dev
+# Backend (cần PHP 8+ và MySQL)
+cd backend
+# Sửa config.php với DB credentials
+php -S localhost:8080 router.php
 ```
 
-The app will be available at **http://localhost:5173**  
-API docs at **http://localhost:8090/docs** (Swagger UI)
+## Deploy lên Hostinger
 
----
+1. **Build frontend:**
+   ```bash
+   cd frontend && npm run build
+   ```
+2. **Upload lên Hostinger:**
+   - `frontend/dist/*` → `public_html/`
+   - `backend/*` → `public_html/api/`
+3. **Sửa `public_html/api/config.php`** với DB Hostinger
+4. **Chạy `seed_data.sql`** trong phpMyAdmin
 
 ## API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/jobs` | List jobs with filters (search, location, salary, pagination) |
-| GET | `/api/jobs/hot` | Get hot jobs |
-| GET | `/api/jobs/featured` | Get featured jobs |
-| GET | `/api/jobs/{id}` | Get job detail |
-| GET | `/api/jobs/locations` | Get available locations |
-| POST | `/api/jobs` | Create a new job |
-| POST | `/api/applications` | Submit job application (multipart form) |
-| GET | `/api/health` | Health check |
-
----
-
-## Migration Mapping: Old → New
-
-| Old System (Static) | New System | Notes |
-|---------------------|------------|-------|
-| `index.html` - monolithic HTML | React components (`Header`, `Hero`, `Stats`, etc.) | Each section → reusable component |
-| `jobsData[]` in script.js | PostgreSQL `jobs` table + `companies` table | Data normalized, relationships added |
-| `data-i18n` attributes + `translations{}` | `LangContext` + `translations.ts` | Type-safe i18n with Context API |
-| `data-theme` + CSS vars | `ThemeContext` + same CSS vars | Same visual result, React-managed |
-| No backend / form doesn't submit | FastAPI REST API + file upload | Real data persistence |
-| `findJob()` by title matching | Database queries with UUID-based lookups | Proper indexing, no string matching |
-| Client-only filter UI | API-based search with query params | Server-side filtering, pagination |
-| Inline event handlers | React event handlers + hooks | Proper state management |
+| Method | Endpoint | Mô tả |
+|--------|----------|-------|
+| GET | `/api/jobs` | Danh sách jobs (filter, pagination) |
+| GET | `/api/jobs/hot` | Jobs nổi bật |
+| GET | `/api/jobs/featured` | Jobs đề xuất |
+| GET | `/api/jobs/{id}` | Chi tiết job |
+| GET | `/api/jobs/locations` | Danh sách địa điểm |
+| POST | `/api/applications` | Nộp đơn ứng tuyển (multipart) |
+| POST | `/api/admin/login` | Đăng nhập admin |
+| GET | `/api/admin/dashboard` | Thống kê |
+| CRUD | `/api/admin/jobs/*` | Quản lý jobs |
+| CRUD | `/api/admin/companies/*` | Quản lý công ty |
+| CRUD | `/api/admin/applications/*` | Quản lý đơn ứng tuyển |
 | No CV storage | File upload → server filesystem | Secure file handling with validation |
 
 ---
