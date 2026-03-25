@@ -4,11 +4,11 @@
  * Trên Hostinger: sửa các giá trị DB_* cho đúng với phpMyAdmin
  */
 
-// Database
+// Database - Hostinger
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
-define('DB_NAME', getenv('DB_NAME') ?: 'tom_hiring');
-define('DB_USER', getenv('DB_USER') ?: 'root');
-define('DB_PASS', getenv('DB_PASS') ?: '');
+define('DB_NAME', getenv('DB_NAME') ?: 'u972116454_tom_hiring');
+define('DB_USER', getenv('DB_USER') ?: 'u972116454_tom_admin');
+define('DB_PASS', getenv('DB_PASS') ?: 'Hq101sing');
 define('DB_CHARSET', 'utf8mb4');
 
 // Admin credentials
@@ -22,8 +22,10 @@ define('TOKEN_EXPIRE_MINUTES', 480);
 // Upload
 define('UPLOAD_DIR', __DIR__ . '/uploads');
 
-// CORS - thêm domain của bạn vào đây
+// CORS - thêm domain của bạn vào đây    
 define('CORS_ORIGINS', [
     'http://localhost:5173',
     'http://localhost:3000',
+    'https://tomgroupvn.com',
+    'https://www.tomgroupvn.com',
 ]);
