@@ -11,12 +11,12 @@ async function request<T>(url: string, init?: RequestInit): Promise<T> {
   return res.json();
 }
 
-export async function fetchHotJobs(limit = 5): Promise<Job[]> {
-  return request<Job[]>(`/jobs/hot?limit=${limit}`);
+export async function fetchHotJobs(limit = 5, offset = 0): Promise<{ items: Job[]; total: number }> {
+  return request<{ items: Job[]; total: number }>(`/jobs/hot?limit=${limit}&offset=${offset}`);
 }
 
-export async function fetchFeaturedJobs(limit = 6): Promise<Job[]> {
-  return request<Job[]>(`/jobs/featured?limit=${limit}`);
+export async function fetchFeaturedJobs(limit = 6, offset = 0): Promise<{ items: Job[]; total: number }> {
+  return request<{ items: Job[]; total: number }>(`/jobs/featured?limit=${limit}&offset=${offset}`);
 }
 
 export async function fetchJobs(filters: JobFilter): Promise<JobListResponse> {
@@ -25,6 +25,8 @@ export async function fetchJobs(filters: JobFilter): Promise<JobListResponse> {
   if (filters.location) params.set('location', filters.location);
   if (filters.salary_min != null) params.set('salary_min', String(filters.salary_min));
   if (filters.salary_max != null) params.set('salary_max', String(filters.salary_max));
+  if (filters.work_type) params.set('work_type', filters.work_type);
+  if (filters.tag) params.set('tag', filters.tag);
   if (filters.is_hot != null) params.set('is_hot', String(filters.is_hot));
   if (filters.is_featured != null) params.set('is_featured', String(filters.is_featured));
   if (filters.page) params.set('page', String(filters.page));

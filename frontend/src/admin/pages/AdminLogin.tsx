@@ -17,8 +17,9 @@ export default function AdminLogin() {
       const token = await adminLogin(username, password);
       localStorage.setItem('admin_token', token);
       navigate('/admin');
-    } catch {
-      setError('Sai tên đăng nhập hoặc mật khẩu');
+    } catch (err) {
+      console.error('[Login error]', err);
+      setError(err instanceof Error ? err.message : 'Sai tên đăng nhập hoặc mật khẩu');
     } finally {
       setLoading(false);
     }

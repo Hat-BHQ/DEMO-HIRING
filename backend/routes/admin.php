@@ -6,21 +6,39 @@
 // ========== AUTH ==========
 
 function handleAdminLogin(): void {
+    $db = getDB();
     $data = getJSONBody();
-    $username = $data['username'] ?? '';
+    $username = trim($data['username'] ?? '');
     $password = $data['password'] ?? '';
 
-    if (!hash_equals(ADMIN_USERNAME, $username) || !hash_equals(ADMIN_PASSWORD, $password)) {
+    if (empty($username) || empty($password)) {
+        sendError(400, 'Username and password required');
+    }
+
+    $stmt = $db->prepare("SELECT * FROM users WHERE username = :username AND is_active = 1");
+    $stmt->execute([':username' => $username]);
+    $user = $stmt->fetch();
+
+    if (!$user || !password_verify($password, $user['password_hash'])) {
         sendError(401, 'Invalid credentials');
     }
 
-    $token = createAccessToken($username);
-    sendJSON(['access_token' => $token, 'token_type' => 'bearer']);
+    $token = createAccessToken($user['username'], $user['role']);
+    sendJSON([
+        'access_token' => $token,
+        'token_type' => 'bearer',
+        'role' => $user['role'],
+        'display_name' => $user['display_name'],
+    ]);
 }
 
 function handleAdminMe(): void {
-    $admin = getAuthAdmin();
-    sendJSON(['username' => $admin]);
+    $auth = getAuthAdmin();
+    $db = getDB();
+    $stmt = $db->prepare("SELECT username, display_name, role FROM users WHERE username = :u");
+    $stmt->execute([':u' => $auth['username']]);
+    $user = $stmt->fetch();
+    sendJSON($user ?: ['username' => $auth['username'], 'role' => $auth['role'], 'display_name' => $auth['username']]);
 }
 
 // ========== DASHBOARD ==========
@@ -374,7 +392,7 @@ function handleAdminUpdateApplicationStatus(string $appId): void {
 }
 
 function handleAdminDeleteApplication(string $appId): void {
-    getAuthAdmin();
+    requireSuperadmin();
     $db = getDB();
 
     $stmt = $db->prepare("DELETE FROM applications WHERE id = :id");

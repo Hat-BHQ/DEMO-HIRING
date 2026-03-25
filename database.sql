@@ -172,3 +172,21 @@ INSERT INTO `jobs` (
  '["Lương 15-25 triệu","Thưởng hiệu suất","Phụ cấp điện thoại","Nghỉ phép 15 ngày/năm"]',
  '["Salary 15-25M VND","Performance bonus","Phone allowance","15 days annual leave"]',
  0, 0, 1, 'c004-0000-0000-0000-000000000004', NOW(), NOW());
+
+-- ============================================================
+-- TABLE: users (2-tier admin roles)
+-- ============================================================
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` VARCHAR(36) NOT NULL PRIMARY KEY,
+  `username` VARCHAR(100) NOT NULL UNIQUE,
+  `password_hash` VARCHAR(255) NOT NULL,
+  `display_name` VARCHAR(255) NOT NULL DEFAULT '',
+  `role` ENUM('superadmin','employee') NOT NULL DEFAULT 'employee',
+  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+  `created_at` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Sample users: password = "password" (bcrypt)
+INSERT IGNORE INTO `users` (`id`, `username`, `password_hash`, `display_name`, `role`, `is_active`, `created_at`) VALUES
+('u001-0000-0000-0000-000000000001', 'admin',     '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Super Admin',  'superadmin', 1, NOW()),
+('u002-0000-0000-0000-000000000002', 'employee1', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Nhân viên HR', 'employee',   1, NOW());

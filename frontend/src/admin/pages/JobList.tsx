@@ -65,7 +65,7 @@ export default function JobList() {
               <th>Tiêu đề</th>
               <th>Công ty</th>
               <th>Địa điểm</th>
-              <th>Lương (USD)</th>
+              <th>Lương (VND)</th>
               <th>Badge</th>
               <th>Trạng thái</th>
               <th>Thao tác</th>
@@ -82,7 +82,7 @@ export default function JobList() {
                 </td>
                 <td>{job.company?.name}</td>
                 <td>{job.location}</td>
-                <td>{job.salary_min} - {job.salary_max}</td>
+                <td>{job.salary_min.toLocaleString('vi-VN')} - {job.salary_max.toLocaleString('vi-VN')}</td>
                 <td>
                   {job.badge && <span className={`admin-badge admin-badge-${job.badge}`}>{job.badge}</span>}
                   {job.is_hot && <span className="admin-badge admin-badge-hot">Hot</span>}

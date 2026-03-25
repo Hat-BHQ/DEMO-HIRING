@@ -15,7 +15,11 @@ import SuccessToast from './components/SuccessToast';
 
 export default function App() {
   const { t } = useLang();
-  const { hotJobs, featuredJobs, allJobs, searchJobs } = useJobs();
+  const {
+    hotJobs, hotTotal, loadMoreHotJobs, loadingMoreHot,
+    featuredJobs, featuredTotal, loadMoreFeaturedJobs, loadingMoreFeatured,
+    allJobs, searchJobs,
+  } = useJobs();
 
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [applyJob, setApplyJob] = useState<Job | null>(null);
@@ -83,9 +87,13 @@ export default function App() {
                   />
                 ))}
               </div>
-              <div className="load-more">
-                <button className="btn-load-more">{t('btnSeeMoreHot')}</button>
-              </div>
+              {hotJobs.length < hotTotal && (
+                <div className="load-more">
+                  <button className="btn-load-more" onClick={loadMoreHotJobs} disabled={loadingMoreHot}>
+                    {loadingMoreHot ? <><i className="fas fa-spinner fa-spin"></i> Đang tải...</> : t('btnSeeMoreHot')}
+                  </button>
+                </div>
+              )}
             </div>
           </section>
 
@@ -106,9 +114,13 @@ export default function App() {
                   />
                 ))}
               </div>
-              <div className="load-more">
-                <button className="btn-load-more">{t('btnSeeMore')}</button>
-              </div>
+              {featuredJobs.length < featuredTotal && (
+                <div className="load-more">
+                  <button className="btn-load-more" onClick={loadMoreFeaturedJobs} disabled={loadingMoreFeatured}>
+                    {loadingMoreFeatured ? <><i className="fas fa-spinner fa-spin"></i> Đang tải...</> : t('btnSeeMore')}
+                  </button>
+                </div>
+              )}
             </div>
           </section>
         </>

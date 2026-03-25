@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import type { ApplicationAdmin, ApplicationListResponse, Job } from '../../types';
 import {
   fetchAdminApplications, updateApplicationStatus,
-  deleteAdminApplication, fetchAdminJobs,
+  deleteAdminApplication, fetchAdminJobs, getAdminRole,
 } from '../../services/adminApi';
 
 const STATUS_MAP: Record<string, { label: string; className: string }> = {
@@ -17,6 +17,7 @@ export default function ApplicationList() {
   const [page, setPage] = useState(1);
   const [jobFilter, setJobFilter] = useState('');
   const [jobs, setJobs] = useState<Job[]>([]);
+  const isSuperadmin = getAdminRole() === 'superadmin';
 
   const load = useCallback(() => {
     fetchAdminApplications(page, 20, jobFilter || undefined).then(setData);
@@ -149,9 +150,11 @@ export default function ApplicationList() {
                       <option value="accepted">Chấp nhận</option>
                       <option value="rejected">Từ chối</option>
                     </select>
-                    <button className="admin-btn-icon admin-btn-danger" title="Xóa" onClick={() => handleDelete(app)}>
-                      <i className="fas fa-trash"></i>
-                    </button>
+                    {isSuperadmin && (
+                      <button className="admin-btn-icon admin-btn-danger" title="Xóa" onClick={() => handleDelete(app)}>
+                        <i className="fas fa-trash"></i>
+                      </button>
+                    )}
                   </div>
                 </td>
               </tr>

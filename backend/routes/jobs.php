@@ -52,6 +52,19 @@ function handleGetJobs(): void {
         $params[':is_featured'] = filter_var($isFeatured, FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
     }
 
+    $workType = getQueryParam('work_type');
+    if ($workType) {
+        $where[] = '(j.work_type_vi = :work_type OR j.work_type_en = :work_type2)';
+        $params[':work_type'] = $workType;
+        $params[':work_type2'] = $workType;
+    }
+
+    $tag = getQueryParam('tag');
+    if ($tag) {
+        $where[] = 'j.tags LIKE :tag';
+        $params[':tag'] = '%' . $tag . '%';
+    }
+
     $whereSql = implode(' AND ', $where);
     $page = getQueryInt('page', 1);
     $pageSize = min(getQueryInt('page_size', 12), 50);
@@ -84,21 +97,29 @@ function handleGetJobs(): void {
 function handleGetHotJobs(): void {
     $db = getDB();
     $limit = min(getQueryInt('limit', 5), 20);
-    $sql = jobBaseQuery() . " WHERE j.is_active = 1 AND j.is_hot = 1 ORDER BY j.created_at DESC LIMIT :limit";
+    $offset = max((int)($_GET['offset'] ?? 0), 0);
+
+    $total = (int)$db->query("SELECT COUNT(*) FROM jobs WHERE is_active = 1 AND is_hot = 1")->fetchColumn();
+    $sql = jobBaseQuery() . " WHERE j.is_active = 1 AND j.is_hot = 1 ORDER BY j.created_at DESC, j.id ASC LIMIT :limit OFFSET :offset";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
     $stmt->execute();
-    sendJSON(array_map('formatJob', $stmt->fetchAll()));
+    sendJSON(['items' => array_map('formatJob', $stmt->fetchAll()), 'total' => $total]);
 }
 
 function handleGetFeaturedJobs(): void {
     $db = getDB();
-    $limit = min(getQueryInt('limit', 6), 20);
-    $sql = jobBaseQuery() . " WHERE j.is_active = 1 AND j.is_featured = 1 ORDER BY j.created_at DESC LIMIT :limit";
+    $limit = min(getQueryInt('limit', 6), 24);
+    $offset = max((int)($_GET['offset'] ?? 0), 0);
+
+    $total = (int)$db->query("SELECT COUNT(*) FROM jobs WHERE is_active = 1 AND is_featured = 1")->fetchColumn();
+    $sql = jobBaseQuery() . " WHERE j.is_active = 1 AND j.is_featured = 1 ORDER BY j.created_at DESC, j.id ASC LIMIT :limit OFFSET :offset";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
     $stmt->execute();
-    sendJSON(array_map('formatJob', $stmt->fetchAll()));
+    sendJSON(['items' => array_map('formatJob', $stmt->fetchAll()), 'total' => $total]);
 }
 
 function handleGetLocations(): void {

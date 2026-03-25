@@ -29,9 +29,47 @@ interface FormData {
   company_id: string;
 }
 
+const JOB_ICONS = [
+  { value: 'fas fa-briefcase',        label: 'Briefcase - Văn phòng' },
+  { value: 'fas fa-code',             label: 'Code - Lập trình' },
+  { value: 'fas fa-laptop-code',      label: 'Laptop Code - Dev' },
+  { value: 'fas fa-paint-brush',      label: 'Paint Brush - Thiết kế' },
+  { value: 'fas fa-pencil-ruler',     label: 'Pencil Ruler - UX/UI' },
+  { value: 'fas fa-chart-line',       label: 'Chart - Kinh doanh' },
+  { value: 'fas fa-chart-bar',        label: 'Chart Bar - Phân tích' },
+  { value: 'fas fa-bullhorn',         label: 'Bullhorn - Marketing' },
+  { value: 'fas fa-ad',               label: 'Ad - Quảng cáo' },
+  { value: 'fas fa-users',            label: 'Users - HR/Nhân sự' },
+  { value: 'fas fa-user-tie',         label: 'User Tie - Quản lý' },
+  { value: 'fas fa-graduation-cap',   label: 'Graduation - Giáo dục' },
+  { value: 'fas fa-stethoscope',      label: 'Stethoscope - Y tế' },
+  { value: 'fas fa-heartbeat',        label: 'Heartbeat - Sức khỏe' },
+  { value: 'fas fa-cogs',             label: 'Cogs - Kỹ thuật' },
+  { value: 'fas fa-tools',            label: 'Tools - Kỹ thuật/Cơ khí' },
+  { value: 'fas fa-server',           label: 'Server - DevOps' },
+  { value: 'fas fa-shield-alt',       label: 'Shield - Bảo mật' },
+  { value: 'fas fa-database',         label: 'Database - DBA' },
+  { value: 'fas fa-cloud',            label: 'Cloud - Cloud/AWS' },
+  { value: 'fas fa-mobile-alt',       label: 'Mobile - Mobile Dev' },
+  { value: 'fas fa-robot',            label: 'Robot - AI/ML' },
+  { value: 'fas fa-calculator',       label: 'Calculator - Kế toán' },
+  { value: 'fas fa-money-bill-wave',  label: 'Money - Tài chính' },
+  { value: 'fas fa-handshake',        label: 'Handshake - Bán hàng' },
+  { value: 'fas fa-truck',            label: 'Truck - Logistics' },
+  { value: 'fas fa-building',         label: 'Building - Bất động sản' },
+  { value: 'fas fa-hard-hat',         label: 'Hard Hat - Xây dựng' },
+  { value: 'fas fa-camera',           label: 'Camera - Truyền thông' },
+  { value: 'fas fa-film',             label: 'Film - Video/Media' },
+  { value: 'fas fa-pen-nib',          label: 'Pen - Copywriter' },
+  { value: 'fas fa-globe',            label: 'Globe - Quốc tế' },
+  { value: 'fas fa-shopping-cart',    label: 'Cart - E-commerce' },
+  { value: 'fas fa-leaf',             label: 'Leaf - Nông nghiệp' },
+  { value: 'fas fa-flask',            label: 'Flask - Nghiên cứu' },
+];
+
 const defaultForm: FormData = {
   title: '', icon: 'fas fa-briefcase', badge: '', location: '',
-  salary_min: 0, salary_max: 0, salary_currency: 'USD',
+  salary_min: 0, salary_max: 0, salary_currency: 'VND',
   tags: '', work_type_vi: 'Toàn thời gian', work_type_en: 'Full Time',
   description_vi: '', description_en: '',
   requirements_vi: '', requirements_en: '',
@@ -106,7 +144,7 @@ export default function JobForm() {
       location: form.location,
       salary_min: form.salary_min,
       salary_max: form.salary_max,
-      salary_currency: form.salary_currency,
+      salary_currency: 'VND',
       tags: form.tags.split(',').map(t => t.trim()).filter(Boolean),
       work_type_vi: form.work_type_vi,
       work_type_en: form.work_type_en,
@@ -160,8 +198,17 @@ export default function JobForm() {
               <input type="text" value={form.title} onChange={e => set('title', e.target.value)} required placeholder="VD: Senior Developer" />
             </div>
             <div className="admin-form-group">
-              <label>Icon (FontAwesome)</label>
-              <input type="text" value={form.icon} onChange={e => set('icon', e.target.value)} placeholder="fas fa-briefcase" />
+              <label>Icon</label>
+              <div className="admin-icon-picker">
+                <div className="admin-icon-preview">
+                  <i className={form.icon}></i>
+                </div>
+                <select value={form.icon} onChange={e => set('icon', e.target.value)}>
+                  {JOB_ICONS.map(ic => (
+                    <option key={ic.value} value={ic.value}>{ic.label}</option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div className="admin-form-group">
               <label>Badge</label>
@@ -204,12 +251,12 @@ export default function JobForm() {
           <h3><i className="fas fa-dollar-sign"></i> Lương & Tags</h3>
           <div className="admin-form-grid">
             <div className="admin-form-group">
-              <label>Lương tối thiểu (USD)</label>
-              <input type="number" value={form.salary_min} onChange={e => set('salary_min', Number(e.target.value))} min={0} />
+              <label>Lương tối thiểu (VND)</label>
+              <input type="number" value={form.salary_min} onChange={e => set('salary_min', Number(e.target.value))} min={0} step={500000} placeholder="VD: 10000000" />
             </div>
             <div className="admin-form-group">
-              <label>Lương tối đa (USD)</label>
-              <input type="number" value={form.salary_max} onChange={e => set('salary_max', Number(e.target.value))} min={0} />
+              <label>Lương tối đa (VND)</label>
+              <input type="number" value={form.salary_max} onChange={e => set('salary_max', Number(e.target.value))} min={0} step={500000} placeholder="VD: 25000000" />
             </div>
             <div className="admin-form-group admin-col-2">
               <label>Tags (phân cách bằng dấu phẩy)</label>

@@ -44,6 +44,8 @@ export interface JobFilter {
   location?: string;
   salary_min?: number;
   salary_max?: number;
+  work_type?: string;
+  tag?: string;
   is_hot?: boolean;
   is_featured?: boolean;
   page?: number;

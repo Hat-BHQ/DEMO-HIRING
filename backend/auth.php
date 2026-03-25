@@ -9,9 +9,10 @@ function signPayload(string $encoded): string {
     return hash_hmac('sha256', $encoded, SECRET_KEY);
 }
 
-function createAccessToken(string $username): string {
+function createAccessToken(string $username, string $role): string {
     $payload = json_encode([
         'sub' => $username,
+        'role' => $role,
         'exp' => time() + TOKEN_EXPIRE_MINUTES * 60,
     ]);
     $encoded = rtrim(strtr(base64_encode($payload), '+/', '-_'), '=');
@@ -19,7 +20,7 @@ function createAccessToken(string $username): string {
     return $encoded . '.' . $signature;
 }
 
-function verifyToken(string $token): string {
+function verifyToken(string $token): array {
     $parts = explode('.', $token);
     if (count($parts) !== 2) {
         sendError(401, 'Invalid token');
@@ -32,13 +33,24 @@ function verifyToken(string $token): string {
     if (!$payload || ($payload['exp'] ?? 0) < time()) {
         sendError(401, 'Token expired');
     }
-    return $payload['sub'];
+    return $payload;
 }
 
-function getAuthAdmin(): string {
+/**
+ * Returns ['username' => ..., 'role' => ...]
+ */
+function getAuthAdmin(): array {
     $header = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
     if (!preg_match('/^Bearer\s+(.+)$/i', $header, $m)) {
         sendError(401, 'Missing or invalid Authorization header');
     }
-    return verifyToken($m[1]);
+    $payload = verifyToken($m[1]);
+    return ['username' => $payload['sub'], 'role' => $payload['role'] ?? 'employee'];
+}
+
+function requireSuperadmin(): void {
+    $auth = getAuthAdmin();
+    if ($auth['role'] !== 'superadmin') {
+        sendError(403, 'Permission denied: superadmin only');
+    }
 }

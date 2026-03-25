@@ -12,31 +12,36 @@ export default function FilterSection({ onFilter }: Props) {
   const [location, setLocation] = useState('');
   const [showSecondary, setShowSecondary] = useState(false);
   const [salaryRange, setSalaryRange] = useState('');
+  const [workType, setWorkType] = useState('');
+  const [tag, setTag] = useState('');
 
-  const handleSearch = () => {
+  const buildFilters = (): JobFilter => {
     const filters: JobFilter = {};
     if (search) filters.search = search;
     if (location) filters.location = location;
+    if (workType) filters.work_type = workType;
+    if (tag) filters.tag = tag;
     if (salaryRange) {
       const ranges: Record<string, [number, number]> = {
-        'below500': [0, 500],
-        '500to1000': [500, 1000],
-        '1000to2000': [1000, 2000],
-        'above2000': [2000, 100000],
+        'below10m':   [0,         10000000],
+        '10to20m':    [10000000,  20000000],
+        '20to40m':    [20000000,  40000000],
+        'above40m':   [40000000,  999000000],
       };
       const r = ranges[salaryRange];
-      if (r) {
-        filters.salary_min = r[0];
-        filters.salary_max = r[1];
-      }
+      if (r) { filters.salary_min = r[0]; filters.salary_max = r[1]; }
     }
-    onFilter(filters);
+    return filters;
   };
+
+  const handleSearch = () => onFilter(buildFilters());
 
   const handleClear = () => {
     setSearch('');
     setLocation('');
     setSalaryRange('');
+    setWorkType('');
+    setTag('');
     onFilter({});
   };
 
@@ -46,13 +51,14 @@ export default function FilterSection({ onFilter }: Props) {
         <div className="advanced-filter-box">
           <div className="filter-row-main">
             <div className="filter-select">
-              <select defaultValue="">
+              <select value={tag} onChange={e => setTag(e.target.value)}>
                 <option value="">{t('filterIndustry')}</option>
                 <option value="IT">IT</option>
                 <option value="Marketing">Marketing</option>
-                <option value="accounting">{t('optAccounting')}</option>
-                <option value="business">{t('optBusiness')}</option>
-                <option value="design">{t('optDesign')}</option>
+                <option value="Kế toán">{t('optAccounting')}</option>
+                <option value="Thiết kế">{t('optDesign')}</option>
+                <option value="DevOps">DevOps</option>
+                <option value="React">React</option>
               </select>
             </div>
             <div className="filter-search">
@@ -83,36 +89,20 @@ export default function FilterSection({ onFilter }: Props) {
           {showSecondary && (
             <div className="filter-row-secondary">
               <div className="filter-select">
-                <select defaultValue="">
+                <select value={workType} onChange={e => { setWorkType(e.target.value); }}>
                   <option value="">{t('filterWorkType')}</option>
-                  <option value="fulltime">{t('optFullTime')}</option>
-                  <option value="parttime">{t('optPartTime')}</option>
-                  <option value="remote">Remote</option>
-                </select>
-              </div>
-              <div className="filter-select">
-                <select defaultValue="">
-                  <option value="">{t('filterSector')}</option>
-                  <option value="tech">{t('optTech')}</option>
-                  <option value="business">{t('optBusiness')}</option>
-                  <option value="operations">{t('optOperations')}</option>
+                  <option value="Toàn thời gian">{t('optFullTime')}</option>
+                  <option value="Bán thời gian">{t('optPartTime')}</option>
+                  <option value="Remote">Remote</option>
                 </select>
               </div>
               <div className="filter-select">
                 <select value={salaryRange} onChange={e => setSalaryRange(e.target.value)}>
                   <option value="">{t('filterSalary')}</option>
-                  <option value="below500">{t('optBelow500')}</option>
-                  <option value="500to1000">{t('opt500to1000')}</option>
-                  <option value="1000to2000">{t('opt1000to2000')}</option>
-                  <option value="above2000">{t('optAbove2000')}</option>
-                </select>
-              </div>
-              <div className="filter-select">
-                <select defaultValue="">
-                  <option value="">{t('filterOption')}</option>
-                  <option value="bonus">{t('optBonus')}</option>
-                  <option value="insurance">{t('optInsurance')}</option>
-                  <option value="travel">{t('optTravel')}</option>
+                  <option value="below10m">{t('optBelow10m')}</option>
+                  <option value="10to20m">{t('opt10to20m')}</option>
+                  <option value="20to40m">{t('opt20to40m')}</option>
+                  <option value="above40m">{t('optAbove40m')}</option>
                 </select>
               </div>
               <button className="btn-clear-filter" onClick={handleClear}>{t('btnClearFilter')}</button>

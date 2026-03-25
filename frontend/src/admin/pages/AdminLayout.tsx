@@ -16,6 +16,7 @@ export default function AdminLayout() {
 
   const handleLogout = () => {
     localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_role');
     navigate('/admin/login');
   };
 

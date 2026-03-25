@@ -11,7 +11,7 @@ interface Props {
 export default function JobDetailModal({ job, onClose, onApply }: Props) {
   const { lang, t } = useLang();
 
-  const salary = `${job.salary_min.toLocaleString()} - ${job.salary_max.toLocaleString()} ${job.salary_currency}`;
+  const salary = `${job.salary_min.toLocaleString('vi-VN')} - ${job.salary_max.toLocaleString('vi-VN')} đ`;
   const workType = lang === 'vi' ? job.work_type_vi : job.work_type_en;
   const description = lang === 'vi' ? job.description_vi : job.description_en;
   const requirements = lang === 'vi' ? job.requirements_vi : job.requirements_en;
@@ -46,7 +46,7 @@ export default function JobDetailModal({ job, onClose, onApply }: Props) {
             <h2>{job.title}</h2>
             <p className="modal-company"><i className="fas fa-building"></i> <span>{job.company.name}</span></p>
             <p className="modal-location"><i className="fas fa-map-marker-alt"></i> <span>{job.location}</span></p>
-            <p className="modal-salary"><i className="fas fa-dollar-sign"></i> <span>{salary}</span></p>
+            <p className="modal-salary"><i className="fas fa-money-bill-wave"></i> <span>{salary}</span></p>
             <p className="modal-type"><i className="fas fa-clock"></i> <span>{workType}</span></p>
           </div>
         </div>

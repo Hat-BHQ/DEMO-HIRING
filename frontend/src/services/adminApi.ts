@@ -17,6 +17,7 @@ async function request<T>(url: string, init?: RequestInit): Promise<T> {
   });
   if (res.status === 401) {
     localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_role');
     window.location.href = '/admin/login';
     throw new Error('Unauthorized');
   }
@@ -35,9 +36,14 @@ export async function adminLogin(username: string, password: string): Promise<st
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password }),
   });
-  if (!res.ok) throw new Error('Invalid credentials');
-  const data = await res.json();
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.detail || `HTTP ${res.status}`);
+  if (data.role) localStorage.setItem('admin_role', data.role);
   return data.access_token;
+}
+
+export function getAdminRole(): string {
+  return localStorage.getItem('admin_role') ?? 'employee';
 }
 
 export async function checkAuth(): Promise<boolean> {

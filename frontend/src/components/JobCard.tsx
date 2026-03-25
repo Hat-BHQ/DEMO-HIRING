@@ -11,7 +11,7 @@ interface Props {
 function JobCard({ job, onCardClick, onApplyClick }: Props) {
   const { t } = useLang();
 
-  const salary = `${job.salary_min.toLocaleString()} - ${job.salary_max.toLocaleString()} ${job.salary_currency}`;
+  const salary = `${job.salary_min.toLocaleString('vi-VN')} - ${job.salary_max.toLocaleString('vi-VN')} đ`;
 
   return (
     <div className="job-card" onClick={() => onCardClick(job)}>
@@ -34,7 +34,7 @@ function JobCard({ job, onCardClick, onApplyClick }: Props) {
         ))}
       </div>
       <div className="job-footer">
-        <span className="salary"><i className="fas fa-dollar-sign"></i> {salary}</span>
+        <span className="salary"><i className="fas fa-money-bill-wave"></i> {salary}</span>
         <button className="btn-apply" onClick={e => { e.stopPropagation(); onApplyClick(job); }}>
           {t('btnApply')}
         </button>
