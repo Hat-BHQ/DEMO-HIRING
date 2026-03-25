@@ -1,21 +1,20 @@
 <?php
 /**
  * Configuration - Cấu hình database và ứng dụng
- * Trên Hostinger: sửa các giá trị DB_* cho đúng với phpMyAdmin
+ * Local: dùng root/tom_hiring
+ * Hostinger: đặt biến môi trường DB_HOST, DB_NAME, DB_USER, DB_PASS
  */
 
-// Database - Hostinger
+// Database - Local
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
-define('DB_NAME', getenv('DB_NAME') ?: 'u972116454_tom_hiring');
-define('DB_USER', getenv('DB_USER') ?: 'u972116454_tom_admin');
-define('DB_PASS', getenv('DB_PASS') ?: 'Hq101sing');
+define('DB_NAME', getenv('DB_NAME') ?: 'tom_hiring');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: '');
 define('DB_CHARSET', 'utf8mb4');
 
 // Admin credentials
-// define('ADMIN_USERNAME', getenv('ADMIN_USERNAME') ?: 'admin');
-// define('ADMIN_PASSWORD', getenv('ADMIN_PASSWORD') ?: 'admin123');
-define('ADMIN_USERNAME', 'admin');
-define('ADMIN_PASSWORD', 'admin123');
+define('ADMIN_USERNAME', getenv('ADMIN_USERNAME') ?: 'admin');
+define('ADMIN_PASSWORD', getenv('ADMIN_PASSWORD') ?: 'admin123');
 // JWT
 define('SECRET_KEY', getenv('SECRET_KEY') ?: 'tom-hiring-secret-key-change-in-production');
 define('TOKEN_EXPIRE_MINUTES', 480);

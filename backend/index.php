@@ -143,14 +143,24 @@ if (preg_match('#^/admin/applications/([a-zA-Z0-9\-]+)$#', $path, $m) && $method
 
 // --- Serve uploaded files ---
 if (preg_match('#^/uploads/([a-zA-Z0-9_\-\.]+)$#', $path, $m)) {
-    $file = UPLOAD_DIR . '/' . basename($m[1]);
-    if (file_exists($file)) {
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="' . basename($file) . '"');
-        readfile($file);
-        exit;
+    $filename = basename($m[1]);
+    $file = UPLOAD_DIR . '/' . $filename;
+    if (!file_exists($file)) {
+        sendError(404, 'File not found');
     }
-    sendError(404, 'File not found');
+    $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+    $forceDownload = isset($_GET['download']);
+    if ($ext === 'pdf' && !$forceDownload) {
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: inline; filename="cv.pdf"');
+    } else {
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="cv.' . $ext . '"');
+    }
+    header('Content-Length: ' . filesize($file));
+    header('Cache-Control: private, max-age=3600');
+    readfile($file);
+    exit;
 }
 
 // 404

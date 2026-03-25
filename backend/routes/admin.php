@@ -309,13 +309,27 @@ function handleAdminListApplications(): void {
     $page = getQueryInt('page', 1);
     $pageSize = min(getQueryInt('page_size', 20), 100);
     $offset = ($page - 1) * $pageSize;
+    $jobId = getQueryParam('job_id');
 
-    $total = (int)$db->query("SELECT COUNT(*) FROM applications")->fetchColumn();
+    $where = '1=1';
+    $params = [];
+    if ($jobId) {
+        $where .= ' AND a.job_id = :job_id';
+        $params[':job_id'] = $jobId;
+    }
+
+    $countStmt = $db->prepare("SELECT COUNT(*) FROM applications a WHERE $where");
+    $countStmt->execute($params);
+    $total = (int)$countStmt->fetchColumn();
 
     $stmt = $db->prepare("SELECT a.*, j.title AS job_title 
                            FROM applications a 
                            LEFT JOIN jobs j ON a.job_id = j.id 
+                           WHERE $where
                            ORDER BY a.created_at DESC LIMIT :limit OFFSET :offset");
+    foreach ($params as $k => $v) {
+        $stmt->bindValue($k, $v);
+    }
     $stmt->bindValue(':limit', $pageSize, PDO::PARAM_INT);
     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
     $stmt->execute();

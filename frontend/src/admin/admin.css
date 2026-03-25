@@ -352,6 +352,28 @@
   color: #dc2626;
 }
 
+.admin-btn-icon.admin-btn-view:hover {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.admin-btn-icon.admin-btn-info:hover {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.admin-cv-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
 .admin-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;

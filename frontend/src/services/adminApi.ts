@@ -111,8 +111,10 @@ export async function deleteAdminCompany(id: string): Promise<void> {
 }
 
 // Applications
-export async function fetchAdminApplications(page = 1, pageSize = 20): Promise<ApplicationListResponse> {
-  return request<ApplicationListResponse>(`/applications?page=${page}&page_size=${pageSize}`);
+export async function fetchAdminApplications(page = 1, pageSize = 20, jobId?: string): Promise<ApplicationListResponse> {
+  const params = new URLSearchParams({ page: String(page), page_size: String(pageSize) });
+  if (jobId) params.set('job_id', jobId);
+  return request<ApplicationListResponse>(`/applications?${params}`);
 }
 
 export async function updateApplicationStatus(id: string, status: string): Promise<void> {
