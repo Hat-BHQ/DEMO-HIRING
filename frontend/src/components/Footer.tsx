@@ -9,10 +9,10 @@ export default function Footer() {
         <div className="footer-content">
           <div className="footer-col">
             <div className="footer-logo">
-              <i className="fas fa-bullhorn"></i>
-              <span>TOM</span> ORGANIZATION
+              <img src="/image/logon.png" alt="TOMGROUPVN" />
+              <span>TOMGROUPVN</span>
             </div>
-            <p>{t('footerDesc')}</p>
+            <p className="footer-slogan">{t('footerDesc')}</p>
             <div className="social-links">
               <a href="#"><i className="fab fa-facebook"></i></a>
               <a href="#"><i className="fab fa-linkedin"></i></a>

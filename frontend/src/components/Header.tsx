@@ -10,7 +10,11 @@ export default function Header() {
       <div className="container">
         <div className="nav-wrapper">
           <div className="logo">
-            <img src="/image/logon.png" alt="TOM Organization" className="logo-img" />
+            <img src="/image/logon.png" alt="TOMGROUPVN" className="logo-img" />
+            <div className="logo-text">
+              <div className="logo-brand">TOMGROUPVN</div>
+              <div className="logo-slogan">Engineering Sound for the U.S Market</div>
+            </div>
           </div>
           <div className="nav-controls">
             <button className="btn-lang-toggle" onClick={toggleLang}>

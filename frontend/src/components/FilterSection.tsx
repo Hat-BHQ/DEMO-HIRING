@@ -50,17 +50,6 @@ export default function FilterSection({ onFilter }: Props) {
       <div className="container">
         <div className="advanced-filter-box">
           <div className="filter-row-main">
-            <div className="filter-select">
-              <select value={tag} onChange={e => setTag(e.target.value)}>
-                <option value="">{t('filterIndustry')}</option>
-                <option value="IT">IT</option>
-                <option value="Marketing">Marketing</option>
-                <option value="Kế toán">{t('optAccounting')}</option>
-                <option value="Thiết kế">{t('optDesign')}</option>
-                <option value="DevOps">DevOps</option>
-                <option value="React">React</option>
-              </select>
-            </div>
             <div className="filter-search">
               <i className="fas fa-search"></i>
               <input
