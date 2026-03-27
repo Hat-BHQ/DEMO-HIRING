@@ -12,7 +12,7 @@ export default function Header() {
           <div className="logo">
             <img src="/image/logon.png" alt="TOMGROUPVN" className="logo-img" />
             <div className="logo-text">
-              <div className="logo-brand">TOMGROUPVN</div>
+              <div className="logo-brand">TOM GROUP Vietnam</div>
               <div className="logo-slogan">Engineering Sound for the U.S Market</div>
             </div>
           </div>

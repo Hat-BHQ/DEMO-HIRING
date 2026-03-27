@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="footer-col">
             <div className="footer-logo">
               <img src="/image/logon.png" alt="TOMGROUPVN" />
-              <span>TOMGROUPVN</span>
+              <span>TOM GROUP Vietnam</span>
             </div>
             <p className="footer-slogan">{t('footerDesc')}</p>
             <div className="social-links">

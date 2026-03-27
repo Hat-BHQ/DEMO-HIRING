@@ -11,7 +11,7 @@ interface Props {
 function HotJobCard({ job, onCardClick, onApplyClick }: Props) {
   const { t } = useLang();
 
-  const salary = `${job.salary_min.toLocaleString('vi-VN')} - ${job.salary_max.toLocaleString('vi-VN')} đ`;
+  const salary = `${(job.salary_min / 1000000).toLocaleString('vi-VN')} - ${(job.salary_max / 1000000).toLocaleString('vi-VN')} triệu`;
 
   return (
     <div className="hot-job-card" onClick={() => onCardClick(job)}>

@@ -62,6 +62,27 @@ CREATE TABLE IF NOT EXISTS `applications` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================
+-- TABLE: users
+-- ============================================================
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` VARCHAR(36) NOT NULL PRIMARY KEY,
+  `username` VARCHAR(100) NOT NULL UNIQUE,
+  `password_hash` VARCHAR(255) NOT NULL,
+  `display_name` VARCHAR(255) NOT NULL DEFAULT '',
+  `role` ENUM('superadmin','employee') NOT NULL DEFAULT 'employee',
+  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+  `created_at` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================
+-- SAMPLE DATA: Users
+-- Mật khẩu: admin -> Hqsing@123 | employee1 -> Hqsing@user
+-- ============================================================
+INSERT INTO `users` (`id`, `username`, `password_hash`, `display_name`, `role`, `is_active`, `created_at`) VALUES
+('u001-0000-0000-0000-000000000001', 'admin', '$2y$10$O94noMTG8lk9dCG84OkfCuXj6khDB7SbABvvMpM4jf2/Xe7AHPF2C', 'Super Admin', 'superadmin', 1, NOW()),
+('u002-0000-0000-0000-000000000002', 'employee1', '$2y$10$ysL7KFcwQb6v7wr6tJaiYuSmzb7C33jfR3.CPeho5YbwaYUXeOfFm', 'Nhân viên HR', 'employee', 1, NOW());
+
+-- ============================================================
 -- SAMPLE DATA: Companies
 -- ============================================================
 INSERT INTO `companies` (`id`, `name`, `icon`, `created_at`) VALUES
