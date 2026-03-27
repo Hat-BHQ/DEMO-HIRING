@@ -12,17 +12,19 @@ export default function Header() {
           <div className="logo">
             <img src="/image/logon.png" alt="TOMGROUPVN" className="logo-img" />
             <div className="logo-text">
-              <div className="logo-brand">TOM GROUP Vietnam</div>
-              <div className="logo-slogan">Engineering Sound for the U.S Market</div>
+              <div className="logo-brand">TOM GROUP<br /><span>Vietnam</span></div>
             </div>
           </div>
-          <div className="nav-controls">
-            <button className="btn-lang-toggle" onClick={toggleLang}>
-              {lang === 'vi' ? 'EN' : 'VI'}
-            </button>
-            <button className="btn-theme-toggle" onClick={toggleTheme}>
-              <i className={theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'}></i>
-            </button>
+          <div className="nav-right-wrapper">
+            <div className="logo-slogan">Engineering Sound for the U.S Market</div>
+            <div className="nav-controls">
+              <button className="btn-lang-toggle" onClick={toggleLang}>
+                {lang === 'vi' ? 'EN' : 'VI'}
+              </button>
+              <button className="btn-theme-toggle" onClick={toggleTheme}>
+                <i className={theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'}></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
