@@ -70,7 +70,7 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
 }
 
 .logo-img {
@@ -86,14 +86,20 @@ body {
 }
 
 .logo-brand {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
     color: var(--primary-color);
-    line-height: 1.2;
+    line-height: 1;
+    text-align: center;
+
+}
+.logo-brand >span {
+    font-size: 18px;
+    text-transform: uppercase;
 }
 
 .logo-slogan {
-    font-size: 13px;
+    font-size: 14px;
     font-style: italic;
     color: var(--text-light);
     opacity: 0.8;
@@ -107,6 +113,13 @@ body {
 
 .logo span {
     color: var(--primary-color);
+}
+
+.nav-right-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 4px;
 }
 
 .nav-controls {
@@ -1054,14 +1067,19 @@ body {
     color: var(--primary-color);
 }
 
-.footer-logo span {
+.footer-logo .footer-company-name {
     color: var(--primary-color);
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
+    line-height: 1;
+}
+.footer-logo .footer-company-name > span {
+    font-size: 20px;
+    text-transform: uppercase;
 }
 
 .footer-logo img {
-    max-height: 60px;
+    max-height: 80px;
     width: auto;
 }
 
@@ -1118,6 +1136,7 @@ body {
     justify-content: center;
     color: var(--white);
     transition: all 0.3s;
+    text-decoration: none;
 }
 
 .social-links a:hover {

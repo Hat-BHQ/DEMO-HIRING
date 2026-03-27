@@ -10,14 +10,12 @@ export default function Footer() {
           <div className="footer-col">
             <div className="footer-logo">
               <img src="/image/logon.png" alt="TOMGROUPVN" />
-              <span>TOM GROUP Vietnam</span>
+              <span className='footer-company-name'>TOM GROUP <span>Vietnam</span></span>
             </div>
             <p className="footer-slogan">{t('footerDesc')}</p>
             <div className="social-links">
               <a href="#"><i className="fab fa-facebook"></i></a>
               <a href="#"><i className="fab fa-linkedin"></i></a>
-              <a href="#"><i className="fab fa-twitter"></i></a>
-              <a href="#"><i className="fab fa-instagram"></i></a>
             </div>
           </div>
           <div className="footer-col">
