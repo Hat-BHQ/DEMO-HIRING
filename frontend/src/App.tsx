@@ -18,7 +18,7 @@ export default function App() {
   const {
     hotJobs, hotTotal, loadMoreHotJobs, loadingMoreHot,
     featuredJobs, featuredTotal, loadMoreFeaturedJobs, loadingMoreFeatured,
-    allJobs, total, searchJobs,
+    allJobs, searchJobs,
   } = useJobs();
 
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
@@ -40,9 +40,6 @@ export default function App() {
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 4000);
   }, []);
-
-  const defaultJobs = featuredJobs.length > 0 ? featuredJobs : allJobs;
-  const defaultTotal = featuredJobs.length > 0 ? featuredTotal : total;
 
   return (
     <>
@@ -81,14 +78,18 @@ export default function App() {
                 <p>{t('hotJobsSubtitle')}</p>
               </div>
               <div className="hot-jobs-list">
-                {hotJobs.map(job => (
-                  <HotJobCard
-                    key={job.id}
-                    job={job}
-                    onCardClick={setSelectedJob}
-                    onApplyClick={setApplyJob}
-                  />
-                ))}
+                {hotJobs.length === 0 ? (
+                  <p className="jobs-empty-hint">{t('hotJobsEmpty')}</p>
+                ) : (
+                  hotJobs.map(job => (
+                    <HotJobCard
+                      key={job.id}
+                      job={job}
+                      onCardClick={setSelectedJob}
+                      onApplyClick={setApplyJob}
+                    />
+                  ))
+                )}
               </div>
               {hotJobs.length < hotTotal && (
                 <div className="load-more">
@@ -108,16 +109,20 @@ export default function App() {
                 <p>{t('featuredJobsSubtitle')}</p>
               </div>
               <div className="jobs-grid">
-                {defaultJobs.map(job => (
-                  <JobCard
-                    key={job.id}
-                    job={job}
-                    onCardClick={setSelectedJob}
-                    onApplyClick={setApplyJob}
-                  />
-                ))}
+                {featuredJobs.length === 0 ? (
+                  <p className="jobs-empty-hint jobs-empty-hint--full">{t('featuredJobsEmpty')}</p>
+                ) : (
+                  featuredJobs.map(job => (
+                    <JobCard
+                      key={job.id}
+                      job={job}
+                      onCardClick={setSelectedJob}
+                      onApplyClick={setApplyJob}
+                    />
+                  ))
+                )}
               </div>
-              {featuredJobs.length > 0 && featuredJobs.length < defaultTotal && (
+              {featuredJobs.length > 0 && featuredJobs.length < featuredTotal && (
                 <div className="load-more">
                   <button className="btn-load-more" onClick={loadMoreFeaturedJobs} disabled={loadingMoreFeatured}>
                     {loadingMoreFeatured ? <><i className="fas fa-spinner fa-spin"></i> Đang tải...</> : t('btnSeeMore')}

@@ -719,6 +719,21 @@ body {
     margin-bottom: 50px;
 }
 
+.jobs-empty-hint {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    text-align: center;
+    padding: 1rem 0.5rem;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.jobs-empty-hint--full {
+    grid-column: 1 / -1;
+    max-width: none;
+}
+
 .job-card {
     background-color: var(--card-bg);
     border-radius: 10px;
