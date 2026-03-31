@@ -15,6 +15,7 @@ export default function Footer() {
             <p className="footer-slogan">{t('footerDesc')}</p>
             <div className="social-links">
               <a href="#"><i className="fab fa-facebook"></i></a>
+              <a href="https://www.youtube.com/@HQsing-Karaoke-Solutions"><i className="fab fa-youtube"></i></a>
               <a href="#"><i className="fab fa-linkedin"></i></a>
             </div>
           </div>

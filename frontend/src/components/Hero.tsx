@@ -40,7 +40,7 @@ export default function Hero() {
           </button>
           <div className="hero-socials">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f"></i></a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i></a>
+            <a href="https://www.youtube.com/@HQsing-Karaoke-Solutions" target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i></a>
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin-in"></i></a>
           </div>
         </div>

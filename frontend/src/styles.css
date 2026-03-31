@@ -1058,6 +1058,7 @@ body {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 15px;
+    /* flex-direction: column; */
     display: flex;
     align-items: center;
     gap: 15px;
@@ -1069,6 +1070,10 @@ body {
 
 .footer-logo .footer-company-name {
     color: var(--primary-color);
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+
     font-size: 24px;
     font-weight: 700;
     line-height: 1;
@@ -1076,7 +1081,8 @@ body {
 .footer-logo .footer-company-name > span {
     font-size: 20px;
     text-transform: uppercase;
-    text-align: center;
+    display: block;
+    
 }
 
 .footer-logo img {
