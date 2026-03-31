@@ -18,7 +18,7 @@ export default function App() {
   const {
     hotJobs, hotTotal, loadMoreHotJobs, loadingMoreHot,
     featuredJobs, featuredTotal, loadMoreFeaturedJobs, loadingMoreFeatured,
-    allJobs, searchJobs,
+    allJobs, total, searchJobs,
   } = useJobs();
 
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
@@ -40,6 +40,9 @@ export default function App() {
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 4000);
   }, []);
+
+  const defaultJobs = featuredJobs.length > 0 ? featuredJobs : allJobs;
+  const defaultTotal = featuredJobs.length > 0 ? featuredTotal : total;
 
   return (
     <>
@@ -105,7 +108,7 @@ export default function App() {
                 <p>{t('featuredJobsSubtitle')}</p>
               </div>
               <div className="jobs-grid">
-                {featuredJobs.map(job => (
+                {defaultJobs.map(job => (
                   <JobCard
                     key={job.id}
                     job={job}
@@ -114,7 +117,7 @@ export default function App() {
                   />
                 ))}
               </div>
-              {featuredJobs.length < featuredTotal && (
+              {featuredJobs.length > 0 && featuredJobs.length < defaultTotal && (
                 <div className="load-more">
                   <button className="btn-load-more" onClick={loadMoreFeaturedJobs} disabled={loadingMoreFeatured}>
                     {loadingMoreFeatured ? <><i className="fas fa-spinner fa-spin"></i> Đang tải...</> : t('btnSeeMore')}

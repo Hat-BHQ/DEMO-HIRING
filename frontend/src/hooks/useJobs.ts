@@ -20,15 +20,38 @@ export function useJobs() {
     let cancelled = false;
     async function load() {
       try {
-        const [hot, featured] = await Promise.all([
+        const [hotResult, featuredResult, allResult] = await Promise.allSettled([
           fetchHotJobs(HOT_PAGE, 0),
           fetchFeaturedJobs(FEATURED_PAGE, 0),
+          fetchJobs({ page_size: 20 }),
         ]);
-        if (!cancelled) {
-          setHotJobs(hot.items);
-          setHotTotal(hot.total);
-          setFeaturedJobs(featured.items);
-          setFeaturedTotal(featured.total);
+        if (cancelled) return;
+
+        if (hotResult.status === 'fulfilled') {
+          setHotJobs(hotResult.value.items);
+          setHotTotal(hotResult.value.total);
+        } else {
+          console.error('Failed to load hot jobs', hotResult.reason);
+          setHotJobs([]);
+          setHotTotal(0);
+        }
+
+        if (featuredResult.status === 'fulfilled') {
+          setFeaturedJobs(featuredResult.value.items);
+          setFeaturedTotal(featuredResult.value.total);
+        } else {
+          console.error('Failed to load featured jobs', featuredResult.reason);
+          setFeaturedJobs([]);
+          setFeaturedTotal(0);
+        }
+
+        if (allResult.status === 'fulfilled') {
+          setAllJobs(allResult.value.items);
+          setTotal(allResult.value.total);
+        } else {
+          console.error('Failed to load default jobs', allResult.reason);
+          setAllJobs([]);
+          setTotal(0);
         }
       } catch (err) {
         console.error('Failed to load jobs', err);
