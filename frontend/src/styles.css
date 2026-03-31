@@ -1076,10 +1076,11 @@ body {
 .footer-logo .footer-company-name > span {
     font-size: 20px;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .footer-logo img {
-    max-height: 80px;
+    max-height: 100px;
     width: auto;
 }
 
