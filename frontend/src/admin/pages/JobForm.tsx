@@ -30,6 +30,12 @@ interface FormData {
   company_id: string;
 }
 
+const WORK_TYPES = [
+  { vi: 'Toàn thời gian', en: 'Full Time' },
+  { vi: 'Bán thời gian',  en: 'Part Time' },
+  { vi: 'Remote',         en: 'Remote'    },
+];
+
 const JOB_ICONS = [
   { value: 'fas fa-briefcase',        label: 'Briefcase - Văn phòng' },
   { value: 'fas fa-code',             label: 'Code - Lập trình' },
@@ -342,11 +348,39 @@ export default function JobForm() {
           <div className="admin-form-grid">
             <div className="admin-form-group">
               <label>Tiếng Việt</label>
-              <input type="text" value={form.work_type_vi} onChange={e => set('work_type_vi', e.target.value)} />
+              <select
+                value={form.work_type_vi}
+                onChange={e => {
+                  const found = WORK_TYPES.find(w => w.vi === e.target.value);
+                  setForm(prev => ({
+                    ...prev,
+                    work_type_vi: e.target.value,
+                    work_type_en: found ? found.en : prev.work_type_en,
+                  }));
+                }}
+              >
+                {WORK_TYPES.map(w => (
+                  <option key={w.vi} value={w.vi}>{w.vi}</option>
+                ))}
+              </select>
             </div>
             <div className="admin-form-group">
               <label>Tiếng Anh</label>
-              <input type="text" value={form.work_type_en} onChange={e => set('work_type_en', e.target.value)} />
+              <select
+                value={form.work_type_en}
+                onChange={e => {
+                  const found = WORK_TYPES.find(w => w.en === e.target.value);
+                  setForm(prev => ({
+                    ...prev,
+                    work_type_en: e.target.value,
+                    work_type_vi: found ? found.vi : prev.work_type_vi,
+                  }));
+                }}
+              >
+                {WORK_TYPES.map(w => (
+                  <option key={w.en} value={w.en}>{w.en}</option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
