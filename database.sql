@@ -62,6 +62,15 @@ CREATE TABLE IF NOT EXISTS `applications` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================
+-- TABLE: locations
+-- ============================================================
+CREATE TABLE IF NOT EXISTS `locations` (
+  `id` VARCHAR(36) NOT NULL PRIMARY KEY,
+  `name` VARCHAR(255) NOT NULL,
+  `created_at` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================
 -- TABLE: users
 -- ============================================================
 CREATE TABLE IF NOT EXISTS `users` (
@@ -81,6 +90,17 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `username`, `password_hash`, `display_name`, `role`, `is_active`, `created_at`) VALUES
 ('u001-0000-0000-0000-000000000001', 'admin', '$2y$10$O94noMTG8lk9dCG84OkfCuXj6khDB7SbABvvMpM4jf2/Xe7AHPF2C', 'Super Admin', 'superadmin', 1, NOW()),
 ('u002-0000-0000-0000-000000000002', 'employee1', '$2y$10$ysL7KFcwQb6v7wr6tJaiYuSmzb7C33jfR3.CPeho5YbwaYUXeOfFm', 'Nhân viên HR', 'employee', 1, NOW());
+
+-- ============================================================
+-- SAMPLE DATA: Locations
+-- ============================================================
+INSERT INTO `locations` (`id`, `name`, `created_at`) VALUES
+('loc1-0000-0000-0000-000000000001', 'Hồ Chí Minh', NOW()),
+('loc2-0000-0000-0000-000000000002', 'Hà Nội', NOW()),
+('loc3-0000-0000-0000-000000000003', 'Đà Nẵng', NOW()),
+('loc4-0000-0000-0000-000000000004', 'Remote', NOW()),
+('loc5-0000-0000-0000-000000000005', 'Hải Phòng', NOW()),
+('loc6-0000-0000-0000-000000000006', 'Cần Thơ', NOW());
 
 -- ============================================================
 -- SAMPLE DATA: Companies

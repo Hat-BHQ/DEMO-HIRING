@@ -403,3 +403,67 @@ function handleAdminDeleteApplication(string $appId): void {
     http_response_code(204);
     exit;
 }
+
+// ========== LOCATIONS CRUD ==========
+
+function handleAdminListLocations(): void {
+    getAuthAdmin();
+    $db = getDB();
+    $rows = $db->query("SELECT * FROM locations ORDER BY name ASC")->fetchAll();
+    sendJSON(array_map(fn($r) => ['id' => $r['id'], 'name' => $r['name'], 'created_at' => $r['created_at']], $rows));
+}
+
+function handleAdminCreateLocation(): void {
+    getAuthAdmin();
+    $db = getDB();
+    $data = getJSONBody();
+    $name = trim($data['name'] ?? '');
+    if ($name === '') {
+        sendError(400, 'Name is required');
+    }
+
+    $id = generateUUID();
+    $now = date('Y-m-d H:i:s');
+    $db->prepare("INSERT INTO locations (id, name, created_at) VALUES (:id, :name, :created_at)")
+       ->execute([':id' => $id, ':name' => $name, ':created_at' => $now]);
+
+    http_response_code(201);
+    sendJSON(['id' => $id, 'name' => $name, 'created_at' => $now]);
+}
+
+function handleAdminUpdateLocation(string $locationId): void {
+    getAuthAdmin();
+    $db = getDB();
+    $data = getJSONBody();
+    $name = trim($data['name'] ?? '');
+    if ($name === '') {
+        sendError(400, 'Name is required');
+    }
+
+    $check = $db->prepare("SELECT id FROM locations WHERE id = :id");
+    $check->execute([':id' => $locationId]);
+    if (!$check->fetch()) {
+        sendError(404, 'Location not found');
+    }
+
+    $db->prepare("UPDATE locations SET name = :name WHERE id = :id")
+       ->execute([':name' => $name, ':id' => $locationId]);
+
+    $fetch = $db->prepare("SELECT * FROM locations WHERE id = :id");
+    $fetch->execute([':id' => $locationId]);
+    $row = $fetch->fetch();
+    sendJSON(['id' => $row['id'], 'name' => $row['name'], 'created_at' => $row['created_at']]);
+}
+
+function handleAdminDeleteLocation(string $locationId): void {
+    getAuthAdmin();
+    $db = getDB();
+
+    $stmt = $db->prepare("DELETE FROM locations WHERE id = :id");
+    $stmt->execute([':id' => $locationId]);
+    if ($stmt->rowCount() === 0) {
+        sendError(404, 'Location not found');
+    }
+    http_response_code(204);
+    exit;
+}

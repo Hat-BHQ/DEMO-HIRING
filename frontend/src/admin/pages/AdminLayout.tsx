@@ -44,6 +44,10 @@ export default function AdminLayout() {
             <i className="fas fa-building"></i>
             <span>Công ty</span>
           </NavLink>
+          <NavLink to="/admin/locations" className={({ isActive }) => isActive ? 'active' : ''}>
+            <i className="fas fa-map-marker-alt"></i>
+            <span>Địa điểm</span>
+          </NavLink>
           <NavLink to="/admin/applications" className={({ isActive }) => isActive ? 'active' : ''}>
             <i className="fas fa-file-alt"></i>
             <span>Hồ sơ ứng tuyển</span>

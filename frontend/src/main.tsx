@@ -11,6 +11,7 @@ import JobList from './admin/pages/JobList';
 import JobForm from './admin/pages/JobForm';
 import CompanyList from './admin/pages/CompanyList';
 import ApplicationList from './admin/pages/ApplicationList';
+import LocationList from './admin/pages/LocationList';
 import './styles.css';
 import './admin/admin.css';
 
@@ -35,6 +36,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="jobs/new" element={<JobForm />} />
           <Route path="jobs/:id" element={<JobForm />} />
           <Route path="companies" element={<CompanyList />} />
+          <Route path="locations" element={<LocationList />} />
           <Route path="applications" element={<ApplicationList />} />
         </Route>
       </Routes>

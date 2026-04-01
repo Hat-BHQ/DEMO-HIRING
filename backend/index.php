@@ -141,6 +141,24 @@ if (preg_match('#^/admin/applications/([a-zA-Z0-9\-]+)$#', $path, $m) && $method
     handleAdminDeleteApplication($m[1]);
 }
 
+// --- Admin Locations ---
+if ($path === '/admin/locations' && $method === 'GET') {
+    require __DIR__ . '/routes/admin.php';
+    handleAdminListLocations();
+}
+if ($path === '/admin/locations' && $method === 'POST') {
+    require __DIR__ . '/routes/admin.php';
+    handleAdminCreateLocation();
+}
+if (preg_match('#^/admin/locations/([a-zA-Z0-9\-]+)$#', $path, $m) && $method === 'PUT') {
+    require __DIR__ . '/routes/admin.php';
+    handleAdminUpdateLocation($m[1]);
+}
+if (preg_match('#^/admin/locations/([a-zA-Z0-9\-]+)$#', $path, $m) && $method === 'DELETE') {
+    require __DIR__ . '/routes/admin.php';
+    handleAdminDeleteLocation($m[1]);
+}
+
 // --- Serve uploaded files ---
 if (preg_match('#^/uploads/([a-zA-Z0-9_\-\.]+)$#', $path, $m)) {
     $filename = basename($m[1]);

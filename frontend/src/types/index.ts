@@ -5,6 +5,12 @@ export interface Company {
   created_at: string;
 }
 
+export interface Location {
+  id: string;
+  name: string;
+  created_at: string;
+}
+
 export interface Job {
   id: string;
   title: string;

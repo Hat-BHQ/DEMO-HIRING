@@ -1,5 +1,5 @@
 import type {
-  Job, Company, JobListResponse, DashboardStats,
+  Job, Company, Location, JobListResponse, DashboardStats,
   ApplicationListResponse,
 } from '../types';
 
@@ -133,4 +133,29 @@ export async function updateApplicationStatus(id: string, status: string): Promi
 
 export async function deleteAdminApplication(id: string): Promise<void> {
   return request(`/applications/${id}`, { method: 'DELETE' });
+}
+
+// Locations
+export async function fetchAdminLocations(): Promise<Location[]> {
+  return request<Location[]>('/locations');
+}
+
+export async function createAdminLocation(data: { name: string }): Promise<Location> {
+  return request<Location>('/locations', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateAdminLocation(id: string, data: { name: string }): Promise<Location> {
+  return request<Location>(`/locations/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deleteAdminLocation(id: string): Promise<void> {
+  return request(`/locations/${id}`, { method: 'DELETE' });
 }

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import type { Company } from '../../types';
+import type { Company, Location } from '../../types';
 import {
   fetchAdminJob, createAdminJob, updateAdminJob,
   fetchAdminCompanies, createAdminCompany,
+  fetchAdminLocations, createAdminLocation,
 } from '../../services/adminApi';
 
 interface FormData {
@@ -67,6 +68,11 @@ const JOB_ICONS = [
   { value: 'fas fa-flask',            label: 'Flask - Nghiên cứu' },
 ];
 
+const formatVND = (val: number): string => {
+  if (!val) return '0';
+  return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+};
+
 const defaultForm: FormData = {
   title: '', icon: 'fas fa-briefcase', badge: '', location: '',
   salary_min: 0, salary_max: 0, salary_currency: 'VND',
@@ -84,13 +90,19 @@ export default function JobForm() {
 
   const [form, setForm] = useState<FormData>(defaultForm);
   const [companies, setCompanies] = useState<Company[]>([]);
+  const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showNewCompany, setShowNewCompany] = useState(false);
   const [newCompany, setNewCompany] = useState({ name: '', icon: 'fas fa-building' });
+  const [showNewLocation, setShowNewLocation] = useState(false);
+  const [newLocationName, setNewLocationName] = useState('');
+  const [salaryMinDisplay, setSalaryMinDisplay] = useState('0');
+  const [salaryMaxDisplay, setSalaryMaxDisplay] = useState('0');
 
   useEffect(() => {
     fetchAdminCompanies().then(setCompanies);
+    fetchAdminLocations().then(setLocations);
     if (id) {
       fetchAdminJob(id).then(job => {
         setForm({
@@ -115,9 +127,20 @@ export default function JobForm() {
           is_active: job.is_active,
           company_id: job.company_id,
         });
+        setSalaryMinDisplay(formatVND(job.salary_min));
+        setSalaryMaxDisplay(formatVND(job.salary_max));
       });
     }
   }, [id]);
+
+  const handleSalaryInput = (field: 'salary_min' | 'salary_max', raw: string) => {
+    const digits = raw.replace(/\./g, '').replace(/[^\d]/g, '');
+    const num = digits ? parseInt(digits, 10) : 0;
+    set(field, num);
+    const display = digits === '' ? '' : formatVND(num);
+    if (field === 'salary_min') setSalaryMinDisplay(display);
+    else setSalaryMaxDisplay(display);
+  };
 
   const set = (key: keyof FormData, value: string | number | boolean) => {
     setForm(prev => ({ ...prev, [key]: value }));
@@ -132,9 +155,24 @@ export default function JobForm() {
     setShowNewCompany(false);
   };
 
+  const handleAddLocation = async () => {
+    if (!newLocationName.trim()) return;
+    const loc = await createAdminLocation({ name: newLocationName.trim() });
+    setLocations(prev => [...prev, loc].sort((a, b) => a.name.localeCompare(b.name)));
+    setForm(prev => ({ ...prev, location: loc.name }));
+    setNewLocationName('');
+    setShowNewLocation(false);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    if (form.salary_min > 0 && form.salary_max > 0 && form.salary_min >= form.salary_max) {
+      setError('Lương tối thiểu phải nhỏ hơn lương tối đa.');
+      return;
+    }
+
     setLoading(true);
 
     const payload = {
@@ -219,8 +257,25 @@ export default function JobForm() {
               </select>
             </div>
             <div className="admin-form-group">
-              <label>Địa điểm *</label>
-              <input type="text" value={form.location} onChange={e => set('location', e.target.value)} required placeholder="Hồ Chí Minh" />
+              <label>
+                Địa điểm *
+                <button type="button" className="admin-btn-link" onClick={() => setShowNewLocation(v => !v)}>
+                  {showNewLocation ? 'Hủy' : '+ Thêm mới'}
+                </button>
+              </label>
+              {showNewLocation ? (
+                <div className="admin-inline-form">
+                  <input type="text" placeholder="Tên địa điểm" value={newLocationName} onChange={e => setNewLocationName(e.target.value)} />
+                  <button type="button" className="admin-btn admin-btn-primary admin-btn-sm" onClick={handleAddLocation}>Thêm</button>
+                </div>
+              ) : (
+                <select value={form.location} onChange={e => set('location', e.target.value)} required>
+                  <option value="">Chọn địa điểm</option>
+                  {locations.map(loc => (
+                    <option key={loc.id} value={loc.name}>{loc.name}</option>
+                  ))}
+                </select>
+              )}
             </div>
             <div className="admin-form-group">
               <label>
@@ -252,11 +307,27 @@ export default function JobForm() {
           <div className="admin-form-grid">
             <div className="admin-form-group">
               <label>Lương tối thiểu (VND)</label>
-              <input type="number" value={form.salary_min} onChange={e => set('salary_min', Number(e.target.value))} min={0} step={500000} placeholder="VD: 10000000" />
+              <input
+                type="text"
+                inputMode="numeric"
+                value={salaryMinDisplay}
+                onChange={e => handleSalaryInput('salary_min', e.target.value)}
+                onFocus={e => { if (e.target.value === '0') setSalaryMinDisplay(''); }}
+                onBlur={() => { if (!salaryMinDisplay) setSalaryMinDisplay('0'); }}
+                placeholder="VD: 15.000.000"
+              />
             </div>
             <div className="admin-form-group">
               <label>Lương tối đa (VND)</label>
-              <input type="number" value={form.salary_max} onChange={e => set('salary_max', Number(e.target.value))} min={0} step={500000} placeholder="VD: 25000000" />
+              <input
+                type="text"
+                inputMode="numeric"
+                value={salaryMaxDisplay}
+                onChange={e => handleSalaryInput('salary_max', e.target.value)}
+                onFocus={e => { if (e.target.value === '0') setSalaryMaxDisplay(''); }}
+                onBlur={() => { if (!salaryMaxDisplay) setSalaryMaxDisplay('0'); }}
+                placeholder="VD: 25.000.000"
+              />
             </div>
             <div className="admin-form-group admin-col-2">
               <label>Tags (phân cách bằng dấu phẩy)</label>
