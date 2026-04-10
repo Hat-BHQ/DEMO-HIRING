@@ -1573,6 +1573,7 @@ body {
     color: var(--text-light);
     line-height: 1.8;
     font-size: 14px;
+    white-space: pre-wrap;
 }
 
 .modal-section ul {
