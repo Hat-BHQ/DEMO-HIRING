@@ -102,7 +102,7 @@ body {
 .logo-slogan {
   font-size: 14px;
   font-style: italic;
-  color: var(--text-light);
+  color: var(--text-dark);
   opacity: 0.8;
   text-align: center;
 }
