@@ -105,6 +105,7 @@ body {
   color: var(--text-dark);
   opacity: 0.8;
   text-align: center;
+  font-weight: bold;
 }
 
 .logo i {
@@ -2052,4 +2053,8 @@ body {
   .apply-modal {
     padding: 28px 18px 24px;
   }
+}
+
+[data-theme="dark"] .footer {
+  --white: #e0e0e0;
 }
