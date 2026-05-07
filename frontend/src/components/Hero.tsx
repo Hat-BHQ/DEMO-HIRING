@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useLang } from '../contexts/LangContext';
 
-const slides = ['/image/hcm01.jpg', '/image/hcm02.jpg'];
+const slides = ['/image/hcm01.jpg'];
 
 export default function Hero() {
   const { t } = useLang();
