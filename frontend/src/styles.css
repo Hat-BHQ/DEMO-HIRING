@@ -663,6 +663,57 @@ button {
   height: auto;
 }
 
+.about-banner-content {
+  position: absolute;
+  left: 120px;
+  top: clamp(24px, 4vw, 54px);
+  bottom: clamp(20px, 3.2vw, 42px);
+  width: min(clamp(360px, 34vw, 620px), calc(100% - 72px));
+  padding-right: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #3a3a3a;
+  z-index: 2;
+}
+
+.about-banner-content h1 {
+  margin: 0;
+  font-size: clamp(36px, 4vw, 72px);
+  line-height: 1.06;
+  letter-spacing: 0.4px;
+  font-weight: 900;
+  color: #22252b;
+}
+
+.about-banner-content h1 span {
+  color: #f26726;
+}
+
+.about-banner-divider {
+  width: clamp(96px, 10vw, 140px);
+  height: 4px;
+  border-radius: 999px;
+  background: #f26726;
+  margin: clamp(14px, 1.8vw, 24px) 0;
+}
+
+.about-banner-content p {
+  margin: 0;
+  font-size: clamp(13px, 0.82vw + 0.45rem, 22px);
+  line-height: clamp(1.42, 1.5, 1.55);
+  color: #4a4d53;
+}
+
+.about-banner-content p + p {
+  margin-top: clamp(10px, 1.3vw, 18px);
+}
+
+.about-banner-content strong {
+  color: #3d3f44;
+  font-weight: 800;
+}
+
 .section-header {
   text-align: center;
   margin-bottom: 60px;
@@ -1232,7 +1283,7 @@ button {
 
 .vision-mission-list {
   display: grid;
-  gap: 34px;
+  gap: 64px;
   max-width: 980px;
   margin: 0 auto;
 }
@@ -1240,7 +1291,7 @@ button {
 .vision-mission-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 34px;
+  gap: 64px;
   align-items: center;
 }
 
@@ -1370,14 +1421,14 @@ button {
 }
 
 .core-value-card h3 {
-  font-size: 32px;
+  font-size: 18px;
   line-height: 1.45;
   color: #f26726;
   margin-bottom: 8px;
 }
 
 .core-value-card p {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
   color: #4f5460;
 }
@@ -3469,6 +3520,8 @@ button {
 .hero {
   min-height: clamp(240px, 44vw, 630px);
   padding: 0;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .hero-slide {
@@ -3478,14 +3531,39 @@ button {
 
 .about-banner-frame {
   aspect-ratio: 16 / 5;
-  min-height: clamp(200px, 30vw, 420px);
+  min-height: clamp(250px, 32vw, 520px);
+  max-width: 1440px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #fffaf4 0%, #fffdf9 100%);
 }
 
 .about-banner-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  object-fit: contain;
+  object-position: right center;
+}
+
+@media (min-width: 1440px) {
+  .about-banner-frame {
+    min-height: 520px;
+  }
+
+  .about-banner-content {
+    left: 120px;
+    top: 34px;
+    bottom: 30px;
+    width: 560px;
+  }
+
+  .about-banner-content h1 {
+    font-size: 60px;
+  }
+
+  .about-banner-content p {
+    font-size: 15px;
+    line-height: 1.52;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -3495,7 +3573,23 @@ button {
 
   .about-banner-frame {
     aspect-ratio: 12 / 5;
-    min-height: clamp(180px, 34vw, 340px);
+    min-height: clamp(240px, 40vw, 440px);
+  }
+
+  .about-banner-content {
+    left: clamp(24px, 4.2vw, 48px);
+    top: clamp(18px, 3vw, 32px);
+    bottom: clamp(18px, 3vw, 28px);
+    width: min(clamp(300px, 46vw, 500px), calc(100% - 48px));
+  }
+
+  .about-banner-content h1 {
+    font-size: clamp(30px, 3.6vw, 52px);
+  }
+
+  .about-banner-content p {
+    font-size: clamp(12px, 1.1vw + 0.25rem, 16px);
+    line-height: 1.46;
   }
 }
 
@@ -3505,12 +3599,37 @@ button {
   }
 
   .about-banner-frame {
-    aspect-ratio: 3 / 2;
-    min-height: clamp(170px, 48vw, 290px);
+    aspect-ratio: 4 / 3;
+    min-height: clamp(300px, 76vw, 500px);
   }
 
   .about-banner-image {
-    object-position: center;
+    object-fit: cover;
+    object-position: right center;
+  }
+
+  .about-banner-content {
+    left: 16px;
+    right: 16px;
+    width: auto;
+    top: 16px;
+    bottom: auto;
+    transform: none;
+    background: rgba(255, 250, 244, 0.9);
+    border: 1px solid rgba(242, 103, 38, 0.2);
+    border-radius: 16px;
+    padding: 14px 14px 12px;
+    box-shadow: 0 10px 24px rgba(31, 20, 10, 0.1);
+    backdrop-filter: blur(2px);
+  }
+
+  .about-banner-content h1 {
+    font-size: clamp(24px, 6.8vw, 34px);
+  }
+
+  .about-banner-content p {
+    font-size: clamp(13px, 2.1vw, 15px);
+    line-height: 1.5;
   }
 }
 
@@ -3521,6 +3640,24 @@ button {
 
   .about-banner-frame {
     aspect-ratio: 5 / 3;
-    min-height: clamp(150px, 52vw, 240px);
+    min-height: clamp(290px, 90vw, 420px);
+  }
+
+  .about-banner-content {
+    left: 12px;
+    right: 12px;
+    top: 12px;
+    padding: 12px;
+  }
+
+  .about-banner-divider {
+    margin: 10px 0 12px;
+    height: 3px;
+    width: 88px;
+  }
+
+  .about-banner-content p {
+    font-size: clamp(11px, 3.2vw, 13px);
+    line-height: 1.45;
   }
 }

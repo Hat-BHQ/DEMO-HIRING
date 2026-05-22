@@ -297,10 +297,29 @@ export default function AboutPage() {
       <section className="about-banner-section" aria-label="Banner giới thiệu">
         <div className="about-banner-frame">
           <img
-            src="/image/Banner_gioithieu.png"
+            src="/image/Banner_giothieu_1.png"
             alt="Banner giới thiệu TOM Group Vietnam"
             className="about-banner-image"
           />
+          <div className="about-banner-content">
+            <h1>
+              VỀ <span>CHÚNG TÔI</span>
+            </h1>
+            <div className="about-banner-divider" aria-hidden="true"></div>
+            <p>
+              TOM Group Vietnam là trung tâm nghiên cứu phát triển, sản xuất và vận hành của TOM ORGANIZATION,
+              tập trung phát triển các giải pháp audio, karaoke và phục dựng thiết bị hi-fi vintage cho thị
+              trường Hoa Kỳ và cộng đồng người Việt trên toàn cầu. Công ty hiện vận hành và phát triển hai thương
+              hiệu chính là <strong>HQsing - giải pháp karaoke dành cho người Việt tại Mỹ</strong>, và{' '}
+              <strong>HQaudios - thương hiệu chuyên phục dựng thiết bị âm thanh vintage với định hướng "Classic Sound. Professionally Restored."</strong>
+            </p>
+            <p>
+              Với đội ngũ tại Việt Nam, TOM Group Vietnam không chỉ tham gia vào hoạt động sản xuất và kỹ thuật mà
+              còn phát triển marketing, công nghệ, vận hành và thương mại cho thị trường quốc tế. Chúng tôi đang
+              trong giai đoạn mở rộng mạnh về quy mô nhân sự, hệ thống vận hành và năng lực nghiên cứu phát triển nhằm
+              phục vụ kế hoạch tăng trưởng dài hạn của TOM Organization.
+            </p>
+          </div>
         </div>
       </section>
       <section className="brand-showcase" aria-labelledby="brand-showcase-title">
