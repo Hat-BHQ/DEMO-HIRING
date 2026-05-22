@@ -60,19 +60,19 @@ php -S localhost:8080 router.php
 
 ## API Endpoints
 
-| Method | Endpoint | Mô tả |
-|--------|----------|-------|
-| GET | `/api/jobs` | Danh sách jobs (filter, pagination) |
-| GET | `/api/jobs/hot` | Jobs nổi bật |
-| GET | `/api/jobs/featured` | Jobs đề xuất |
-| GET | `/api/jobs/{id}` | Chi tiết job |
-| GET | `/api/jobs/locations` | Danh sách địa điểm |
-| POST | `/api/applications` | Nộp đơn ứng tuyển (multipart) |
-| POST | `/api/admin/login` | Đăng nhập admin |
-| GET | `/api/admin/dashboard` | Thống kê |
-| CRUD | `/api/admin/jobs/*` | Quản lý jobs |
-| CRUD | `/api/admin/companies/*` | Quản lý công ty |
-| CRUD | `/api/admin/applications/*` | Quản lý đơn ứng tuyển |
+| Method        | Endpoint                         | Mô tả                              |
+| ------------- | -------------------------------- | ------------------------------------ |
+| GET           | `/api/jobs`                    | Danh sách jobs (filter, pagination) |
+| GET           | `/api/jobs/hot`                | Jobs nổi bật                       |
+| GET           | `/api/jobs/featured`           | Jobs đề xuất                      |
+| GET           | `/api/jobs/{id}`               | Chi tiết job                        |
+| GET           | `/api/jobs/locations`          | Danh sách địa điểm              |
+| POST          | `/api/applications`            | Nộp đơn ứng tuyển (multipart)   |
+| POST          | `/api/admin/login`             | Đăng nhập admin                   |
+| GET           | `/api/admin/dashboard`         | Thống kê                           |
+| CRUD          | `/api/admin/jobs/*`            | Quản lý jobs                       |
+| CRUD          | `/api/admin/companies/*`       | Quản lý công ty                   |
+| CRUD          | `/api/admin/applications/*`    | Quản lý đơn ứng tuyển          |
 | No CV storage | File upload → server filesystem | Secure file handling with validation |
 
 ---
@@ -80,17 +80,10 @@ php -S localhost:8080 router.php
 ## Key Technical Decisions
 
 1. **React + Vite** over Next.js: This is an SPA without SEO requirements for job listings (can add SSR later). Vite provides faster DX.
-
 2. **Context API** over Redux/Zustand: Only 2 global states (theme, language). Context is sufficient and avoids extra dependencies.
-
 3. **FastAPI async**: All DB operations use `async/await` with `asyncpg` for non-blocking I/O.
-
 4. **Clean Architecture (Router → Service → Repository)**: Separation of concerns makes testing and modification easier.
-
 5. **UUID primary keys**: Better for distributed systems, no sequential ID enumeration.
-
 6. **ARRAY columns** for tags/requirements/benefits: PostgreSQL native arrays avoid extra junction tables for simple string lists.
-
 7. **Seed data in lifespan**: Auto-migrates hardcoded JS data to DB on first startup.
-
 8. **`memo()` on card components**: Prevents unnecessary re-renders when parent state changes.

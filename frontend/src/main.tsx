@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LangProvider } from './contexts/LangContext';
 import App from './App';
+import AboutPage from './AboutPage';
 import AdminLogin from './admin/pages/AdminLogin';
 import AdminLayout from './admin/pages/AdminLayout';
 import Dashboard from './admin/pages/Dashboard';
@@ -24,6 +25,13 @@ createRoot(document.getElementById('root')!).render(
           <ThemeProvider>
             <LangProvider>
               <App />
+            </LangProvider>
+          </ThemeProvider>
+        } />
+        <Route path="/about" element={
+          <ThemeProvider>
+            <LangProvider>
+              <AboutPage />
             </LangProvider>
           </ThemeProvider>
         } />

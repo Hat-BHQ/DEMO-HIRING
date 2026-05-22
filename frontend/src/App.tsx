@@ -6,7 +6,6 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
 import FilterSection from './components/FilterSection';
-import HotJobCard from './components/HotJobCard';
 import JobCard from './components/JobCard';
 import JobDetailModal from './components/JobDetailModal';
 import ApplyModal from './components/ApplyModal';
@@ -75,14 +74,14 @@ export default function App() {
             <div className="container">
               <div className="section-header">
                 <h2>{t('hotJobsTitle')} <span className="highlight">{t('hotJobsHighlight')}</span></h2>
-                <p>{t('hotJobsSubtitle')}</p>
+                {/* <p>{t('hotJobsSubtitle')}</p> */}
               </div>
               <div className="hot-jobs-list">
                 {hotJobs.length === 0 ? (
                   <p className="jobs-empty-hint">{t('hotJobsEmpty')}</p>
                 ) : (
                   hotJobs.map(job => (
-                    <HotJobCard
+                    <JobCard
                       key={job.id}
                       job={job}
                       onCardClick={setSelectedJob}
@@ -106,7 +105,7 @@ export default function App() {
             <div className="container">
               <div className="section-header">
                 <h2>{t('featuredJobsTitle')} <span className="highlight">{t('featuredJobsHighlight')}</span></h2>
-                <p>{t('featuredJobsSubtitle')}</p>
+                {/* <p>{t('featuredJobsSubtitle')}</p> */}
               </div>
               <div className="jobs-grid">
                 {featuredJobs.length === 0 ? (

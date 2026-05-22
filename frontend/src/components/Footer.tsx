@@ -1,16 +1,44 @@
+import { useState } from 'react';
 import { useLang } from '../contexts/LangContext';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const { t } = useLang();
+  const [copiedField, setCopiedField] = useState<'mail' | 'hotline' | null>(null);
+  const mainOfficeMapUrl = 'https://www.google.com/maps/search/?api=1&query=189C1%2F6+Nguyen+Van+Huong%2C+Thao+Dien%2C+Ho+Chi+Minh';
+  const factoryOfficeMapUrl = 'https://www.google.com/maps/search/?api=1&query=199M+Nguyen+Van+Huong%2C+Thao+Dien%2C+Ho+Chi+Minh';
+
+  const copyToClipboard = async (value: string, field: 'mail' | 'hotline') => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(value);
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = value;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+
+      setCopiedField(field);
+      window.setTimeout(() => setCopiedField(current => (current === field ? null : current)), 1800);
+    } catch {
+      setCopiedField(null);
+    }
+  };
 
   return (
     <footer className="footer" id="contact">
       <div className="container">
         <div className="footer-content">
-          <div className="footer-col">
+          <div className="footer-col footer-brand">
             <div className="footer-logo">
               <img src="/image/logon.png" alt="TOMGROUPVN" />
-              <span className='footer-company-name'>TOM GROUP <span>Vietnam</span></span>
+              <span className="footer-company-name">TOM GROUP <span>Vietnam</span></span>
             </div>
             <p className="footer-slogan">{t('footerDesc')}</p>
             <div className="social-links">
@@ -22,8 +50,8 @@ export default function Footer() {
           <div className="footer-col">
             <h4>{t('footerAbout')}</h4>
             <ul>
-              <li><a href="#">{t('footerIntro')}</a></li>
-              <li><a href="#">{t('footerContact')}</a></li>
+              <li><Link to="/about">{t('footerIntro')}</Link></li>
+              <li><a href="#contact">{t('footerContact')}</a></li>
               <li><a href="#">{t('footerBlog')}</a></li>
               <li><a href="#">{t('footerFaq')}</a></li>
             </ul>
@@ -31,27 +59,68 @@ export default function Footer() {
           <div className="footer-col">
             <h4>{t('footerForCandidate')}</h4>
             <ul>
-              <li><a href="#">{t('footerFindJob')}</a></li>
+              <li><a href="#jobs">{t('footerFindJob')}</a></li>
               <li><a href="#">{t('footerCompany')}</a></li>
               <li><a href="#">{t('footerCvGuide')}</a></li>
               <li><a href="#">{t('footerCareerGuide')}</a></li>
             </ul>
           </div>
-          <div className="footer-col">
-            <h4>{t('footerForEmployer')}</h4>
-            <ul>
-              <li><a href="#">{t('footerPostJob')}</a></li>
-              <li><a href="#">{t('footerFindCandidate')}</a></li>
-              <li><a href="#">{t('footerPricing')}</a></li>
-              <li><a href="#">{t('footerPartner')}</a></li>
-            </ul>
+          <div className="footer-col footer-contact-col">
+            <h4>{t('footerContact')}</h4>
+            <div className="footer-contact-list">
+              <div className="footer-contact-item">
+                <span className="footer-contact-icon"><i className="fas fa-envelope"></i></span>
+                <p className="footer-contact-text">
+                  <strong>{t('footerMailLabel')}</strong>{' '}
+                  <button
+                    type="button"
+                    className="footer-copy-btn"
+                    onClick={() => copyToClipboard(t('footerMailValue'), 'mail')}
+                    aria-label="Copy email"
+                  >
+                    {t('footerMailValue')}
+                  </button>
+                  {copiedField === 'mail' && <span className="footer-copy-status">Đã copy</span>}
+                </p>
+              </div>
+              <div className="footer-contact-item">
+                <span className="footer-contact-icon"><i className="fas fa-phone-alt"></i></span>
+                <p className="footer-contact-text">
+                  <strong>{t('footerHotlineLabel')}</strong>{' '}
+                  <button
+                    type="button"
+                    className="footer-copy-btn"
+                    onClick={() => copyToClipboard(t('footerHotlineValue'), 'hotline')}
+                    aria-label="Copy hotline"
+                  >
+                    {t('footerHotlineValue')}
+                  </button>
+                  {copiedField === 'hotline' && <span className="footer-copy-status">Đã copy</span>}
+                </p>
+              </div>
+              <div className="footer-contact-item footer-contact-item--top">
+                <span className="footer-contact-icon"><i className="fas fa-map-marker-alt"></i></span>
+                <div className="footer-contact-text footer-contact-addresses">
+                  <p><strong>{t('footerOfficeLabel')}</strong></p>
+                  <p>
+                    <strong>{t('footerOfficeMainLabel')}</strong>{' '}
+                    <a href={mainOfficeMapUrl} target="_blank" rel="noopener noreferrer" className="footer-map-link">
+                      {t('footerOfficeMainValue')}
+                    </a>
+                  </p>
+                  <p>
+                    <strong>{t('footerOfficeFactoryLabel')}</strong>{' '}
+                    <a href={factoryOfficeMapUrl} target="_blank" rel="noopener noreferrer" className="footer-map-link">
+                      {t('footerOfficeFactoryValue')}
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="footer-bottom">
           <p>{t('footerCopyright')}</p>
-          <p className="footer-address">
-            <i className="fas fa-map-marker-alt"></i> 189C1/6 Nguyễn Văn Hưởng, Phường An Khánh, Thành phố Hồ Chí Minh
-          </p>
           <div className="footer-links">
             <a href="#">{t('footerTerms')}</a>
             <a href="#">{t('footerPrivacy')}</a>

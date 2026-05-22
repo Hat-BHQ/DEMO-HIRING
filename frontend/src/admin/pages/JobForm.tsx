@@ -17,24 +17,16 @@ interface FormData {
   salary_currency: string;
   tags: string;
   work_type_vi: string;
-  work_type_en: string;
   description_vi: string;
-  description_en: string;
   requirements_vi: string;
-  requirements_en: string;
   benefits_vi: string;
-  benefits_en: string;
   is_hot: boolean;
   is_featured: boolean;
   is_active: boolean;
   company_id: string;
 }
 
-const WORK_TYPES = [
-  { vi: 'Toàn thời gian', en: 'Full Time' },
-  { vi: 'Bán thời gian',  en: 'Part Time' },
-  { vi: 'Remote',         en: 'Remote'    },
-];
+const WORK_TYPES = ['Toàn thời gian', 'Bán thời gian', 'Remote'];
 
 const JOB_ICONS = [
   { value: 'fas fa-briefcase',        label: 'Briefcase - Văn phòng' },
@@ -82,10 +74,10 @@ const formatVND = (val: number): string => {
 const defaultForm: FormData = {
   title: '', icon: 'fas fa-briefcase', badge: '', location: '',
   salary_min: 0, salary_max: 0, salary_currency: 'VND',
-  tags: '', work_type_vi: 'Toàn thời gian', work_type_en: 'Full Time',
-  description_vi: '', description_en: '',
-  requirements_vi: '', requirements_en: '',
-  benefits_vi: '', benefits_en: '',
+  tags: '', work_type_vi: 'Toàn thời gian',
+  description_vi: '',
+  requirements_vi: '',
+  benefits_vi: '',
   is_hot: false, is_featured: false, is_active: true, company_id: '',
 };
 
@@ -121,13 +113,9 @@ export default function JobForm() {
           salary_currency: job.salary_currency,
           tags: job.tags.join(', '),
           work_type_vi: job.work_type_vi,
-          work_type_en: job.work_type_en,
           description_vi: job.description_vi,
-          description_en: job.description_en,
           requirements_vi: job.requirements_vi.join('\n'),
-          requirements_en: job.requirements_en.join('\n'),
           benefits_vi: job.benefits_vi.join('\n'),
-          benefits_en: job.benefits_en.join('\n'),
           is_hot: job.is_hot,
           is_featured: job.is_featured,
           is_active: job.is_active,
@@ -191,13 +179,13 @@ export default function JobForm() {
       salary_currency: 'VND',
       tags: form.tags.split(',').map(t => t.trim()).filter(Boolean),
       work_type_vi: form.work_type_vi,
-      work_type_en: form.work_type_en,
+      work_type_en: form.work_type_vi,
       description_vi: form.description_vi,
-      description_en: form.description_en,
+      description_en: form.description_vi,
       requirements_vi: form.requirements_vi.split('\n').filter(Boolean),
-      requirements_en: form.requirements_en.split('\n').filter(Boolean),
+      requirements_en: form.requirements_vi.split('\n').filter(Boolean),
       benefits_vi: form.benefits_vi.split('\n').filter(Boolean),
-      benefits_en: form.benefits_en.split('\n').filter(Boolean),
+      benefits_en: form.benefits_vi.split('\n').filter(Boolean),
       is_hot: form.is_hot,
       is_featured: form.is_featured,
       is_active: form.is_active,
@@ -346,39 +334,14 @@ export default function JobForm() {
         <div className="admin-form-section">
           <h3><i className="fas fa-clock"></i> Hình thức làm việc</h3>
           <div className="admin-form-grid">
-            <div className="admin-form-group">
-              <label>Tiếng Việt</label>
+            <div className="admin-form-group admin-col-2">
+              <label>Hình thức</label>
               <select
                 value={form.work_type_vi}
-                onChange={e => {
-                  const found = WORK_TYPES.find(w => w.vi === e.target.value);
-                  setForm(prev => ({
-                    ...prev,
-                    work_type_vi: e.target.value,
-                    work_type_en: found ? found.en : prev.work_type_en,
-                  }));
-                }}
+                onChange={e => set('work_type_vi', e.target.value)}
               >
                 {WORK_TYPES.map(w => (
-                  <option key={w.vi} value={w.vi}>{w.vi}</option>
-                ))}
-              </select>
-            </div>
-            <div className="admin-form-group">
-              <label>Tiếng Anh</label>
-              <select
-                value={form.work_type_en}
-                onChange={e => {
-                  const found = WORK_TYPES.find(w => w.en === e.target.value);
-                  setForm(prev => ({
-                    ...prev,
-                    work_type_en: e.target.value,
-                    work_type_vi: found ? found.vi : prev.work_type_vi,
-                  }));
-                }}
-              >
-                {WORK_TYPES.map(w => (
-                  <option key={w.en} value={w.en}>{w.en}</option>
+                  <option key={w} value={w}>{w}</option>
                 ))}
               </select>
             </div>
@@ -389,13 +352,9 @@ export default function JobForm() {
         <div className="admin-form-section">
           <h3><i className="fas fa-align-left"></i> Mô tả công việc</h3>
           <div className="admin-form-grid">
-            <div className="admin-form-group">
-              <label>Mô tả (Tiếng Việt) *</label>
-              <textarea rows={4} value={form.description_vi} onChange={e => set('description_vi', e.target.value)} required placeholder="Mô tả công việc..." />
-            </div>
-            <div className="admin-form-group">
-              <label>Mô tả (Tiếng Anh) *</label>
-              <textarea rows={4} value={form.description_en} onChange={e => set('description_en', e.target.value)} required placeholder="Job description..." />
+            <div className="admin-form-group admin-col-2">
+              <label>Mô tả *</label>
+              <textarea rows={5} value={form.description_vi} onChange={e => set('description_vi', e.target.value)} required placeholder="Mô tả công việc..." />
             </div>
           </div>
         </div>
@@ -405,13 +364,9 @@ export default function JobForm() {
           <h3><i className="fas fa-list-check"></i> Yêu cầu ứng viên</h3>
           <p className="admin-hint">Mỗi yêu cầu một dòng</p>
           <div className="admin-form-grid">
-            <div className="admin-form-group">
-              <label>Tiếng Việt</label>
+            <div className="admin-form-group admin-col-2">
+              <label>Yêu cầu</label>
               <textarea rows={5} value={form.requirements_vi} onChange={e => set('requirements_vi', e.target.value)} placeholder="Tốt nghiệp đại học&#10;Kinh nghiệm 3+ năm&#10;..." />
-            </div>
-            <div className="admin-form-group">
-              <label>Tiếng Anh</label>
-              <textarea rows={5} value={form.requirements_en} onChange={e => set('requirements_en', e.target.value)} placeholder="Bachelor's degree&#10;3+ years experience&#10;..." />
             </div>
           </div>
         </div>
@@ -421,13 +376,9 @@ export default function JobForm() {
           <h3><i className="fas fa-gift"></i> Quyền lợi</h3>
           <p className="admin-hint">Mỗi quyền lợi một dòng</p>
           <div className="admin-form-grid">
-            <div className="admin-form-group">
-              <label>Tiếng Việt</label>
+            <div className="admin-form-group admin-col-2">
+              <label>Quyền lợi</label>
               <textarea rows={5} value={form.benefits_vi} onChange={e => set('benefits_vi', e.target.value)} placeholder="Lương thưởng hấp dẫn&#10;Đào tạo chuyên nghiệp&#10;..." />
-            </div>
-            <div className="admin-form-group">
-              <label>Tiếng Anh</label>
-              <textarea rows={5} value={form.benefits_en} onChange={e => set('benefits_en', e.target.value)} placeholder="Competitive salary&#10;Professional training&#10;..." />
             </div>
           </div>
         </div>

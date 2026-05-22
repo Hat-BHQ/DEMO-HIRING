@@ -6,6 +6,7 @@ export default function AdminLayout() {
   const navigate = useNavigate();
   const [ready, setReady] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   useEffect(() => {
     checkAuth().then(ok => {
@@ -23,32 +24,39 @@ export default function AdminLayout() {
   if (!ready) return <div className="admin-loading">Đang tải...</div>;
 
   return (
-    <div className={`admin-layout ${sidebarOpen ? '' : 'sidebar-collapsed'}`}>
+    <div className={`admin-layout ${sidebarOpen ? '' : 'sidebar-collapsed'} ${mobileSidebarOpen ? 'mobile-sidebar-open' : ''}`}>
+      {/* Mobile overlay backdrop */}
+      {mobileSidebarOpen && (
+        <div className="admin-sidebar-backdrop" onClick={() => setMobileSidebarOpen(false)} />
+      )}
       <aside className="admin-sidebar">
         <div className="admin-sidebar-header">
           <h2>TOM Admin</h2>
-          <button className="admin-sidebar-toggle" onClick={() => setSidebarOpen(v => !v)}>
+          <button className="admin-sidebar-toggle" onClick={() => {
+            setSidebarOpen(v => !v);
+            setMobileSidebarOpen(false);
+          }}>
             <i className={`fas fa-${sidebarOpen ? 'chevron-left' : 'chevron-right'}`}></i>
           </button>
         </div>
         <nav className="admin-nav">
-          <NavLink to="/admin" end className={({ isActive }) => isActive ? 'active' : ''}>
+          <NavLink to="/admin" end className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileSidebarOpen(false)}>
             <i className="fas fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </NavLink>
-          <NavLink to="/admin/jobs" className={({ isActive }) => isActive ? 'active' : ''}>
+          <NavLink to="/admin/jobs" className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileSidebarOpen(false)}>
             <i className="fas fa-briefcase"></i>
             <span>Việc làm</span>
           </NavLink>
-          <NavLink to="/admin/companies" className={({ isActive }) => isActive ? 'active' : ''}>
+          <NavLink to="/admin/companies" className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileSidebarOpen(false)}>
             <i className="fas fa-building"></i>
             <span>Công ty</span>
           </NavLink>
-          <NavLink to="/admin/locations" className={({ isActive }) => isActive ? 'active' : ''}>
+          <NavLink to="/admin/locations" className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileSidebarOpen(false)}>
             <i className="fas fa-map-marker-alt"></i>
             <span>Địa điểm</span>
           </NavLink>
-          <NavLink to="/admin/applications" className={({ isActive }) => isActive ? 'active' : ''}>
+          <NavLink to="/admin/applications" className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMobileSidebarOpen(false)}>
             <i className="fas fa-file-alt"></i>
             <span>Hồ sơ ứng tuyển</span>
           </NavLink>
@@ -65,6 +73,13 @@ export default function AdminLayout() {
         </div>
       </aside>
       <main className="admin-main">
+        <button
+          className="admin-mobile-menu-btn"
+          onClick={() => setMobileSidebarOpen(v => !v)}
+          aria-label="Mở menu"
+        >
+          <i className="fas fa-bars"></i>
+        </button>
         <Outlet />
       </main>
     </div>

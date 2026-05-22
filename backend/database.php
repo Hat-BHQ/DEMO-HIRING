@@ -8,7 +8,15 @@ require_once __DIR__ . '/config.php';
 function getDB(): PDO {
     static $pdo = null;
     if ($pdo === null) {
-        $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET;
+        $driver = strtolower(DB_DRIVER);
+        if ($driver === 'pgsql' || $driver === 'postgres' || $driver === 'postgresql') {
+            $port = DB_PORT > 0 ? DB_PORT : 5432;
+            $dsn = 'pgsql:host=' . DB_HOST . ';port=' . $port . ';dbname=' . DB_NAME;
+        } else {
+            $port = DB_PORT > 0 ? DB_PORT : 3306;
+            $dsn = 'mysql:host=' . DB_HOST . ';port=' . $port . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET;
+        }
+
         $pdo = new PDO($dsn, DB_USER, DB_PASS, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

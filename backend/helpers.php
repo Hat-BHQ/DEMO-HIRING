@@ -30,6 +30,38 @@ function getQueryInt(string $name, int $default): int {
     return $val !== null ? max(1, (int)$val) : $default;
 }
 
+function parseDbList($value): array {
+    if (is_array($value)) {
+        return $value;
+    }
+    if ($value === null || $value === '') {
+        return [];
+    }
+
+    if (is_string($value)) {
+        $trimmed = trim($value);
+
+        if ($trimmed === '') {
+            return [];
+        }
+
+        if ($trimmed[0] === '[') {
+            $decoded = json_decode($trimmed, true);
+            return is_array($decoded) ? $decoded : [];
+        }
+
+        if ($trimmed[0] === '{' && substr($trimmed, -1) === '}') {
+            $inner = substr($trimmed, 1, -1);
+            if ($inner === '') {
+                return [];
+            }
+            return array_map(static fn($item) => trim($item, '"'), str_getcsv($inner));
+        }
+    }
+
+    return [];
+}
+
 /**
  * Format a job row from DB into API response (with company)
  */
@@ -43,15 +75,15 @@ function formatJob(array $job): array {
         'salary_min' => (int)$job['salary_min'],
         'salary_max' => (int)$job['salary_max'],
         'salary_currency' => $job['salary_currency'],
-        'tags' => json_decode($job['tags'] ?? '[]', true) ?: [],
+        'tags' => parseDbList($job['tags'] ?? []),
         'work_type_vi' => $job['work_type_vi'],
         'work_type_en' => $job['work_type_en'],
         'description_vi' => $job['description_vi'],
         'description_en' => $job['description_en'],
-        'requirements_vi' => json_decode($job['requirements_vi'] ?? '[]', true) ?: [],
-        'requirements_en' => json_decode($job['requirements_en'] ?? '[]', true) ?: [],
-        'benefits_vi' => json_decode($job['benefits_vi'] ?? '[]', true) ?: [],
-        'benefits_en' => json_decode($job['benefits_en'] ?? '[]', true) ?: [],
+        'requirements_vi' => parseDbList($job['requirements_vi'] ?? []),
+        'requirements_en' => parseDbList($job['requirements_en'] ?? []),
+        'benefits_vi' => parseDbList($job['benefits_vi'] ?? []),
+        'benefits_en' => parseDbList($job['benefits_en'] ?? []),
         'is_hot' => (bool)$job['is_hot'],
         'is_featured' => (bool)$job['is_featured'],
         'is_active' => (bool)$job['is_active'],

@@ -15,29 +15,34 @@ function JobCard({ job, onCardClick, onApplyClick }: Props) {
 
   return (
     <div className="job-card" onClick={() => onCardClick(job)}>
-      <div className="job-header">
-        <div className="company-logo">
-          <i className={job.icon}></i>
+      <div className="job-card-top">
+        <div className="job-card-title-wrap">
+          <h3>{job.title}</h3>
+          {job.badge && (
+            <div className={`job-badge${job.badge === 'hot' ? ' hot' : ''}`}>
+              {job.badge === 'hot' ? 'Hot' : t('badgeNew')}
+            </div>
+          )}
         </div>
-        {job.badge && (
-          <div className={`job-badge${job.badge === 'hot' ? ' hot' : ''}`}>
-            {job.badge === 'hot' ? 'Hot' : t('badgeNew')}
-          </div>
-        )}
+        <button
+          className="job-card-action"
+          onClick={e => {
+            e.stopPropagation();
+            onCardClick(job);
+          }}
+        >
+          {t('btnViewDetails')} <i className="fas fa-external-link-alt"></i>
+        </button>
       </div>
-      <h3>{job.title}</h3>
-      <p className="company-name"><i className="fas fa-building"></i> {job.company.name}</p>
-      <p className="job-location"><i className="fas fa-map-marker-alt"></i> {job.location}</p>
       <div className="job-tags">
         {job.tags.map(tag => (
           <span className="tag" key={tag}>{tag}</span>
         ))}
       </div>
-      <div className="job-footer">
-        <span className="salary"><i className="fas fa-money-bill-wave"></i> {salary}</span>
-        <button className="btn-apply" onClick={e => { e.stopPropagation(); onApplyClick(job); }}>
-          {t('btnApply')}
-        </button>
+      <div className="job-card-meta-list">
+        <p className="salary"><i className="fas fa-money-bill-wave"></i> {salary}</p>
+        <p className="company-name"><i className="fas fa-building"></i> {job.company.name}</p>
+        <p className="job-location"><i className="fas fa-map-marker-alt"></i> {job.location}</p>
       </div>
     </div>
   );

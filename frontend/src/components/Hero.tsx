@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useLang } from '../contexts/LangContext';
 
-const slides = ['/image/hcm01.jpg'];
+const slides = ['/image/Banner.png'];
 
 export default function Hero() {
   const { t } = useLang();
@@ -27,40 +27,16 @@ export default function Hero() {
           />
         ))}
       </div>
-      <div className="hero-overlay"></div>
       <div className="container">
         <div className="hero-content">
-          <h1 className="hero-title">
+          {/* <h1 className="hero-title">
             {t('heroTitle')}<br />
             <span className="highlight">{t('heroTitleHighlight')}</span> {t('heroTitleSuffix')}
-          </h1>
-          <p className="hero-subtitle">{t('heroSubtitle')}</p>
-          <button className="btn-visit-us">
+          </h1> */}
+          {/* <p className="hero-subtitle">{t('heroSubtitle')}</p> */}
+          {/* <button className="btn-visit-us">
             {t('visitUs')} <i className="fas fa-arrow-right"></i>
-          </button>
-          <div className="hero-socials">
-            <a href="https://web.facebook.com/tuyendungtomgroup?_rdc=10&_rdr#"
-              className="facebook"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i className="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://www.youtube.com/@HQsing-Karaoke-Solutions"
-              className="youtube"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i className="fab fa-youtube"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/tuyendungtomgroup/"
-              className="linkedin"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i className="fab fa-linkedin-in"></i>
-            </a>
-          </div>
+          </button> */}
         </div>
       </div>
     </section>

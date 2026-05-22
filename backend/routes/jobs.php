@@ -10,14 +10,23 @@ function jobBaseQuery(): string {
             LEFT JOIN companies c ON j.company_id = c.id";
 }
 
+function jobsIsPgsql(): bool {
+    return in_array(strtolower(DB_DRIVER), ['pgsql', 'postgres', 'postgresql'], true);
+}
+
 function handleGetJobs(): void {
     $db = getDB();
-    $where = ['j.is_active = 1'];
+    $isPg = jobsIsPgsql();
+    $boolTrue = $isPg ? 'TRUE' : '1';
+    $likeOp = $isPg ? 'ILIKE' : 'LIKE';
+    $tagsExpr = $isPg ? "array_to_string(j.tags, ',')" : 'j.tags';
+
+    $where = ["j.is_active = $boolTrue"];
     $params = [];
 
     $search = getQueryParam('search');
     if ($search) {
-        $where[] = '(j.title LIKE :search OR j.tags LIKE :search2)';
+        $where[] = "(j.title $likeOp :search OR $tagsExpr $likeOp :search2)";
         $params[':search'] = "%$search%";
         $params[':search2'] = "%$search%";
     }
@@ -43,13 +52,13 @@ function handleGetJobs(): void {
     $isHot = getQueryParam('is_hot');
     if ($isHot !== null) {
         $where[] = 'j.is_hot = :is_hot';
-        $params[':is_hot'] = filter_var($isHot, FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
+        $params[':is_hot'] = filter_var($isHot, FILTER_VALIDATE_BOOLEAN);
     }
 
     $isFeatured = getQueryParam('is_featured');
     if ($isFeatured !== null) {
         $where[] = 'j.is_featured = :is_featured';
-        $params[':is_featured'] = filter_var($isFeatured, FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
+        $params[':is_featured'] = filter_var($isFeatured, FILTER_VALIDATE_BOOLEAN);
     }
 
     $workType = getQueryParam('work_type');
@@ -61,7 +70,7 @@ function handleGetJobs(): void {
 
     $tag = getQueryParam('tag');
     if ($tag) {
-        $where[] = 'j.tags LIKE :tag';
+        $where[] = "$tagsExpr $likeOp :tag";
         $params[':tag'] = '%' . $tag . '%';
     }
 
@@ -96,11 +105,13 @@ function handleGetJobs(): void {
 
 function handleGetHotJobs(): void {
     $db = getDB();
+    $isPg = jobsIsPgsql();
+    $boolTrue = $isPg ? 'TRUE' : '1';
     $limit = min(getQueryInt('limit', 5), 20);
     $offset = max((int)($_GET['offset'] ?? 0), 0);
 
-    $total = (int)$db->query("SELECT COUNT(*) FROM jobs WHERE is_active = 1 AND is_hot = 1")->fetchColumn();
-    $sql = jobBaseQuery() . " WHERE j.is_active = 1 AND j.is_hot = 1 ORDER BY j.created_at DESC, j.id ASC LIMIT :limit OFFSET :offset";
+    $total = (int)$db->query("SELECT COUNT(*) FROM jobs WHERE is_active = $boolTrue AND is_hot = $boolTrue")->fetchColumn();
+    $sql = jobBaseQuery() . " WHERE j.is_active = $boolTrue AND j.is_hot = $boolTrue ORDER BY j.created_at DESC, j.id ASC LIMIT :limit OFFSET :offset";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -110,11 +121,13 @@ function handleGetHotJobs(): void {
 
 function handleGetFeaturedJobs(): void {
     $db = getDB();
+    $isPg = jobsIsPgsql();
+    $boolTrue = $isPg ? 'TRUE' : '1';
     $limit = min(getQueryInt('limit', 6), 24);
     $offset = max((int)($_GET['offset'] ?? 0), 0);
 
-    $total = (int)$db->query("SELECT COUNT(*) FROM jobs WHERE is_active = 1 AND is_featured = 1")->fetchColumn();
-    $sql = jobBaseQuery() . " WHERE j.is_active = 1 AND j.is_featured = 1 ORDER BY j.created_at DESC, j.id ASC LIMIT :limit OFFSET :offset";
+    $total = (int)$db->query("SELECT COUNT(*) FROM jobs WHERE is_active = $boolTrue AND is_featured = $boolTrue")->fetchColumn();
+    $sql = jobBaseQuery() . " WHERE j.is_active = $boolTrue AND j.is_featured = $boolTrue ORDER BY j.created_at DESC, j.id ASC LIMIT :limit OFFSET :offset";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -124,14 +137,16 @@ function handleGetFeaturedJobs(): void {
 
 function handleGetLocations(): void {
     $db = getDB();
-    $stmt = $db->query("SELECT DISTINCT location FROM jobs WHERE is_active = 1 ORDER BY location");
+    $boolTrue = jobsIsPgsql() ? 'TRUE' : '1';
+    $stmt = $db->query("SELECT DISTINCT location FROM jobs WHERE is_active = $boolTrue ORDER BY location");
     $locations = $stmt->fetchAll(PDO::FETCH_COLUMN);
     sendJSON($locations);
 }
 
 function handleGetJob(string $jobId): void {
     $db = getDB();
-    $sql = jobBaseQuery() . " WHERE j.id = :id AND j.is_active = 1";
+    $boolTrue = jobsIsPgsql() ? 'TRUE' : '1';
+    $sql = jobBaseQuery() . " WHERE j.id = :id AND j.is_active = $boolTrue";
     $stmt = $db->prepare($sql);
     $stmt->execute([':id' => $jobId]);
     $row = $stmt->fetch();

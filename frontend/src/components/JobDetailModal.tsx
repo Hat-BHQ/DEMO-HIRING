@@ -9,13 +9,13 @@ interface Props {
 }
 
 export default function JobDetailModal({ job, onClose, onApply }: Props) {
-  const { lang, t } = useLang();
+  const { t } = useLang();
 
   const salary = `${job.salary_min.toLocaleString('vi-VN')} - ${job.salary_max.toLocaleString('vi-VN')} đ`;
-  const workType = lang === 'vi' ? job.work_type_vi : job.work_type_en;
-  const description = lang === 'vi' ? job.description_vi : job.description_en;
-  const requirements = lang === 'vi' ? job.requirements_vi : job.requirements_en;
-  const benefits = lang === 'vi' ? job.benefits_vi : job.benefits_en;
+  const workType = job.work_type_vi;
+  const description = job.description_vi;
+  const requirements = job.requirements_vi;
+  const benefits = job.benefits_vi;
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };

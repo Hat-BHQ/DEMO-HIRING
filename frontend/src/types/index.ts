@@ -66,7 +66,6 @@ export interface ApplicationForm {
   cv: File | null;
 }
 
-export type Lang = 'vi' | 'en';
 export type Theme = 'light' | 'dark';
 
 // ---------- Admin ----------

@@ -63,8 +63,9 @@ body {
 
 .nav-wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    gap: 14px;
 }
 
 .logo {
@@ -104,10 +105,10 @@ body {
     letter-spacing: 0.5px;
 }
 
-.btn-lang-toggle:hover {
+/* .btn-lang-toggle:hover {
     background-color: var(--primary-color);
     color: var(--white);
-}
+} */
 
 .btn-theme-toggle {
     width: 38px;
@@ -129,10 +130,15 @@ body {
     color: var(--primary-color);
 }
 
+.nav-menu {
+    margin-left: 6px;
+}
+
 .nav-menu ul {
     list-style: none;
     display: flex;
-    gap: 40px;
+    gap: 10px;
+    align-items: center;
 }
 
 .nav-menu a {
@@ -216,18 +222,13 @@ body {
     background-position: center;
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
-    transform: scale(1.05);
+    transform: none;
     animation: none;
 }
 
 .hero-slide.active {
     opacity: 1;
-    animation: zoomSlow 8s ease-out forwards;
-}
-
-@keyframes zoomSlow {
-    from { transform: scale(1.05); }
-    to   { transform: scale(1); }
+    animation: none;
 }
 
 .hero-overlay {

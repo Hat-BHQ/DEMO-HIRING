@@ -15,29 +15,29 @@ function HotJobCard({ job, onCardClick, onApplyClick }: Props) {
 
   return (
     <div className="hot-job-card" onClick={() => onCardClick(job)}>
-      <div className="hot-job-left">
-        <div className="company-logo">
-          <i className={job.icon}></i>
+      <div className="hot-job-header">
+        <div className="hot-job-header-main">
+          <div className="company-logo">
+            <i className={job.icon}></i>
+          </div>
+          <div className="hot-job-title-group">
+            <h3>{job.title}</h3>
+            {job.badge && <span className={`job-badge${job.badge === 'hot' ? ' hot' : ''}`}>{job.badge === 'hot' ? 'Hot' : t('badgeNew')}</span>}
+          </div>
         </div>
-        <div className="hot-job-info">
-          <h3>{job.title}</h3>
-          <p className="company-name"><i className="fas fa-building"></i> {job.company.name}</p>
-          <p className="job-location"><i className="fas fa-map-marker-alt"></i> {job.location}</p>
-        </div>
+        <button className="btn-apply" onClick={e => { e.stopPropagation(); onApplyClick(job); }}>
+          {t('btnApplyNow')}
+        </button>
       </div>
-      <div className="hot-job-right">
-        <div className="job-tags">
-          {job.tags.map(tag => (
-            <span className="tag" key={tag}>{tag}</span>
-          ))}
-        </div>
-        <div className="hot-job-footer">
-          <span className="salary"><i className="fas fa-money-bill-wave"></i> {salary}</span>
-          {job.badge && <span className={`job-badge${job.badge === 'hot' ? ' hot' : ''}`}>{job.badge === 'hot' ? 'Hot' : t('badgeNew')}</span>}
-          <button className="btn-apply" onClick={e => { e.stopPropagation(); onApplyClick(job); }}>
-            {t('btnApplyNow')}
-          </button>
-        </div>
+      <div className="job-tags">
+        {job.tags.map(tag => (
+          <span className="tag" key={tag}>{tag}</span>
+        ))}
+      </div>
+      <div className="hot-job-meta">
+        <p className="salary"><i className="fas fa-money-bill-wave"></i> {salary}</p>
+        <p className="company-name"><i className="fas fa-building"></i> {job.company.name}</p>
+        <p className="job-location"><i className="fas fa-map-marker-alt"></i> {job.location}</p>
       </div>
     </div>
   );
