@@ -8,7 +8,7 @@ interface Props {
   onApplyClick: (job: Job) => void;
 }
 
-function JobCard({ job, onCardClick, onApplyClick }: Props) {
+function JobCard({ job, onCardClick, onApplyClick: _onApplyClick }: Props) {
   const { t } = useLang();
 
   const salary = `${(job.salary_min / 1000000).toLocaleString('vi-VN')} - ${(job.salary_max / 1000000).toLocaleString('vi-VN')} triệu`;

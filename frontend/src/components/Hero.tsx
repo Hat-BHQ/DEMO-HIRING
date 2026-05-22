@@ -1,10 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useLang } from '../contexts/LangContext';
 
 const slides = ['/image/Banner.png'];
 
 export default function Hero() {
-  const { t } = useLang();
   const [current, setCurrent] = useState(0);
 
   const nextSlide = useCallback(() => {
