@@ -5,8 +5,17 @@ import { Link } from 'react-router-dom';
 export default function Footer() {
   const { t } = useLang();
   const [copiedField, setCopiedField] = useState<'mail' | 'hotline' | null>(null);
-  const mainOfficeMapUrl = 'https://www.google.com/maps/search/?api=1&query=189C1%2F6+Nguyen+Van+Huong%2C+Thao+Dien%2C+Ho+Chi+Minh';
-  const factoryOfficeMapUrl = 'https://www.google.com/maps/search/?api=1&query=199M+Nguyen+Van+Huong%2C+Thao+Dien%2C+Ho+Chi+Minh';
+  const buildMapUrl = (destination: string) => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
+  const mainOfficeAddress = '189C1/6 Nguyễn Văn Hưởng, P.Thảo Điền, Hồ Chí Minh, Việt Nam';
+  const factoryOfficeAddress = '199M Nguyễn Văn Hưởng, P.Thảo Điền, Hồ Chí Minh, Việt Nam';
+
+  // When Google Maps resolves duplicate addresses incorrectly, replace these URLs
+  // with the exact share links copied from the correct pin on Google Maps.
+  const mainOfficeExactMapUrl = 'https://maps.app.goo.gl/7SApJby6RQEyJudk8';
+  const factoryOfficeExactMapUrl = 'https://maps.app.goo.gl/nWZjGxHF5h9T2QVu7';
+
+  const mainOfficeMapUrl = mainOfficeExactMapUrl || buildMapUrl(mainOfficeAddress);
+  const factoryOfficeMapUrl = factoryOfficeExactMapUrl || buildMapUrl(factoryOfficeAddress);
 
   const copyToClipboard = async (value: string, field: 'mail' | 'hotline') => {
     try {

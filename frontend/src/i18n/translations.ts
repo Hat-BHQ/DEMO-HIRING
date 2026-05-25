@@ -72,7 +72,7 @@
   footerMailValue: 'tuyendung@tomgroupvn.com',
   footerHotlineLabel: 'Hotline:',
   footerHotlineValue: '0903 751 826',
-  footerOfficeLabel: 'Địa chỉ văn phòng:',
+  footerOfficeLabel: 'Địa chỉ làm việc:',
   footerOfficeMainLabel: 'Văn phòng:',
   footerOfficeMainValue: '189C1/6 Nguyễn Văn Hưởng, P.Thảo Điền, Hồ Chí Minh',
   footerOfficeFactoryLabel: 'Nhà xưởng sản xuất:',
