@@ -1280,7 +1280,7 @@ button {
 }
 
 .vision-mission {
-  padding: 24px 0 88px;
+  padding: 40px 0 88px;
   background-color: #f7f7f8;
 }
 
@@ -1315,9 +1315,10 @@ button {
 }
 
 .vision-mission-icon {
-  width: 46px;
-  height: 46px;
+  width: 64px;
+  height: 64px;
   border-radius: 14px;
+  background: transparent;
   /* background: linear-gradient(135deg, #ff8a45 0%, #f26726 100%); */
   display: inline-flex;
   align-items: center;
@@ -1325,7 +1326,7 @@ button {
   color: #fff;
   font-size: 20px;
   margin-bottom: 14px;
-  box-shadow: 0 8px 18px rgba(242, 103, 38, 0.26);
+  box-shadow: none;
 }
 
 .vision-mission-icon-image {
@@ -1624,7 +1625,7 @@ button {
   }
 
   .vision-mission {
-    padding: 8px 0 2px;
+    padding: 20px 0 2px;
   }
 
   .vision-mission-header {
