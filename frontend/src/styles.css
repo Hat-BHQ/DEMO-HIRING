@@ -750,7 +750,7 @@ button {
 }
 
 .brand-showcase {
-  padding: 56px 0 88px;
+  padding: 16px 0 18px;
   background:
     radial-gradient(circle at 15% 20%, rgba(255, 87, 34, 0.08), transparent 24%),
     linear-gradient(180deg, var(--white) 0%, #fbfbfb 100%);
@@ -1004,14 +1004,21 @@ button {
   width: 70px;
   height: 70px;
   min-width: 70px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #ff9a58, #f26726);
-  color: #fff;
+  border-radius: 50%;
+  overflow: hidden;
+  background: transparent;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 30px;
-  box-shadow: 0 10px 22px rgba(242, 103, 38, 0.32);
+  box-shadow: none;
+}
+
+.brand-modal-logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
 }
 
 .brand-modal-intro-content h4 {
@@ -1312,7 +1319,7 @@ button {
   height: 46px;
   border-radius: 14px;
   /* background: linear-gradient(135deg, #ff8a45 0%, #f26726 100%); */
-  /* display: inline-flex; */
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   color: #fff;
@@ -1543,7 +1550,7 @@ button {
   }
 
   .brand-showcase {
-    padding: 28px 0 56px;
+    padding: 28px 0 16px;
   }
 
   .brand-showcase-grid {
@@ -1617,7 +1624,7 @@ button {
   }
 
   .vision-mission {
-    padding: 8px 0 56px;
+    padding: 8px 0 2px;
   }
 
   .vision-mission-header {
@@ -3544,6 +3551,12 @@ button {
   object-position: right center;
 }
 
+.about-banner-frame picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 @media (min-width: 1440px) {
   .about-banner-frame {
     min-height: 520px;
@@ -3598,29 +3611,51 @@ button {
     min-height: clamp(190px, 52vw, 320px);
   }
 
+  .hero-slide {
+    background-size: contain;
+    background-position: left center;
+    background-color: #ffffff;
+  }
+
   .about-banner-frame {
-    aspect-ratio: 4 / 3;
-    min-height: clamp(300px, 76vw, 500px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    aspect-ratio: auto;
+    min-height: 0;
+  }
+
+  .about-banner-frame picture {
+    order: 2;
+    width: 100%;
+    height: auto;
   }
 
   .about-banner-image {
-    object-fit: cover;
-    object-position: right center;
+    display: block;
+    align-self: center;
+    width: min(96%, 460px);
+    margin: 0 auto;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    transform: none;
   }
 
   .about-banner-content {
-    left: 16px;
-    right: 16px;
-    width: auto;
-    top: 16px;
+    position: relative;
+    order: 1;
+    left: auto;
+    right: auto;
+    top: auto;
     bottom: auto;
-    transform: none;
-    background: rgba(255, 250, 244, 0.9);
-    border: 1px solid rgba(242, 103, 38, 0.2);
-    border-radius: 16px;
-    padding: 14px 14px 12px;
-    box-shadow: 0 10px 24px rgba(31, 20, 10, 0.1);
-    backdrop-filter: blur(2px);
+    width: 100%;
+    padding: 16px 16px 18px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
   }
 
   .about-banner-content h1 {
@@ -3638,16 +3673,25 @@ button {
     min-height: clamp(170px, 56vw, 260px);
   }
 
+  .hero-slide {
+    background-position: left top;
+  }
+
   .about-banner-frame {
-    aspect-ratio: 5 / 3;
-    min-height: clamp(290px, 90vw, 420px);
+    min-height: 0;
   }
 
   .about-banner-content {
-    left: 12px;
-    right: 12px;
-    top: 12px;
-    padding: 12px;
+    padding: 12px 12px 14px;
+  }
+
+  .about-banner-image {
+    width: min(100%, 370px);
+    height: clamp(390px, 54vw, 220px);
+    object-fit: cover;
+    object-position: 100% center;
+    /* border-radius: 0px; */
+    transform: none;
   }
 
   .about-banner-divider {

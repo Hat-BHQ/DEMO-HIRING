@@ -793,6 +793,14 @@ html {
     display: inline;
   }
 
+  .admin-layout.sidebar-collapsed .admin-sidebar {
+    width: 260px;
+  }
+
+  .admin-layout.sidebar-collapsed .admin-sidebar span {
+    display: inline;
+  }
+
   .admin-sidebar-header h2 {
     display: block;
   }
@@ -802,6 +810,10 @@ html {
     width: 100%;
     max-width: 100%;
     padding: 1rem;
+  }
+
+  .admin-layout.sidebar-collapsed .admin-main {
+    margin-left: 0;
   }
 
   /* Hamburger button */
@@ -830,6 +842,11 @@ html {
 
   .admin-page-header {
     flex-direction: column;
+  }
+
+  .admin-form-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
   }
 
   .admin-stats-grid {

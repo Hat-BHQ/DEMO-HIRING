@@ -9,14 +9,12 @@ type Brand = {
   website: string;
   image: string;
   mediaClassName: string;
-  badgeClassName: string;
-  badgeContent: React.ReactNode;
 };
 
 type BrandDetail = {
   modalTitle: string;
   subtitle: string;
-  iconClass: string;
+  logoImage: string;
   ctaLabel: string;
   slogan: string;
   paragraphs: string[];
@@ -52,13 +50,6 @@ const brands: Brand[] = [
     website: 'https://hqsing.com',
     image: '/image/hqsing-brand.png',
     mediaClassName: 'brand-card-media--hqsing',
-    badgeClassName: 'brand-card-badge--square',
-    badgeContent: (
-      <>
-        <span>HQ</span>
-        <small>High Quality Sing</small>
-      </>
-    ),
   },
   {
     id: 'hqaudios',
@@ -67,8 +58,6 @@ const brands: Brand[] = [
     website: 'https://hqaudios.com',
     image: '/image/hqaudios-brand.png',
     mediaClassName: 'brand-card-media--hqaudios',
-    badgeClassName: 'brand-card-badge--circle',
-    badgeContent: <span>HQaudios</span>,
   },
 ];
 
@@ -76,7 +65,7 @@ const brandDetails: Record<Brand['id'], BrandDetail> = {
   hqsing: {
     modalTitle: 'Thương hiệu HQsing',
     subtitle: 'High Quality Sing',
-    iconClass: 'fas fa-microphone-lines',
+    logoImage: '/image/HQsing-logo.png',
     ctaLabel: 'Truy cập',
     slogan: '"Sing Better. Feel More."',
     paragraphs: [
@@ -88,7 +77,7 @@ const brandDetails: Record<Brand['id'], BrandDetail> = {
   hqaudios: {
     modalTitle: 'Thương hiệu HQaudios',
     subtitle: 'High Quality Audios',
-    iconClass: 'fas fa-record-vinyl',
+    logoImage: '/image/HQaudios-logo.png',
     ctaLabel: 'Truy cập',
     slogan: '"Classic Sound. Professionally Restored."',
     paragraphs: [
@@ -296,11 +285,14 @@ export default function AboutPage() {
       <Header/>
       <section className="about-banner-section" aria-label="Banner giới thiệu">
         <div className="about-banner-frame">
-          <img
-            src="/image/Banner_giothieu_1.png"
-            alt="Banner giới thiệu TOM Group Vietnam"
-            className="about-banner-image"
-          />
+          <picture>
+            <source media="(max-width: 768px)" srcSet="/image/Banner_gioithieu_mobile.png" />
+            <img
+              src="/image/Banner_giothieu_1.png"
+              alt="Banner giới thiệu TOM Group Vietnam"
+              className="about-banner-image"
+            />
+          </picture>
           <div className="about-banner-content">
             <h1>
               VỀ <span>CHÚNG TÔI</span>
@@ -310,7 +302,7 @@ export default function AboutPage() {
               TOM Group Vietnam là trung tâm nghiên cứu phát triển, sản xuất và vận hành của TOM ORGANIZATION,
               tập trung phát triển các giải pháp audio, karaoke và phục dựng thiết bị hi-fi vintage cho thị
               trường Hoa Kỳ và cộng đồng người Việt trên toàn cầu. Công ty hiện vận hành và phát triển hai thương
-              hiệu chính là <strong>HQsing - giải pháp karaoke dành cho người Việt tại Mỹ</strong>, và{' '}
+              hiệu chính là <strong>HQsing - giải pháp karaoke hoàn hảo</strong>, và{' '}
               <strong>HQaudios - thương hiệu chuyên phục dựng thiết bị âm thanh vintage với định hướng "Classic Sound. Professionally Restored."</strong>
             </p>
             <p>
@@ -355,10 +347,6 @@ export default function AboutPage() {
                     aria-label={`Hiệu ứng hình ảnh ${brand.name}`}
                   >
                     <div className={`brand-card-media ${brand.mediaClassName}`.trim()}>
-                      <div className={`brand-card-badge ${brand.badgeClassName}`.trim()}>
-                        {brand.badgeContent}
-                      </div>
-
                       {useFallback ? (
                         <BrandFallbackVisual brandId={brand.id} />
                       ) : (
@@ -409,7 +397,7 @@ export default function AboutPage() {
             <div className="brand-modal-body">
               <div className="brand-modal-intro">
                 <span className="brand-modal-logo" aria-hidden="true">
-                  <i className={activeBrandDetail.iconClass}></i>
+                  <img src={activeBrandDetail.logoImage} alt="" className="brand-modal-logo-image" />
                 </span>
 
                 <div className="brand-modal-intro-content">
