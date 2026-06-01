@@ -224,8 +224,6 @@ export default function AboutPage() {
   const [clickedBrand, setClickedBrand] = useState<Brand['id'] | null>(null);
   const [imageFallbacks, setImageFallbacks] = useState<Brand['id'][]>([]);
   const [visionMissionFallbacks, setVisionMissionFallbacks] = useState<VisionMissionItem['id'][]>([]);
-  const [activityIndex, setActivityIndex] = useState(0);
-  const [activityFallbacks, setActivityFallbacks] = useState<string[]>([]);
   const [activeBrandId, setActiveBrandId] = useState<Brand['id'] | null>(null);
   const activeBrand = activeBrandId ? brands.find(brand => brand.id === activeBrandId) ?? null : null;
   const activeBrandDetail = activeBrandId ? brandDetails[activeBrandId] : null;
@@ -246,35 +244,7 @@ export default function AboutPage() {
     setVisionMissionFallbacks(current => (current.includes(itemId) ? current : [...current, itemId]));
   };
 
-  const handleActivityImageError = (activityId: string) => {
-    setActivityFallbacks(current => (current.includes(activityId) ? current : [...current, activityId]));
-  };
 
-  const visibleActivities = Array.from({ length: Math.min(3, activityItems.length) }, (_, offset) => {
-    return activityItems[(activityIndex + offset) % activityItems.length];
-  });
-
-  const goToNextActivity = () => {
-    setActivityIndex(current => (current + 1) % activityItems.length);
-  };
-
-  const goToPrevActivity = () => {
-    setActivityIndex(current => (current - 1 + activityItems.length) % activityItems.length);
-  };
-
-  useEffect(() => {
-    if (activityItems.length <= 1) {
-      return;
-    }
-
-    const timerId = window.setInterval(() => {
-      setActivityIndex(current => (current + 1) % activityItems.length);
-    }, 2000);
-
-    return () => {
-      window.clearInterval(timerId);
-    };
-  }, []);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
