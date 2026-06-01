@@ -1,6 +1,10 @@
 import { useEffect } from 'react';
 import type { Job } from '../types';
 import { useLang } from '../contexts/LangContext';
+import Building from '../assets/icons/Building';
+import MarkerPin from '../assets/icons/MarkerPin';
+import Currency from '../assets/icons/Currency';
+import { LuClock } from 'react-icons/lu';
 
 interface Props {
   job: Job;
@@ -44,10 +48,10 @@ export default function JobDetailModal({ job, onClose, onApply }: Props) {
               )}
             </div>
             <h2>{job.title}</h2>
-            <p className="modal-company"><i className="fas fa-building"></i> <span>{job.company.name}</span></p>
-            <p className="modal-location"><i className="fas fa-map-marker-alt"></i> <span>{job.location}</span></p>
-            <p className="modal-salary"><i className="fas fa-money-bill-wave"></i> <span>{salary}</span></p>
-            <p className="modal-type"><i className="fas fa-clock"></i> <span>{workType}</span></p>
+            <p className="modal-company"><Building /> <span>{job.company.name}</span></p>
+            <p className="modal-location"><MarkerPin /> <span>{job.location}</span></p>
+            <p className="modal-salary"><Currency /> <span>{salary}</span></p>
+            <p className="modal-type"><LuClock size={20} stroke='#A3A3A3' /> <span>{workType}</span></p>
           </div>
         </div>
         <div className="modal-tags">
@@ -68,10 +72,10 @@ export default function JobDetailModal({ job, onClose, onApply }: Props) {
           </div>
         </div>
         <div className="modal-footer">
-          <button className="btn-apply-modal" onClick={() => { onClose(); onApply(job); }}>
-            {t('btnApplyNow')}
+          <button className="btn-default" style={{ width: '100%' }} onClick={() => { onClose(); onApply(job); }}>
+            <span>{t('btnApplyNow')}</span>
           </button>
-          <button className="btn-modal-close" onClick={onClose}>{t('btnClose')}</button>
+          <button className="btn-filter-toggle" onClick={onClose}>{t('btnClose')}</button>
         </div>
       </div>
     </div>

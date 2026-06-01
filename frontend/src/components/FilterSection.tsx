@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLang } from '../contexts/LangContext';
 import type { JobFilter } from '../types';
+import Search from '../assets/icons/Search';
 
 interface Props {
   onFilter: (filters: JobFilter) => void;
@@ -23,10 +24,10 @@ export default function FilterSection({ onFilter }: Props) {
     if (tag) filters.tag = tag;
     if (salaryRange) {
       const ranges: Record<string, [number, number]> = {
-        'below10m':   [0,         10000000],
-        '10to20m':    [10000000,  20000000],
-        '20to40m':    [20000000,  40000000],
-        'above40m':   [40000000,  999000000],
+        'below10m': [0, 10000000],
+        '10to20m': [10000000, 20000000],
+        '20to40m': [20000000, 40000000],
+        'above40m': [40000000, 999000000],
       };
       const r = ranges[salaryRange];
       if (r) { filters.salary_min = r[0]; filters.salary_max = r[1]; }
@@ -51,7 +52,8 @@ export default function FilterSection({ onFilter }: Props) {
         <div className="advanced-filter-box">
           <div className="filter-row-main">
             <div className="filter-search">
-              <i className="fas fa-search"></i>
+              {/* <i className="fas fa-search"></i> */}
+              <Search />
               <input
                 type="text"
                 placeholder={t('placeholderSearch')}
@@ -69,7 +71,7 @@ export default function FilterSection({ onFilter }: Props) {
                 <option value="Cần Thơ">Cần Thơ</option>
               </select>
             </div>
-            <button className="btn-filter-search" onClick={handleSearch}>{t('btnSearch')}</button>
+            <button className="btn-default" onClick={handleSearch}><span>{t('btnSearch')}</span></button>
             <button className="btn-filter-toggle" onClick={() => setShowSecondary(!showSecondary)}>
               <i className="fas fa-sliders-h"></i> <span>{t('btnFilter')}</span>
             </button>

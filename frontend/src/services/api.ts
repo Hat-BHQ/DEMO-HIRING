@@ -1,6 +1,8 @@
 import type { Job, JobListResponse, JobFilter } from '../types';
 
-const BASE = '/api';
+const BASE_URL = "https://tomgroupvn.com";
+
+const BASE = `${BASE_URL}/api`;
 
 async function request<T>(url: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${url}`, init);

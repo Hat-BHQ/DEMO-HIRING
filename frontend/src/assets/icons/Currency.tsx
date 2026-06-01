@@ -1,0 +1,17 @@
+import { ComponentProps } from "react";
+
+export default function Currency({ width = 20, height = 20, ...props }: ComponentProps<"svg">) {
+    return (
+        <svg width={width} height={height} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+            <g clipPath="url(#clip0_463_1260)">
+                <path d="M7.08366 12.2223C7.08366 13.2962 7.95422 14.1667 9.0281 14.1667H10.8337C11.9843 14.1667 12.917 13.234 12.917 12.0834C12.917 10.9328 11.9843 10.0001 10.8337 10.0001H9.16699C8.0164 10.0001 7.08366 9.06734 7.08366 7.91675C7.08366 6.76615 8.0164 5.83341 9.16699 5.83341H10.9725C12.0464 5.83341 12.917 6.70397 12.917 7.77786M10.0003 4.58341V5.83341M10.0003 14.1667V15.4167M18.3337 10.0001C18.3337 14.6025 14.6027 18.3334 10.0003 18.3334C5.39795 18.3334 1.66699 14.6025 1.66699 10.0001C1.66699 5.39771 5.39795 1.66675 10.0003 1.66675C14.6027 1.66675 18.3337 5.39771 18.3337 10.0001Z" stroke="#A3A3A3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+            <defs>
+                <clipPath id="clip0_463_1260">
+                    <rect width="20" height="20" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+
+    );
+}

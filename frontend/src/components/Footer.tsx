@@ -50,10 +50,36 @@ export default function Footer() {
               <span className="footer-company-name">TOM GROUP <span>Vietnam</span></span>
             </div>
             <p className="footer-slogan">{t('footerDesc')}</p>
+            {/* <div className="header-socials" style={{ marginTop: '32px' }}>
+              <a
+                href="https://web.facebook.com/tuyendungtomgroup?_rdc=10&_rdr#"
+                className="facebook"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a
+                href="https://www.youtube.com/@HQsing-Karaoke-Solutions"
+                className="youtube"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-youtube"></i>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/tuyendungtomgroup/"
+                className="linkedin"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-linkedin-in"></i>
+              </a>
+            </div> */}
             <div className="social-links">
-              <a href="https://web.facebook.com/tuyendungtomgroup?_rdc=1&_rdr" className="facebook" target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook"></i></a>
+              <a href="https://web.facebook.com/tuyendungtomgroup?_rdc=1&_rdr" className="facebook" target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f"></i></a>
               <a href="https://www.youtube.com/@HQsing-Karaoke-Solutions" className="youtube" target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i></a>
-              <a href="https://www.linkedin.com/in/tuyendungtomgroup/" className="linkedin" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin"></i></a>
+              <a href="https://www.linkedin.com/in/tuyendungtomgroup/" className="linkedin" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin-in"></i></a>
             </div>
           </div>
           <div className="footer-col">

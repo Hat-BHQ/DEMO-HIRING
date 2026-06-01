@@ -11,6 +11,7 @@ import JobDetailModal from './components/JobDetailModal';
 import ApplyModal from './components/ApplyModal';
 import Footer from './components/Footer';
 import SuccessToast from './components/SuccessToast';
+import { HiOutlineChevronDown } from 'react-icons/hi2';
 
 export default function App() {
   const { t } = useLang();
@@ -93,7 +94,9 @@ export default function App() {
               {hotJobs.length < hotTotal && (
                 <div className="load-more">
                   <button className="btn-load-more" onClick={loadMoreHotJobs} disabled={loadingMoreHot}>
-                    {loadingMoreHot ? <><i className="fas fa-spinner fa-spin"></i> Đang tải...</> : t('btnSeeMoreHot')}
+                    {loadingMoreHot ? <><i className="fas fa-spinner fa-spin"></i> Đang tải...</> : <>{t('btnSeeMoreHot')} <HiOutlineChevronDown />
+                    </>}
+
                   </button>
                 </div>
               )}
@@ -117,6 +120,7 @@ export default function App() {
                       job={job}
                       onCardClick={setSelectedJob}
                       onApplyClick={setApplyJob}
+                      isHot={true}
                     />
                   ))
                 )}
@@ -124,7 +128,7 @@ export default function App() {
               {featuredJobs.length > 0 && featuredJobs.length < featuredTotal && (
                 <div className="load-more">
                   <button className="btn-load-more" onClick={loadMoreFeaturedJobs} disabled={loadingMoreFeatured}>
-                    {loadingMoreFeatured ? <><i className="fas fa-spinner fa-spin"></i> Đang tải...</> : t('btnSeeMore')}
+                    {loadingMoreFeatured ? <><i className="fas fa-spinner fa-spin"></i> Đang tải...</> : <>{t('btnSeeMore')}<HiOutlineChevronDown /></>}
                   </button>
                 </div>
               )}

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import { LuGlobe } from 'react-icons/lu';
+import CompanyActivities from './components/CompanyActivities';
 
 type Brand = {
   id: 'hqsing' | 'hqaudios';
@@ -36,7 +38,7 @@ type CoreValue = {
   description: string;
 };
 
-type ActivityItem = {
+export type ActivityItem = {
   id: string;
   image: string;
   imageAlt: string;
@@ -173,7 +175,24 @@ const activityItems: ActivityItem[] = [
     image: '/image/HD-congty-3.png',
     imageAlt: 'Hoạt động môi trường của công ty',
   },
-  
+  {
+    id: 'activity-workshop-1',
+    image: '/image/HD-congty.png',
+    imageAlt: 'Workshop nội bộ của công ty',
+  },
+  {
+    id: 'activity-event-1',
+    image: '/image/HD-congty-2.png',
+    imageAlt: 'Sự kiện tổng kết cùng đội ngũ',
+  },
+  {
+    id: 'activity-green-1',
+    image: '/image/HD-congty-3.png',
+    imageAlt: 'Hoạt động môi trường của công ty',
+  },
+
+
+
 ];
 
 function BrandFallbackVisual({ brandId }: { brandId: Brand['id'] }) {
@@ -282,35 +301,40 @@ export default function AboutPage() {
 
   return (
     <>
-      <Header/>
+      <Header />
       <section className="about-banner-section" aria-label="Banner giới thiệu">
         <div className="about-banner-frame">
           <picture>
             <source media="(max-width: 768px)" srcSet="/image/Banner_gioithieu_mobile.png" />
             <img
-              src="/image/Banner_giothieu_1.png"
+              src="/image/Media.png"
               alt="Banner giới thiệu TOM Group Vietnam"
               className="about-banner-image"
             />
           </picture>
-          <div className="about-banner-content">
-            <h1>
-              VỀ <span>CHÚNG TÔI</span>
-            </h1>
-            <div className="about-banner-divider" aria-hidden="true"></div>
-            <p>
-              TOM Group Vietnam là trung tâm nghiên cứu phát triển, sản xuất và vận hành của TOM ORGANIZATION,
-              tập trung phát triển các giải pháp audio, karaoke và phục dựng thiết bị hi-fi vintage cho thị
-              trường Hoa Kỳ và cộng đồng người Việt trên toàn cầu. Công ty hiện vận hành và phát triển hai thương
-              hiệu chính là <strong>HQsing - giải pháp karaoke hoàn hảo</strong>, và{' '}
-              <strong>HQaudios - thương hiệu chuyên phục dựng thiết bị âm thanh vintage với định hướng "Classic Sound. Professionally Restored."</strong>
-            </p>
-            <p>
-              Với đội ngũ tại Việt Nam, TOM Group Vietnam không chỉ tham gia vào hoạt động sản xuất và kỹ thuật mà
-              còn phát triển marketing, công nghệ, vận hành và thương mại cho thị trường quốc tế. Chúng tôi đang
-              trong giai đoạn mở rộng mạnh về quy mô nhân sự, hệ thống vận hành và năng lực nghiên cứu phát triển nhằm
-              phục vụ kế hoạch tăng trưởng dài hạn của TOM Organization.
-            </p>
+          <div className="container" style={{ height: '100%', paddingBlock: '48px' }}>
+            <div className="about-banner-content">
+              <h1>
+                VỀ <span>CHÚNG TÔI</span>
+              </h1>
+              <div className="about-banner-divider" aria-hidden="true"></div>
+              <p>
+                TOM Group Vietnam là trung tâm nghiên cứu phát triển, sản xuất và vận hành của TOM ORGANIZATION,
+                tập trung phát triển các giải pháp audio, karaoke và phục dựng thiết bị hi-fi vintage cho thị
+                trường Hoa Kỳ và cộng đồng người Việt trên toàn cầu. Công ty hiện vận hành và phát triển hai thương
+                hiệu chính là <strong>HQsing - giải pháp karaoke hoàn hảo</strong>, và{' '}
+                <strong>HQaudios - thương hiệu chuyên phục dựng thiết bị âm thanh vintage với định hướng "Classic Sound. Professionally Restored."</strong>
+              </p>
+              <p>
+                Với đội ngũ tại Việt Nam, TOM Group Vietnam không chỉ tham gia vào hoạt động sản xuất và kỹ
+                thuật mà còn phát triển marketing, công nghệ, vận hành và thương mại cho thị trường quốc tế.
+                Chúng tôi đang trong giai đoạn mở rộng mạnh về quy mô nhân sự, hệ thống vận hành và năng
+                lực nghiên cứu phát triển nhằm phục vụ kế hoạch tăng trưởng dài hạn của TOM Organization.
+                Đây là môi trường phù hợp cho những người muốn phát triển năng lực thực chiến, làm việc với
+                thị trường US và đồng hành cùng một doanh nghiệp đang xây dựng hệ sinh thái audio – lifestyle
+                cho khách hàng trên toàn thế giới.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -405,8 +429,8 @@ export default function AboutPage() {
                     {activeBrand.name}
                     <span>({activeBrandDetail.subtitle})</span>
                   </h4>
-                  <a href={activeBrand.website} target="_blank" rel="noopener noreferrer" className="brand-modal-cta">
-                    {activeBrandDetail.ctaLabel}
+                  <a href={activeBrand.website} target="_blank" rel="noopener noreferrer" className="btn-default" style={{ textDecoration: 'none' }}>
+                    <span>{activeBrandDetail.ctaLabel}</span>
                   </a>
                 </div>
               </div>
@@ -426,7 +450,7 @@ export default function AboutPage() {
               </div>
 
               <p className="brand-modal-website">
-                <i className="fas fa-globe"></i>
+                <LuGlobe />
                 <span>Địa chỉ website:</span>
                 <a href={activeBrand.website} target="_blank" rel="noopener noreferrer">
                   {activeBrand.website.replace('https://', '')}
@@ -475,7 +499,7 @@ export default function AboutPage() {
                         src={item.image}
                         alt={item.imageAlt}
                         className="vision-mission-image"
-                        onError={() => handleVisionMissionImageError(item.id)}/>
+                        onError={() => handleVisionMissionImageError(item.id)} />
                     )}
                   </div>
                 </article>
@@ -484,7 +508,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-      
+
       <section className="core-values" aria-labelledby="core-values-title">
         <div className="container">
           <div className="section-header core-values-header">
@@ -511,69 +535,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="company-activities" aria-labelledby="company-activities-title">
-        <div className="container">
-          <div className="section-header company-activities-header">
-            <h2 id="company-activities-title">
-              HOẠT ĐỘNG <span className="highlight">CÔNG TY</span>
-            </h2>
-          </div>
-
-          <div className="activities-carousel">
-            <button
-              type="button"
-              className="activities-arrow activities-arrow--prev"
-              onClick={goToPrevActivity}
-              aria-label="Xem hoạt động trước">
-              <i className="fas fa-chevron-left" aria-hidden="true"></i>
-            </button>
-
-            <div className="activities-grid">
-              {visibleActivities.map(activity => {
-                const isImageMissing = activityFallbacks.includes(activity.id);
-
-                return (
-                  <article className="activity-card" key={`${activity.id}-${activityIndex}`}>
-                    {isImageMissing ? (
-                      <div className="activity-card-placeholder"></div>
-                    ) : (
-                      <img
-                        src={activity.image}
-                        alt={activity.imageAlt}
-                        className="activity-card-image"
-                        onError={() => handleActivityImageError(activity.id)}
-                      />
-                    )}
-                  </article>
-                );
-              })}
-            </div>
-
-            <button
-              type="button"
-              className="activities-arrow activities-arrow--next"
-              onClick={goToNextActivity}
-              aria-label="Xem hoạt động kế tiếp">
-              <i className="fas fa-chevron-right" aria-hidden="true"></i>
-            </button>
-          </div>
-
-          <div className="activities-dots" role="tablist" aria-label="Điều hướng hoạt động công ty">
-            {activityItems.map((activity, index) => (
-              <button
-                type="button"
-                key={activity.id}
-                role="tab"
-                aria-selected={index === activityIndex}
-                aria-label={`Đến hoạt động ${index + 1}`}
-                className={`activities-dot ${index === activityIndex ? 'is-active' : ''}`.trim()}
-                onClick={() => setActivityIndex(index)}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
+      <CompanyActivities items={activityItems} />
       <Footer />
     </>
   );
