@@ -88,23 +88,23 @@ export default function FilterSection({ onFilter }: Props) {
                 <div className="filter-radio">
                   <span className="filter-radio-title">Khoảng lương mong muốn</span>
                   <label>
-                    <input type="radio" />
+                    <input name="salary" value="" type="radio" />
                     <span>{t('filterSalary')}</span>
                   </label>
                   <label>
-                    <input type="radio" />
+                    <input name="salary" value="below10m" type="radio" />
                     <span>{t('optBelow10m')}</span>
                   </label>
                   <label>
-                    <input type="radio" />
+                    <input name="salary" value="10to20m" type="radio" />
                     <span>{t('opt10to20m')}</span>
                   </label>
                   <label>
-                    <input type="radio" />
+                    <input name="salary" value="20to40m" type="radio" />
                     <span>{t('opt20to40m')}</span>
                   </label>
                   <label>
-                    <input type="radio" />
+                    <input name="salary" value="above40m" type="radio" />
                     <span>{t('optAbove40m')}</span>
                   </label>
                 </div>

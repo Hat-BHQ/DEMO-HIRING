@@ -1780,7 +1780,8 @@ button {
   }
 
   .core-value-card h3 {
-    font-size: 30px;
+    font-size: 18px;
+    margin-bottom: 4px;
   }
 
   .company-activities {
@@ -2480,6 +2481,7 @@ button {
   text-decoration: none;
   opacity: 0.88;
   transition: all 0.3s;
+  font-size: 16px;
 }
 
 .footer-col ul li a:hover {
@@ -2558,8 +2560,8 @@ button {
 }
 
 .footer-contact-text {
-  font-size: 13px;
-  line-height: 1.45;
+  font-size: 16px;
+  line-height: 1.5;
   opacity: 0.94;
 }
 
@@ -2582,6 +2584,7 @@ button {
   cursor: pointer;
   text-align: left;
   padding: 0;
+  font-weight: 500;
 }
 
 .footer-copy-btn:hover {
@@ -2825,6 +2828,8 @@ button {
 
   .btn-clear-filter {
     width: 100%;
+    padding-block: 0;
+    color: var(--primary-color);
   }
 
   .filter-row-main .btn-default {
@@ -2848,7 +2853,7 @@ button {
 
   .btn-filter-toggle {
     width: 30%;
-    display: none;
+    justify-content: center;
   }
 
   .jobs-grid {
@@ -2877,6 +2882,7 @@ button {
 
   .job-card-action {
     width: auto;
+    display: none;
   }
 
   .hot-job-card {

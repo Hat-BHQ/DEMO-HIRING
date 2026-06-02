@@ -366,7 +366,7 @@ export default function AboutPage() {
                       className="brand-link"
                       onClick={event => event.stopPropagation()}
                     >
-                      <i className="fas fa-globe" aria-hidden="true"></i>
+                      <LuGlobe />
                       <span>Địa chỉ website</span>
                       <strong>{brand.website.replace('https://', '')}</strong>
                     </a>

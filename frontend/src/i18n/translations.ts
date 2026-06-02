@@ -29,7 +29,7 @@
   optBonus: 'Có thưởng',
   optInsurance: 'Có bảo hiểm',
   optTravel: 'Du lịch',
-  btnClearFilter: 'Xóa tất cả',
+  btnClearFilter: 'Thiết lập lại',
   optAccounting: 'Kế toán',
   optDesign: 'Thiết kế',
   hotJobsTitle: 'VIỆC LÀM',
