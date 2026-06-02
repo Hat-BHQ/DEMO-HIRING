@@ -1,14 +1,19 @@
+import { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import './style.css';
 import { ActivityItem } from '../../AboutPage';
+import { LuArrowLeft, LuArrowRight } from 'react-icons/lu';
 
 type Props = {
     items: ActivityItem[];
 }
 
 const CompanyActivities = ({ items }: Props) => {
+    const swiperRef = useRef<SwiperType | null>(null);
+
     return (
         <section className="company-activities" aria-labelledby="company-activities-title">
             <div className="">
@@ -18,16 +23,25 @@ const CompanyActivities = ({ items }: Props) => {
                     </h2>
                 </div>
 
-                <div className="container">
+                <div className="ca-carousel-wrapper container">
+                    <button
+                        type="button"
+                        className="ca-nav ca-nav--prev"
+                        aria-label="Xem ảnh trước"
+                        onClick={() => swiperRef.current?.slidePrev()}
+                    >
+                        {/* <i className="fas fa-chevron-left" aria-hidden="true" /> */}
+                        <LuArrowLeft size={20} />
+                    </button>
+
                     <Swiper
                         className="my-custom-carousel"
                         grabCursor={true}
                         slidesPerView={'auto'}
                         loop={true}
-                        autoplay={{ delay: 2500, disableOnInteraction: false, pauseOnMouseEnter: true, }}
-                        // observer={true}
-                        // observeParents={true}
+                        autoplay={{ delay: 5500, disableOnInteraction: false, pauseOnMouseEnter: true }}
                         centeredSlides={true}
+                        onSwiper={(swiper) => { swiperRef.current = swiper; }}
                         breakpoints={{
                             768: { slidesPerView: 3 },
                             1024: { slidesPerView: 3 },
@@ -46,6 +60,15 @@ const CompanyActivities = ({ items }: Props) => {
                             </SwiperSlide>
                         ))}
                     </Swiper>
+
+                    <button
+                        type="button"
+                        className="ca-nav ca-nav--next"
+                        aria-label="Xem ảnh tiếp theo"
+                        onClick={() => swiperRef.current?.slideNext()}
+                    >
+                        <LuArrowRight size={20} />
+                    </button>
                 </div>
 
                 {/* Pagination nằm ngoài Swiper container */}

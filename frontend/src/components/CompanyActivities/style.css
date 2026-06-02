@@ -40,6 +40,52 @@
   z-index: 10;
 }
 
+/* Navigation wrapper */
+.ca-carousel-wrapper {
+  position: relative;
+}
+
+/* Nav buttons */
+.ca-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #d4d4d4;
+  background: #fff;
+  color: #404040;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.ca-nav--prev {
+  left: calc(33.333% - 11px);
+}
+.ca-nav--next {
+  right: calc(33.333% - 11px);
+}
+
+.ca-nav:hover {
+  background: #f26726;
+  border-color: #f26726;
+  color: #fff;
+}
+
+.ca-nav:disabled,
+.ca-nav.swiper-button-disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
 /* External pagination */
 .ca-pagination {
   margin-top: 24px;

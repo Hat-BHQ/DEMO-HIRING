@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
 /* Reset and Base Styles */
 * {
   margin: 0;
@@ -10,6 +12,7 @@ body,
 #root {
   width: 100%;
   min-height: 100%;
+  font-family: "Inter", sans-serif;
 }
 
 html {
@@ -52,8 +55,8 @@ html {
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
+  /* font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; */
+  line-height: 1.5;
   color: var(--text-dark);
   background-color: var(--white);
   min-height: 100dvh;
