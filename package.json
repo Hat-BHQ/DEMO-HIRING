@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "postinstall": "npm --prefix frontend install",
-    "build": "npm --prefix frontend run build",
+    "build": "npm --prefix frontend run build && node -e \"const fs=require('fs');fs.rmSync('dist',{recursive:true,force:true});fs.cpSync('frontend/dist','dist',{recursive:true});\"",
     "dev": "npm --prefix frontend run dev",
     "preview": "npm --prefix frontend run preview"
   },
