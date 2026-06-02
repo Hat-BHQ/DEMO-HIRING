@@ -7,17 +7,13 @@
 
 // Database connection
 define('DB_DRIVER', getenv('DB_DRIVER') ?: 'mysql'); // mysql | pgsql
-define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
 define('DB_PORT', (int)(getenv('DB_PORT') ?: 3306));
-define('DB_NAME', getenv('DB_NAME') ?: 'tom_hiring');
-define('DB_USER', getenv('DB_USER') ?: 'root');
-define('DB_PASS', getenv('DB_PASS') ?: '');
 
 // Database - Hostinger
-// define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
-// define('DB_NAME', getenv('DB_NAME') ?: 'u972116454_tom_hiring');
-// define('DB_USER', getenv('DB_USER') ?: 'u972116454_tom_admin');
-// define('DB_PASS', getenv('DB_PASS') ?: 'Hq101sing');
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_NAME', getenv('DB_NAME') ?: 'u972116454_tom_hiring');
+define('DB_USER', getenv('DB_USER') ?: 'u972116454_tom_admin');
+define('DB_PASS', getenv('DB_PASS') ?: 'Hq101sing');
 define('DB_CHARSET', 'utf8mb4');
 
 // Admin credentials
