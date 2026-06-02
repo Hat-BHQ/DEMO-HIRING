@@ -40,13 +40,13 @@ export default function JobDetailModal({ job, onClose, onApply }: Props) {
             <i className={job.icon}></i>
           </div>
           <div className="modal-header-info">
-            <div className="modal-badges">
-              {job.badge && (
+            {job.badge && (
+              <div className="modal-badges">
                 <span className={`job-badge${job.badge === 'hot' ? ' hot' : ''}`}>
                   {job.badge === 'hot' ? 'Hot' : t('badgeNew')}
                 </span>
-              )}
-            </div>
+              </div>
+            )}
             <h2>{job.title}</h2>
             <p className="modal-company"><Building /> <span>{job.company.name}</span></p>
             <p className="modal-location"><MarkerPin /> <span>{job.location}</span></p>

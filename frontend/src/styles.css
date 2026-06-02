@@ -1717,8 +1717,8 @@ button {
 
   .brand-modal-website {
     font-size: 16px;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    /* align-items: center;
+    flex-wrap: wrap; */
   }
 
   .vision-mission {
@@ -2848,6 +2848,7 @@ button {
 
   .btn-filter-toggle {
     width: 30%;
+    display: none;
   }
 
   .jobs-grid {
@@ -2900,7 +2901,7 @@ button {
   }
 
   .footer-content {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-column: 1 / -1;
   }
 
   .footer-brand {
@@ -2940,7 +2941,7 @@ button {
   }
 
   .footer-content {
-    grid-template-columns: 1fr;
+    grid-column: 1 / -1;
     gap: 24px;
   }
 
@@ -3156,8 +3157,9 @@ button {
 .modal-close {
   position: sticky;
   top: 14px;
+  right: 14px;
   float: right;
-  margin: 14px 14px 0 0;
+  /* margin: 14px 14px 0 0; */
   width: 34px;
   height: 34px;
   border: none;
@@ -3245,9 +3247,9 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  padding: 14px 24px 16px;
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
+  padding: 8px 24px;
+  /* border-top: 1px solid var(--border-color); */
+  /* border-bottom: 1px solid var(--border-color); */
 }
 
 .modal-body {
@@ -3367,8 +3369,11 @@ button {
   .modal-header {
     flex-direction: column;
     align-items: flex-start;
+    padding-block: 4px;
   }
-
+  .modal-section {
+    padding: 10px 0;
+  }
   .modal-footer {
     flex-direction: column;
   }
@@ -3855,6 +3860,10 @@ button {
   .about-banner-content p {
     font-size: clamp(13px, 2.1vw, 16px);
     line-height: 1.5;
+  }
+
+  .footer-contact-col {
+    grid-column: 1 / -1;
   }
 }
 

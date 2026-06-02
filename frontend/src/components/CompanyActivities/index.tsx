@@ -39,6 +39,7 @@ const CompanyActivities = ({ items }: Props) => {
                         grabCursor={true}
                         slidesPerView={'auto'}
                         loop={true}
+                        slideToClickedSlide={true}
                         autoplay={{ delay: 5500, disableOnInteraction: false, pauseOnMouseEnter: true }}
                         centeredSlides={true}
                         onSwiper={(swiper) => { swiperRef.current = swiper; }}
