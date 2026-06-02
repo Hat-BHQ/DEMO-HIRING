@@ -124,3 +124,12 @@
     transparent
   );
 }
+
+@media (max-width: 768px) {
+  .ca-nav--prev {
+    left: 0;
+  }
+  .ca-nav--next {
+    right: 0;
+  }
+}

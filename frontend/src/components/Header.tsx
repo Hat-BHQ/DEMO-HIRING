@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
+import { LuGlobe } from 'react-icons/lu';
 import { NavLink } from 'react-router-dom';
 
 export default function Header() {
@@ -106,7 +107,8 @@ export default function Header() {
                   aria-expanded={showPlatformMenu}
                   onClick={() => setShowPlatformMenu(current => !current)}
                 >
-                  <i className="fas fa-globe"></i>
+                  {/* <i className="fas fa-globe"></i> */}
+                  <LuGlobe size={24} />
                 </button>
 
                 {showPlatformMenu && (

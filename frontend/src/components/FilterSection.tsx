@@ -71,14 +71,51 @@ export default function FilterSection({ onFilter }: Props) {
                 <option value="Cần Thơ">Cần Thơ</option>
               </select>
             </div>
-            <button className="btn-default" onClick={handleSearch}><span>{t('btnSearch')}</span></button>
             <button className="btn-filter-toggle" onClick={() => setShowSecondary(!showSecondary)}>
               <i className="fas fa-sliders-h"></i> <span>{t('btnFilter')}</span>
             </button>
+
+            {showSecondary && (
+              <div className="filter-row-secondary mobile">
+                <div className="filter-select">
+                  <select value={workType} onChange={e => { setWorkType(e.target.value); }}>
+                    <option value="">{t('filterWorkType')}</option>
+                    <option value="Toàn thời gian">{t('optFullTime')}</option>
+                    <option value="Bán thời gian">{t('optPartTime')}</option>
+                    <option value="Remote">Remote</option>
+                  </select>
+                </div>
+                <div className="filter-radio">
+                  <span className="filter-radio-title">Khoảng lương mong muốn</span>
+                  <label>
+                    <input type="radio" />
+                    <span>{t('filterSalary')}</span>
+                  </label>
+                  <label>
+                    <input type="radio" />
+                    <span>{t('optBelow10m')}</span>
+                  </label>
+                  <label>
+                    <input type="radio" />
+                    <span>{t('opt10to20m')}</span>
+                  </label>
+                  <label>
+                    <input type="radio" />
+                    <span>{t('opt20to40m')}</span>
+                  </label>
+                  <label>
+                    <input type="radio" />
+                    <span>{t('optAbove40m')}</span>
+                  </label>
+                </div>
+                <button className="btn-clear-filter" onClick={handleClear}>{t('btnClearFilter')}</button>
+              </div>
+            )}
+            <button className="btn-default" onClick={handleSearch}><span>{t('btnSearch')}</span></button>
           </div>
 
           {showSecondary && (
-            <div className="filter-row-secondary">
+            <div className="filter-row-secondary desktop">
               <div className="filter-select">
                 <select value={workType} onChange={e => { setWorkType(e.target.value); }}>
                   <option value="">{t('filterWorkType')}</option>

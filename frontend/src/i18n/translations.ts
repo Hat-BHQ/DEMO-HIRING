@@ -10,7 +10,7 @@
   statSuccess: 'Ứng tuyển thành công',
   filterIndustry: 'Ngành nghề',
   placeholderSearch: 'Tìm theo tên việc muốn ứng tuyển...',
-  filterLocation: 'Địa điểm',
+  filterLocation: 'Chọn địa điểm',
   btnSearch: 'Tìm kiếm',
   btnFilter: 'Bộ lọc',
   filterWorkType: 'Hình thức làm việc',

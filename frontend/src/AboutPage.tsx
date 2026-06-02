@@ -176,13 +176,13 @@ const activityItems: ActivityItem[] = [
     imageAlt: 'Hoạt động môi trường của công ty',
   },
   {
-    id: 'activity-workshop-1',
-    image: '/image/HD-congty.png',
+    id: 'activity-run',
+    image: '/image/HD-congty-4.png',
     imageAlt: 'Workshop nội bộ của công ty',
   },
   {
-    id: 'activity-event-1',
-    image: '/image/HD-congty-2.png',
+    id: 'activity-party',
+    image: '/image/HD-congty-5.png',
     imageAlt: 'Sự kiện tổng kết cùng đội ngũ',
   },
   {
