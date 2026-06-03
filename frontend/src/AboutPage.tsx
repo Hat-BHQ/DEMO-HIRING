@@ -69,11 +69,11 @@ const brandDetails: Record<Brand['id'], BrandDetail> = {
     subtitle: 'High Quality Sing',
     logoImage: '/image/HQsing-logo.png',
     ctaLabel: 'Truy cập',
-    slogan: '"Sing Better. Feel More."',
+    slogan: '',
     paragraphs: [
       'Thương hiệu thuộc TOM Organization, chuyên cung cấp các giải pháp karaoke dành cho cộng đồng người Việt tại Hoa Kỳ. Định hướng phát triển trải nghiệm giải trí gia đình hiện đại, HQsing tập trung vào sự dễ sử dụng, chất lượng âm thanh và khả năng kết nối cảm xúc thông qua âm nhạc.',
-      'Khác với mô hình bán thiết bị karaoke đơn thuần, HQsing xây dựng hệ sinh thái trải nghiệm hoàn chỉnh từ tư vấn cấu hình, nội dung sản phẩm, hỗ trợ kỹ thuật đến vận hành thương mại điện tử cho thị trường Hoa Kỳ.',
-      'Đội ngũ tại TOM Group Vietnam tham gia trực tiếp vào nhiều hoạt động cốt lõi của HQsing như marketing, media, vận hành hệ thống, hỗ trợ kỹ thuật, quản lý thương mại điện tử và phát triển trải nghiệm khách hàng cho thị trường quốc tế.',
+      'Khác với mô hình bán thiết bị karaoke đơn thuần, HQsing xây dựng hệ sinh thái trải nghiệm hoàn chỉnh từ tư vấn cấu hình, nội dung sản phẩm, hỗ trợ kỹ thuật đến vận hành thương mại điện tử cho thị trường Hoa Kỳ. Các sản phẩm và giải pháp của HQsing hướng đến việc giúp khách hàng có thể hát hay hơn, sử dụng dễ hơn và tận hưởng không gian giải trí tại nhà một cách trọn vẹn hơn.',
+      'Đội ngũ tại TOM Group Vietnam tham gia trực tiếp vào nhiều hoạt động cốt lõi của HQsing như marketing, media, content, vận hành hệ thống, hỗ trợ kỹ thuật, quản lý thương mại điện tử và phát triển trải nghiệm khách hàng cho thị trường quốc tế. Đây cũng là môi trường giúp nhân sự có cơ hội tiếp cận thực tế với mô hình vận hành cho thị trường US ngay tại Việt Nam.',
     ],
   },
   hqaudios: {
