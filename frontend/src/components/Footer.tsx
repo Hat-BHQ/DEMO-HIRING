@@ -138,13 +138,13 @@ export default function Footer() {
                 <div className="footer-contact-text footer-contact-addresses">
                   <p><strong>{t('footerOfficeLabel')}</strong></p>
                   <p>
-                    <strong>{t('footerOfficeMainLabel')}</strong>{' '}
+                    <strong style={{ color: "#ffffff" }}>{t('footerOfficeMainLabel')}</strong>{' '}
                     <a href={mainOfficeMapUrl} target="_blank" rel="noopener noreferrer" className="footer-map-link">
                       {t('footerOfficeMainValue')}
                     </a>
                   </p>
                   <p>
-                    <strong>{t('footerOfficeFactoryLabel')}</strong>{' '}
+                    <strong style={{ color: "#ffffff" }}>{t('footerOfficeFactoryLabel')}</strong>{' '}
                     <a href={factoryOfficeMapUrl} target="_blank" rel="noopener noreferrer" className="footer-map-link">
                       {t('footerOfficeFactoryValue')}
                     </a>

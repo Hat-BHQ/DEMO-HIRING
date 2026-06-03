@@ -48,7 +48,7 @@ const brands: Brand[] = [
   {
     id: 'hqsing',
     name: 'HQsing',
-    description: 'HQsing là thương hiệu thuộc TOM Organization, chuyên cung cấp các giải pháp karaoke dành cho cộng đồng người ...',
+    description: 'Thương hiệu thuộc TOM Organization, chuyên cung cấp các giải pháp karaoke dành cho cộng đồng người Việt tại Hoa Kỳ. Định hướng phát triển trải nghiệm giải trí gia đình hiện đại, HQsing tập trung vào sự dễ sử dụng, chất lượng âm thanh và khả năng kết nối cảm xúc thông qua âm nhạc.',
     website: 'https://hqsing.com',
     image: '/image/hqsing-brand.png',
     mediaClassName: 'brand-card-media--hqsing',
@@ -56,7 +56,7 @@ const brands: Brand[] = [
   {
     id: 'hqaudios',
     name: 'HQaudios',
-    description: 'HQaudios là thương hiệu chuyên phục dựng và kinh doanh thiết bị âm thanh vintage, hi-fi và audio cổ điển cho thị trường Hoa Kỳ...',
+    description: 'Thương hiệu chuyên phục dựng và kinh doanh thiết bị âm thanh vintage, hi-fi và audio cổ điển cho thị trường Hoa Kỳ. Với triết lý giữ lại giá trị nguyên bản của âm thanh cổ điển kết hợp cùng tiêu chuẩn kỹ thuật hiện đại, HQaudios hướng đến những khách hàng yêu thích trải nghiệm nghe nhạc chất lượng cao và bền vững theo thời gian.',
     website: 'https://hqaudios.com',
     image: '/image/hqaudios-brand.png',
     mediaClassName: 'brand-card-media--hqaudios',
