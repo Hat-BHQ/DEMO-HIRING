@@ -28,14 +28,9 @@ function JobCard({ job, isHot = false }: Props) {
             </div>
           )}
         </div>
-        <button
-          className="job-card-action"
-          onClick={e => {
-            e.preventDefault();
-          }}
-        >
+        <div className="job-card-action">
           {t('btnViewDetails')} <HiOutlineArrowUpRight />
-        </button>
+        </div>
       </div>
       <div className="job-tags">
         {job.tags.map(tag => (

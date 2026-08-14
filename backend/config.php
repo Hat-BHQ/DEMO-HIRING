@@ -10,7 +10,7 @@
 define('DB_DRIVER', getenv('DB_DRIVER') ?: 'mysql'); // mysql | pgsql
 define('DB_PORT', (int)(getenv('DB_PORT') ?: 3306));
 
-// Database - Hostinger
+// Database - Hostinger Production (MySQL)
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
 define('DB_NAME', getenv('DB_NAME') ?: 'u972116454_tom_hiring');
 define('DB_USER', getenv('DB_USER') ?: 'u972116454_tom_admin');
