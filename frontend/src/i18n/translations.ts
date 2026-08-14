@@ -81,6 +81,7 @@
   modalReqTitle: 'Yêu cầu ứng viên',
   modalBenTitle: 'Quyền lợi',
   btnClose: 'Đóng',
+  btnBack: 'Quay lại',
   applyFormTitle: 'Ứng tuyển vị trí',
   applyLabelName: 'Họ và tên',
   applyPlaceholderName: 'Nhập họ và tên của bạn',

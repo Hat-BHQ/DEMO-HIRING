@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import type { Job, JobFilter } from './types';
+import type { JobFilter } from './types';
 import { useLang } from './contexts/LangContext';
 import { useJobs } from './hooks/useJobs';
 import Header from './components/Header';
@@ -7,10 +7,7 @@ import Hero from './components/Hero';
 import Stats from './components/Stats';
 import FilterSection from './components/FilterSection';
 import JobCard from './components/JobCard';
-import JobDetailModal from './components/JobDetailModal';
-import ApplyModal from './components/ApplyModal';
 import Footer from './components/Footer';
-import SuccessToast from './components/SuccessToast';
 import { HiOutlineChevronDown } from 'react-icons/hi2';
 
 export default function App() {
@@ -21,9 +18,6 @@ export default function App() {
     allJobs, searchJobs,
   } = useJobs();
 
-  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
-  const [applyJob, setApplyJob] = useState<Job | null>(null);
-  const [showSuccess, setShowSuccess] = useState(false);
   const [filtered, setFiltered] = useState(false);
 
   const handleFilter = useCallback((filters: JobFilter) => {
@@ -35,11 +29,6 @@ export default function App() {
       setFiltered(false);
     }
   }, [searchJobs]);
-
-  const handleSuccess = useCallback(() => {
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 4000);
-  }, []);
 
   return (
     <>
@@ -59,8 +48,6 @@ export default function App() {
                 <JobCard
                   key={job.id}
                   job={job}
-                  onCardClick={setSelectedJob}
-                  onApplyClick={setApplyJob}
                 />
               ))}
             </div>
@@ -85,8 +72,6 @@ export default function App() {
                     <JobCard
                       key={job.id}
                       job={job}
-                      onCardClick={setSelectedJob}
-                      onApplyClick={setApplyJob}
                     />
                   ))
                 )}
@@ -118,8 +103,6 @@ export default function App() {
                     <JobCard
                       key={job.id}
                       job={job}
-                      onCardClick={setSelectedJob}
-                      onApplyClick={setApplyJob}
                       isHot={true}
                     />
                   ))
@@ -138,24 +121,6 @@ export default function App() {
       )}
 
       <Footer />
-
-      {selectedJob && (
-        <JobDetailModal
-          job={selectedJob}
-          onClose={() => setSelectedJob(null)}
-          onApply={job => { setSelectedJob(null); setApplyJob(job); }}
-        />
-      )}
-
-      {applyJob && (
-        <ApplyModal
-          job={applyJob}
-          onClose={() => setApplyJob(null)}
-          onSuccess={handleSuccess}
-        />
-      )}
-
-      <SuccessToast visible={showSuccess} />
     </>
   );
 }

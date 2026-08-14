@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { Link } from 'react-router-dom';
 import { useLang } from '../contexts/LangContext';
 import type { Job } from '../types';
 import Currency from '../assets/icons/Currency';
@@ -8,18 +9,16 @@ import { HiOutlineArrowUpRight } from 'react-icons/hi2';
 
 interface Props {
   job: Job;
-  onCardClick: (job: Job) => void;
-  onApplyClick: (job: Job) => void;
   isHot?: boolean;
 }
 
-function JobCard({ job, onCardClick, onApplyClick: _onApplyClick, isHot = false }: Props) {
+function JobCard({ job, isHot = false }: Props) {
   const { t } = useLang();
 
   const salary = `${(job.salary_min / 1000000).toLocaleString('vi-VN')} - ${(job.salary_max / 1000000).toLocaleString('vi-VN')} triệu`;
 
   return (
-    <div className="job-card" onClick={() => onCardClick(job)}>
+    <Link to={`/jobs/${job.id}`} className="job-card" style={{ textDecoration: 'none', color: 'inherit' }}>
       <div className="job-card-top">
         <div className="job-card-title-wrap">
           <h3>{job.title}</h3>
@@ -32,8 +31,7 @@ function JobCard({ job, onCardClick, onApplyClick: _onApplyClick, isHot = false 
         <button
           className="job-card-action"
           onClick={e => {
-            e.stopPropagation();
-            onCardClick(job);
+            e.preventDefault();
           }}
         >
           {t('btnViewDetails')} <HiOutlineArrowUpRight />
@@ -53,7 +51,7 @@ function JobCard({ job, onCardClick, onApplyClick: _onApplyClick, isHot = false 
         </div>
         <p className="job-location"><MarkerPin /> {job.location}</p>
       </div>
-    </div>
+    </Link>
   );
 }
 

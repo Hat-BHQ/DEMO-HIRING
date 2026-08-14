@@ -5,6 +5,7 @@
  * Hostinger: đặt biến môi trường DB_HOST, DB_NAME, DB_USER, DB_PASS
  */
 
+
 // Database connection
 define('DB_DRIVER', getenv('DB_DRIVER') ?: 'mysql'); // mysql | pgsql
 define('DB_PORT', (int)(getenv('DB_PORT') ?: 3306));
@@ -16,6 +17,7 @@ define('DB_USER', getenv('DB_USER') ?: 'u972116454_tom_admin');
 define('DB_PASS', getenv('DB_PASS') ?: 'Hq101sing');
 define('DB_CHARSET', 'utf8mb4');
 
+
 // Admin credentials
 define('ADMIN_USERNAME', getenv('ADMIN_USERNAME') ?: 'admin');
 define('ADMIN_PASSWORD', getenv('ADMIN_PASSWORD') ?: 'admin123');
@@ -23,8 +25,10 @@ define('ADMIN_PASSWORD', getenv('ADMIN_PASSWORD') ?: 'admin123');
 define('SECRET_KEY', getenv('SECRET_KEY') ?: 'tom-hiring-secret-key-change-in-production');
 define('TOKEN_EXPIRE_MINUTES', 480);
 
+
 // Upload
 define('UPLOAD_DIR', __DIR__ . '/uploads');
+
 
 // CORS - thêm domain của bạn vào đây    
 define('CORS_ORIGINS', [
@@ -33,3 +37,5 @@ define('CORS_ORIGINS', [
     'https://tomgroupvn.com',
     'https://www.tomgroupvn.com',
 ]);
+
+

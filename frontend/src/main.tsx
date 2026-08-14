@@ -5,6 +5,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { LangProvider } from './contexts/LangContext';
 import App from './App';
 import AboutPage from './AboutPage';
+import JobDetailPage from './JobDetailPage';
 import AdminLogin from './admin/pages/AdminLogin';
 import AdminLayout from './admin/pages/AdminLayout';
 import Dashboard from './admin/pages/Dashboard';
@@ -32,6 +33,13 @@ createRoot(document.getElementById('root')!).render(
           <ThemeProvider>
             <LangProvider>
               <AboutPage />
+            </LangProvider>
+          </ThemeProvider>
+        } />
+        <Route path="/jobs/:id" element={
+          <ThemeProvider>
+            <LangProvider>
+              <JobDetailPage />
             </LangProvider>
           </ThemeProvider>
         } />
