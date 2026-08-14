@@ -150,7 +150,7 @@ export default function JobDetailPage() {
         />
       )}
 
-      {showSuccess && <SuccessToast />}
+      {showSuccess && <SuccessToast visible={showSuccess} />}
     </>
   );
 }
